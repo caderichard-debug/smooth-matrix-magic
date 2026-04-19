@@ -3,8 +3,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "@/components/PageLayout";
 import { MatrixInput } from "@/components/MatrixInput";
 import { MatrixDisplay } from "@/components/MatrixDisplay";
+import { StepsPanel } from "@/components/StepsPanel";
 import { AdSlot } from "@/components/AdSlot";
-import { inverse, type Matrix } from "@/lib/matrix";
+import { inverse, fromNumbers, type Matrix } from "@/lib/matrix";
+import { inverseSteps } from "@/lib/steps";
 
 export const Route = createFileRoute("/inverse")({
   head: () => ({
@@ -13,20 +15,17 @@ export const Route = createFileRoute("/inverse")({
       {
         name: "description",
         content:
-          "Compute the inverse of any square matrix online. Free inverse matrix calculator using Gauss-Jordan elimination.",
+          "Compute the inverse of any square matrix online. Symbolic, supports fractions and variables, with step-by-step working.",
       },
       { property: "og:title", content: "Matrix Inverse Calculator" },
-      { property: "og:description", content: "Find the inverse of a matrix online instantly." },
+      { property: "og:description", content: "Find the inverse of a matrix online — symbolic and step-by-step." },
     ],
   }),
   component: InversePage,
 });
 
 function InversePage() {
-  const [a, setA] = useState<Matrix>([
-    [4, 7],
-    [2, 6],
-  ]);
+  const [a, setA] = useState<Matrix>(() => fromNumbers([[4, 7], [2, 6]]));
 
   const { result, error } = useMemo(() => {
     try {
@@ -35,6 +34,8 @@ function InversePage() {
       return { result: null as Matrix | null, error: e instanceof Error ? e.message : "Error" };
     }
   }, [a]);
+
+  const steps = useMemo(() => (result ? inverseSteps(a) : []), [a, result]);
 
   return (
     <PageLayout
@@ -58,6 +59,8 @@ function InversePage() {
           )}
         </section>
       </div>
+
+      {result && <StepsPanel steps={steps} />}
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

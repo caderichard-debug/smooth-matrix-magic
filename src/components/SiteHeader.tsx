@@ -4,9 +4,12 @@ import { Sigma } from "lucide-react";
 const nav = [
   { to: "/" as const, label: "Multiply" },
   { to: "/add" as const, label: "Add / Subtract" },
+  { to: "/scalar" as const, label: "Scalar ×" },
+  { to: "/power" as const, label: "Power" },
   { to: "/transpose" as const, label: "Transpose" },
   { to: "/determinant" as const, label: "Determinant" },
   { to: "/inverse" as const, label: "Inverse" },
+  { to: "/trace-rank" as const, label: "Trace / Rank" },
 ];
 
 export function SiteHeader() {

@@ -10,6 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransposeRouteImport } from './routes/transpose'
+import { Route as TraceRankRouteImport } from './routes/trace-rank'
+import { Route as ScalarRouteImport } from './routes/scalar'
+import { Route as PowerRouteImport } from './routes/power'
 import { Route as InverseRouteImport } from './routes/inverse'
 import { Route as DeterminantRouteImport } from './routes/determinant'
 import { Route as AddRouteImport } from './routes/add'
@@ -18,6 +21,21 @@ import { Route as IndexRouteImport } from './routes/index'
 const TransposeRoute = TransposeRouteImport.update({
   id: '/transpose',
   path: '/transpose',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TraceRankRoute = TraceRankRouteImport.update({
+  id: '/trace-rank',
+  path: '/trace-rank',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScalarRoute = ScalarRouteImport.update({
+  id: '/scalar',
+  path: '/scalar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PowerRoute = PowerRouteImport.update({
+  id: '/power',
+  path: '/power',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InverseRoute = InverseRouteImport.update({
@@ -46,6 +64,9 @@ export interface FileRoutesByFullPath {
   '/add': typeof AddRoute
   '/determinant': typeof DeterminantRoute
   '/inverse': typeof InverseRoute
+  '/power': typeof PowerRoute
+  '/scalar': typeof ScalarRoute
+  '/trace-rank': typeof TraceRankRoute
   '/transpose': typeof TransposeRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +74,9 @@ export interface FileRoutesByTo {
   '/add': typeof AddRoute
   '/determinant': typeof DeterminantRoute
   '/inverse': typeof InverseRoute
+  '/power': typeof PowerRoute
+  '/scalar': typeof ScalarRoute
+  '/trace-rank': typeof TraceRankRoute
   '/transpose': typeof TransposeRoute
 }
 export interface FileRoutesById {
@@ -61,14 +85,42 @@ export interface FileRoutesById {
   '/add': typeof AddRoute
   '/determinant': typeof DeterminantRoute
   '/inverse': typeof InverseRoute
+  '/power': typeof PowerRoute
+  '/scalar': typeof ScalarRoute
+  '/trace-rank': typeof TraceRankRoute
   '/transpose': typeof TransposeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/add' | '/determinant' | '/inverse' | '/transpose'
+  fullPaths:
+    | '/'
+    | '/add'
+    | '/determinant'
+    | '/inverse'
+    | '/power'
+    | '/scalar'
+    | '/trace-rank'
+    | '/transpose'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/add' | '/determinant' | '/inverse' | '/transpose'
-  id: '__root__' | '/' | '/add' | '/determinant' | '/inverse' | '/transpose'
+  to:
+    | '/'
+    | '/add'
+    | '/determinant'
+    | '/inverse'
+    | '/power'
+    | '/scalar'
+    | '/trace-rank'
+    | '/transpose'
+  id:
+    | '__root__'
+    | '/'
+    | '/add'
+    | '/determinant'
+    | '/inverse'
+    | '/power'
+    | '/scalar'
+    | '/trace-rank'
+    | '/transpose'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +128,9 @@ export interface RootRouteChildren {
   AddRoute: typeof AddRoute
   DeterminantRoute: typeof DeterminantRoute
   InverseRoute: typeof InverseRoute
+  PowerRoute: typeof PowerRoute
+  ScalarRoute: typeof ScalarRoute
+  TraceRankRoute: typeof TraceRankRoute
   TransposeRoute: typeof TransposeRoute
 }
 
@@ -86,6 +141,27 @@ declare module '@tanstack/react-router' {
       path: '/transpose'
       fullPath: '/transpose'
       preLoaderRoute: typeof TransposeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trace-rank': {
+      id: '/trace-rank'
+      path: '/trace-rank'
+      fullPath: '/trace-rank'
+      preLoaderRoute: typeof TraceRankRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/scalar': {
+      id: '/scalar'
+      path: '/scalar'
+      fullPath: '/scalar'
+      preLoaderRoute: typeof ScalarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/power': {
+      id: '/power'
+      path: '/power'
+      fullPath: '/power'
+      preLoaderRoute: typeof PowerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/inverse': {
@@ -124,8 +200,20 @@ const rootRouteChildren: RootRouteChildren = {
   AddRoute: AddRoute,
   DeterminantRoute: DeterminantRoute,
   InverseRoute: InverseRoute,
+  PowerRoute: PowerRoute,
+  ScalarRoute: ScalarRoute,
+  TraceRankRoute: TraceRankRoute,
   TransposeRoute: TransposeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
