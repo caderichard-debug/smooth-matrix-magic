@@ -75,15 +75,11 @@ export function MatrixDisplay({ m, label, showCopy = true }: Props) {
         <span className="absolute right-0 top-0 bottom-0 w-2 border-r-2 border-t-2 border-b-2 border-primary rounded-r-sm" />
         <div
           className="grid gap-x-4 gap-y-1 font-mono text-foreground"
-          style={{ gridTemplateColumns: `repeat(${cols}, 4rem)` }}
+          style={{ gridTemplateColumns: `repeat(${cols}, minmax(2rem, max-content))` }}
         >
           {m.flatMap((row, i) =>
             row.map((v, j) => (
-              <div
-                key={`${i}-${j}`}
-                className="text-right tabular-nums truncate"
-                title={formatExpr(v)}
-              >
+              <div key={`${i}-${j}`} className="text-right tabular-nums">
                 {formatExpr(v)}
               </div>
             )),
