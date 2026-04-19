@@ -9,8 +9,32 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TransposeRouteImport } from './routes/transpose'
+import { Route as InverseRouteImport } from './routes/inverse'
+import { Route as DeterminantRouteImport } from './routes/determinant'
+import { Route as AddRouteImport } from './routes/add'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TransposeRoute = TransposeRouteImport.update({
+  id: '/transpose',
+  path: '/transpose',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InverseRoute = InverseRouteImport.update({
+  id: '/inverse',
+  path: '/inverse',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeterminantRoute = DeterminantRouteImport.update({
+  id: '/determinant',
+  path: '/determinant',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AddRoute = AddRouteImport.update({
+  id: '/add',
+  path: '/add',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +43,72 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/add': typeof AddRoute
+  '/determinant': typeof DeterminantRoute
+  '/inverse': typeof InverseRoute
+  '/transpose': typeof TransposeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/add': typeof AddRoute
+  '/determinant': typeof DeterminantRoute
+  '/inverse': typeof InverseRoute
+  '/transpose': typeof TransposeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/add': typeof AddRoute
+  '/determinant': typeof DeterminantRoute
+  '/inverse': typeof InverseRoute
+  '/transpose': typeof TransposeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/add' | '/determinant' | '/inverse' | '/transpose'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/add' | '/determinant' | '/inverse' | '/transpose'
+  id: '__root__' | '/' | '/add' | '/determinant' | '/inverse' | '/transpose'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AddRoute: typeof AddRoute
+  DeterminantRoute: typeof DeterminantRoute
+  InverseRoute: typeof InverseRoute
+  TransposeRoute: typeof TransposeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/transpose': {
+      id: '/transpose'
+      path: '/transpose'
+      fullPath: '/transpose'
+      preLoaderRoute: typeof TransposeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inverse': {
+      id: '/inverse'
+      path: '/inverse'
+      fullPath: '/inverse'
+      preLoaderRoute: typeof InverseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/determinant': {
+      id: '/determinant'
+      path: '/determinant'
+      fullPath: '/determinant'
+      preLoaderRoute: typeof DeterminantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add': {
+      id: '/add'
+      path: '/add'
+      fullPath: '/add'
+      preLoaderRoute: typeof AddRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,7 +121,20 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AddRoute: AddRoute,
+  DeterminantRoute: DeterminantRoute,
+  InverseRoute: InverseRoute,
+  TransposeRoute: TransposeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
