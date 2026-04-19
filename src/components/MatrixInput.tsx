@@ -212,7 +212,7 @@ export function MatrixInput({ title, value, onChange }: Props) {
                     value={cell}
                     onChange={(e) => commitCell(i, j, e.target.value)}
                     onFocus={(e) => e.currentTarget.select()}
-                    onKeyDown={(e) => onCellKeyDown(i, j, e)}
+                    onKeyDownCapture={(e) => onCellKeyDown(i, j, e)}
                     onPaste={(e) => onCellPaste(i, j, e)}
                     inputMode="text"
                     autoComplete="off"
