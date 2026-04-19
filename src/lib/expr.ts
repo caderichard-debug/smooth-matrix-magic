@@ -116,6 +116,7 @@ export function exprEq(a: Expr, b: Expr): boolean {
 }
 
 export function asRational(e: Expr): Rational | null {
+  if (!e || !e.terms) return R0;
   if (e.terms.length === 0) return R0;
   if (e.terms.length === 1 && Object.keys(e.terms[0].v).length === 0) return e.terms[0].c;
   return null;
@@ -185,12 +186,13 @@ function termString(t: Term, first: boolean): string {
 }
 
 export function stringify(e: Expr): string {
-  if (e.terms.length === 0) return "0";
+  if (!e || !e.terms || e.terms.length === 0) return "0";
   return e.terms.map((t, i) => termString(t, i === 0)).join("");
 }
 
 // Plain-number string when possible (for narrow display columns).
 export function stringifyShort(e: Expr): string {
+  if (!e || !e.terms) return "0";
   const r = asRational(e);
   if (r) return rToString(r);
   return stringify(e);
