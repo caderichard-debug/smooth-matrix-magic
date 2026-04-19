@@ -90,22 +90,28 @@ export function MatrixInput({ title, value, onChange }: Props) {
 
   const onCellKeyDown = (i: number, j: number, e: KeyboardEvent<HTMLInputElement>) => {
     const ctrl = e.ctrlKey || e.metaKey;
-    if (ctrl && e.key === "ArrowRight") { e.preventDefault(); focusCell(i, cols - 1); return; }
-    if (ctrl && e.key === "ArrowLeft")  { e.preventDefault(); focusCell(i, 0); return; }
-    if (ctrl && e.key === "ArrowDown")  { e.preventDefault(); focusCell(rows - 1, j); return; }
-    if (ctrl && e.key === "ArrowUp")    { e.preventDefault(); focusCell(0, j); return; }
-    if (e.key === "ArrowRight" && (e.currentTarget.selectionStart ?? 0) === e.currentTarget.value.length) {
+    const input = e.currentTarget;
+    const atStart = (input.selectionStart ?? 0) === 0 && (input.selectionEnd ?? 0) === 0;
+    const atEnd =
+      (input.selectionStart ?? 0) === input.value.length &&
+      (input.selectionEnd ?? 0) === input.value.length;
+    const allSelected =
+      (input.selectionStart ?? 0) === 0 &&
+      (input.selectionEnd ?? 0) === input.value.length;
+
+    if (ctrl && e.key === "ArrowRight") { e.preventDefault(); e.stopPropagation(); focusCell(i, cols - 1); return; }
+    if (ctrl && e.key === "ArrowLeft")  { e.preventDefault(); e.stopPropagation(); focusCell(i, 0); return; }
+    if (ctrl && e.key === "ArrowDown")  { e.preventDefault(); e.stopPropagation(); focusCell(rows - 1, j); return; }
+    if (ctrl && e.key === "ArrowUp")    { e.preventDefault(); e.stopPropagation(); focusCell(0, j); return; }
+    if (e.key === "ArrowRight" && (atEnd || allSelected)) {
       e.preventDefault(); focusCell(i, j + 1); return;
     }
-    if (e.key === "ArrowLeft" && (e.currentTarget.selectionEnd ?? 0) === 0) {
+    if (e.key === "ArrowLeft" && (atStart || allSelected)) {
       e.preventDefault(); focusCell(i, j - 1); return;
     }
     if (e.key === "ArrowDown") { e.preventDefault(); focusCell(i + 1, j); return; }
     if (e.key === "ArrowUp")   { e.preventDefault(); focusCell(i - 1, j); return; }
     if (e.key === "Enter")     { e.preventDefault(); focusCell(i + 1, j); return; }
-    if (e.key === "Tab" && !e.shiftKey && j === cols - 1 && i === rows - 1) {
-      // let default Tab behavior leave the grid
-    }
   };
 
   // Paste detection — if user pastes multi-row/col text into a cell, replace whole matrix.
