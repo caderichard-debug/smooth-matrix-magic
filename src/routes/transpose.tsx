@@ -3,8 +3,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "@/components/PageLayout";
 import { MatrixInput } from "@/components/MatrixInput";
 import { MatrixDisplay } from "@/components/MatrixDisplay";
+import { StepsPanel } from "@/components/StepsPanel";
 import { AdSlot } from "@/components/AdSlot";
-import { transpose, type Matrix } from "@/lib/matrix";
+import { transpose, fromNumbers, type Matrix } from "@/lib/matrix";
+import { transposeSteps } from "@/lib/steps";
 
 export const Route = createFileRoute("/transpose")({
   head: () => ({
@@ -13,22 +15,20 @@ export const Route = createFileRoute("/transpose")({
       {
         name: "description",
         content:
-          "Transpose any matrix online instantly. Swap rows and columns with one click. Free matrix transpose calculator.",
+          "Transpose any matrix online instantly. Swap rows and columns. Supports fractions and variables.",
       },
       { property: "og:title", content: "Matrix Transpose Calculator" },
-      { property: "og:description", content: "Transpose a matrix online instantly." },
+      { property: "og:description", content: "Transpose a matrix online — symbolic and instant." },
     ],
   }),
   component: TransposePage,
 });
 
 function TransposePage() {
-  const [a, setA] = useState<Matrix>([
-    [1, 2, 3],
-    [4, 5, 6],
-  ]);
+  const [a, setA] = useState<Matrix>(() => fromNumbers([[1, 2, 3], [4, 5, 6]]));
 
   const result = useMemo(() => transpose(a), [a]);
+  const steps = useMemo(() => transposeSteps(a), [a]);
 
   return (
     <PageLayout
@@ -46,6 +46,8 @@ function TransposePage() {
           </div>
         </section>
       </div>
+
+      <StepsPanel steps={steps} />
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

@@ -3,9 +3,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "@/components/PageLayout";
 import { MatrixInput } from "@/components/MatrixInput";
 import { MatrixDisplay } from "@/components/MatrixDisplay";
+import { StepsPanel } from "@/components/StepsPanel";
 import { AdSlot } from "@/components/AdSlot";
 import { Button } from "@/components/ui/button";
-import { add, subtract, type Matrix } from "@/lib/matrix";
+import { add, subtract, fromNumbers, type Matrix } from "@/lib/matrix";
+import { addSteps } from "@/lib/steps";
 
 export const Route = createFileRoute("/add")({
   head: () => ({
@@ -14,24 +16,18 @@ export const Route = createFileRoute("/add")({
       {
         name: "description",
         content:
-          "Add or subtract two matrices online instantly. Free calculator for matrix addition and subtraction up to 10×10.",
+          "Add or subtract two matrices online. Supports fractions, variables, and step-by-step solutions. Free up to 10×10.",
       },
       { property: "og:title", content: "Matrix Addition & Subtraction Calculator" },
-      { property: "og:description", content: "Add or subtract matrices online, free and fast." },
+      { property: "og:description", content: "Add or subtract matrices online — symbolic and step-by-step." },
     ],
   }),
   component: AddPage,
 });
 
 function AddPage() {
-  const [a, setA] = useState<Matrix>([
-    [1, 2],
-    [3, 4],
-  ]);
-  const [b, setB] = useState<Matrix>([
-    [5, 6],
-    [7, 8],
-  ]);
+  const [a, setA] = useState<Matrix>(() => fromNumbers([[1, 2], [3, 4]]));
+  const [b, setB] = useState<Matrix>(() => fromNumbers([[5, 6], [7, 8]]));
   const [op, setOp] = useState<"add" | "sub">("add");
 
   const { result, error } = useMemo(() => {
@@ -44,6 +40,8 @@ function AddPage() {
       return { result: null as Matrix | null, error: e instanceof Error ? e.message : "Error" };
     }
   }, [a, b, op]);
+
+  const steps = useMemo(() => (result ? addSteps(a, b, op === "add" ? "+" : "-") : []), [a, b, op, result]);
 
   return (
     <PageLayout
@@ -78,6 +76,8 @@ function AddPage() {
           )
         )}
       </section>
+
+      {result && <StepsPanel steps={steps} />}
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>
