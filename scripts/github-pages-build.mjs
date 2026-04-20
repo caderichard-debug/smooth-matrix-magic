@@ -10,7 +10,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const pagesPrefix = "/smooth-matrix-magic";
+const pagesPrefix = "/";
 const outDir = join(root, "gh-pages");
 const clientAssets = join(root, "dist/client/assets");
 const serverEntry = join(root, "dist/server/server.js");
@@ -33,7 +33,8 @@ if (!server?.fetch) {
   throw new Error("dist/server/server.js does not export a fetch handler");
 }
 
-const res = await server.fetch(new Request(`https://example.com${pagesPrefix}/`));
+const routePath = pagesPrefix === "/" ? "/" : `${pagesPrefix}/`;
+const res = await server.fetch(new Request(`https://example.com${routePath}`));
 if (!res.ok) {
   throw new Error(`SSR shell fetch failed: ${res.status} ${res.statusText}`);
 }

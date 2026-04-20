@@ -11,6 +11,6 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 const githubPages = process.env.GITHUB_PAGES === "1";
 
 export default defineConfig({
-  // GitHub project pages are served from /<repo>/.
-  base: githubPages ? "/smooth-matrix-magic/" : undefined,
+  // Custom domain deployment serves from root.
+  base: githubPages ? "/" : undefined,
 });
