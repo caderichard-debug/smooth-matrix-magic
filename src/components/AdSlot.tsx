@@ -4,7 +4,10 @@ type Props = {
   height?: string;
 };
 
+const ADS_ENABLED = false;
+
 export function AdSlot({ label = "Advertisement", className = "", height = "h-24" }: Props) {
+  if (!ADS_ENABLED) return null;
   return (
     <div
       className={`ad-slot flex items-center justify-center w-full ${height} text-xs uppercase tracking-[0.2em] ${className}`}

@@ -11,10 +11,18 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransposeRouteImport } from './routes/transpose'
 import { Route as TraceRankRouteImport } from './routes/trace-rank'
+import { Route as SpacesRouteImport } from './routes/spaces'
 import { Route as ScalarRouteImport } from './routes/scalar'
+import { Route as RrefRouteImport } from './routes/rref'
 import { Route as PowerRouteImport } from './routes/power'
+import { Route as MatrixProductsRouteImport } from './routes/matrix-products'
+import { Route as MatrixExponentialRouteImport } from './routes/matrix-exponential'
+import { Route as LinearSystemRouteImport } from './routes/linear-system'
 import { Route as InverseRouteImport } from './routes/inverse'
+import { Route as EigenCharacteristicRouteImport } from './routes/eigen-characteristic'
 import { Route as DeterminantRouteImport } from './routes/determinant'
+import { Route as DecompositionsRouteImport } from './routes/decompositions'
+import { Route as AdvancedProductsRouteImport } from './routes/advanced-products'
 import { Route as AddRouteImport } from './routes/add'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -28,9 +36,19 @@ const TraceRankRoute = TraceRankRouteImport.update({
   path: '/trace-rank',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SpacesRoute = SpacesRouteImport.update({
+  id: '/spaces',
+  path: '/spaces',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ScalarRoute = ScalarRouteImport.update({
   id: '/scalar',
   path: '/scalar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RrefRoute = RrefRouteImport.update({
+  id: '/rref',
+  path: '/rref',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PowerRoute = PowerRouteImport.update({
@@ -38,14 +56,44 @@ const PowerRoute = PowerRouteImport.update({
   path: '/power',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MatrixProductsRoute = MatrixProductsRouteImport.update({
+  id: '/matrix-products',
+  path: '/matrix-products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MatrixExponentialRoute = MatrixExponentialRouteImport.update({
+  id: '/matrix-exponential',
+  path: '/matrix-exponential',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LinearSystemRoute = LinearSystemRouteImport.update({
+  id: '/linear-system',
+  path: '/linear-system',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InverseRoute = InverseRouteImport.update({
   id: '/inverse',
   path: '/inverse',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EigenCharacteristicRoute = EigenCharacteristicRouteImport.update({
+  id: '/eigen-characteristic',
+  path: '/eigen-characteristic',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DeterminantRoute = DeterminantRouteImport.update({
   id: '/determinant',
   path: '/determinant',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DecompositionsRoute = DecompositionsRouteImport.update({
+  id: '/decompositions',
+  path: '/decompositions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdvancedProductsRoute = AdvancedProductsRouteImport.update({
+  id: '/advanced-products',
+  path: '/advanced-products',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AddRoute = AddRouteImport.update({
@@ -62,20 +110,36 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/add': typeof AddRoute
+  '/advanced-products': typeof AdvancedProductsRoute
+  '/decompositions': typeof DecompositionsRoute
   '/determinant': typeof DeterminantRoute
+  '/eigen-characteristic': typeof EigenCharacteristicRoute
   '/inverse': typeof InverseRoute
+  '/linear-system': typeof LinearSystemRoute
+  '/matrix-exponential': typeof MatrixExponentialRoute
+  '/matrix-products': typeof MatrixProductsRoute
   '/power': typeof PowerRoute
+  '/rref': typeof RrefRoute
   '/scalar': typeof ScalarRoute
+  '/spaces': typeof SpacesRoute
   '/trace-rank': typeof TraceRankRoute
   '/transpose': typeof TransposeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/add': typeof AddRoute
+  '/advanced-products': typeof AdvancedProductsRoute
+  '/decompositions': typeof DecompositionsRoute
   '/determinant': typeof DeterminantRoute
+  '/eigen-characteristic': typeof EigenCharacteristicRoute
   '/inverse': typeof InverseRoute
+  '/linear-system': typeof LinearSystemRoute
+  '/matrix-exponential': typeof MatrixExponentialRoute
+  '/matrix-products': typeof MatrixProductsRoute
   '/power': typeof PowerRoute
+  '/rref': typeof RrefRoute
   '/scalar': typeof ScalarRoute
+  '/spaces': typeof SpacesRoute
   '/trace-rank': typeof TraceRankRoute
   '/transpose': typeof TransposeRoute
 }
@@ -83,10 +147,18 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/add': typeof AddRoute
+  '/advanced-products': typeof AdvancedProductsRoute
+  '/decompositions': typeof DecompositionsRoute
   '/determinant': typeof DeterminantRoute
+  '/eigen-characteristic': typeof EigenCharacteristicRoute
   '/inverse': typeof InverseRoute
+  '/linear-system': typeof LinearSystemRoute
+  '/matrix-exponential': typeof MatrixExponentialRoute
+  '/matrix-products': typeof MatrixProductsRoute
   '/power': typeof PowerRoute
+  '/rref': typeof RrefRoute
   '/scalar': typeof ScalarRoute
+  '/spaces': typeof SpacesRoute
   '/trace-rank': typeof TraceRankRoute
   '/transpose': typeof TransposeRoute
 }
@@ -95,30 +167,54 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/add'
+    | '/advanced-products'
+    | '/decompositions'
     | '/determinant'
+    | '/eigen-characteristic'
     | '/inverse'
+    | '/linear-system'
+    | '/matrix-exponential'
+    | '/matrix-products'
     | '/power'
+    | '/rref'
     | '/scalar'
+    | '/spaces'
     | '/trace-rank'
     | '/transpose'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/add'
+    | '/advanced-products'
+    | '/decompositions'
     | '/determinant'
+    | '/eigen-characteristic'
     | '/inverse'
+    | '/linear-system'
+    | '/matrix-exponential'
+    | '/matrix-products'
     | '/power'
+    | '/rref'
     | '/scalar'
+    | '/spaces'
     | '/trace-rank'
     | '/transpose'
   id:
     | '__root__'
     | '/'
     | '/add'
+    | '/advanced-products'
+    | '/decompositions'
     | '/determinant'
+    | '/eigen-characteristic'
     | '/inverse'
+    | '/linear-system'
+    | '/matrix-exponential'
+    | '/matrix-products'
     | '/power'
+    | '/rref'
     | '/scalar'
+    | '/spaces'
     | '/trace-rank'
     | '/transpose'
   fileRoutesById: FileRoutesById
@@ -126,10 +222,18 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AddRoute: typeof AddRoute
+  AdvancedProductsRoute: typeof AdvancedProductsRoute
+  DecompositionsRoute: typeof DecompositionsRoute
   DeterminantRoute: typeof DeterminantRoute
+  EigenCharacteristicRoute: typeof EigenCharacteristicRoute
   InverseRoute: typeof InverseRoute
+  LinearSystemRoute: typeof LinearSystemRoute
+  MatrixExponentialRoute: typeof MatrixExponentialRoute
+  MatrixProductsRoute: typeof MatrixProductsRoute
   PowerRoute: typeof PowerRoute
+  RrefRoute: typeof RrefRoute
   ScalarRoute: typeof ScalarRoute
+  SpacesRoute: typeof SpacesRoute
   TraceRankRoute: typeof TraceRankRoute
   TransposeRoute: typeof TransposeRoute
 }
@@ -150,11 +254,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TraceRankRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/spaces': {
+      id: '/spaces'
+      path: '/spaces'
+      fullPath: '/spaces'
+      preLoaderRoute: typeof SpacesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/scalar': {
       id: '/scalar'
       path: '/scalar'
       fullPath: '/scalar'
       preLoaderRoute: typeof ScalarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rref': {
+      id: '/rref'
+      path: '/rref'
+      fullPath: '/rref'
+      preLoaderRoute: typeof RrefRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/power': {
@@ -164,6 +282,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PowerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/matrix-products': {
+      id: '/matrix-products'
+      path: '/matrix-products'
+      fullPath: '/matrix-products'
+      preLoaderRoute: typeof MatrixProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/matrix-exponential': {
+      id: '/matrix-exponential'
+      path: '/matrix-exponential'
+      fullPath: '/matrix-exponential'
+      preLoaderRoute: typeof MatrixExponentialRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/linear-system': {
+      id: '/linear-system'
+      path: '/linear-system'
+      fullPath: '/linear-system'
+      preLoaderRoute: typeof LinearSystemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/inverse': {
       id: '/inverse'
       path: '/inverse'
@@ -171,11 +310,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InverseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/eigen-characteristic': {
+      id: '/eigen-characteristic'
+      path: '/eigen-characteristic'
+      fullPath: '/eigen-characteristic'
+      preLoaderRoute: typeof EigenCharacteristicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/determinant': {
       id: '/determinant'
       path: '/determinant'
       fullPath: '/determinant'
       preLoaderRoute: typeof DeterminantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/decompositions': {
+      id: '/decompositions'
+      path: '/decompositions'
+      fullPath: '/decompositions'
+      preLoaderRoute: typeof DecompositionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/advanced-products': {
+      id: '/advanced-products'
+      path: '/advanced-products'
+      fullPath: '/advanced-products'
+      preLoaderRoute: typeof AdvancedProductsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/add': {
@@ -198,13 +358,30 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AddRoute: AddRoute,
+  AdvancedProductsRoute: AdvancedProductsRoute,
+  DecompositionsRoute: DecompositionsRoute,
   DeterminantRoute: DeterminantRoute,
+  EigenCharacteristicRoute: EigenCharacteristicRoute,
   InverseRoute: InverseRoute,
+  LinearSystemRoute: LinearSystemRoute,
+  MatrixExponentialRoute: MatrixExponentialRoute,
+  MatrixProductsRoute: MatrixProductsRoute,
   PowerRoute: PowerRoute,
+  RrefRoute: RrefRoute,
   ScalarRoute: ScalarRoute,
+  SpacesRoute: SpacesRoute,
   TraceRankRoute: TraceRankRoute,
   TransposeRoute: TransposeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
