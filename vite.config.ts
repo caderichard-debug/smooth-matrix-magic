@@ -13,6 +13,8 @@ import { nitro } from "nitro/vite";
 const githubPages = process.env.GITHUB_PAGES === "1";
 
 export default defineConfig({
+  // GitHub project pages are served from /<repo>/, so use relative assets.
+  base: githubPages ? "./" : undefined,
   cloudflare: githubPages ? false : undefined,
   vite: {
     plugins: githubPages ? [nitro()] : [],

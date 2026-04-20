@@ -38,7 +38,10 @@ const res = await handler.fetch(req, {});
 if (!res.ok) {
   throw new Error(`SSR failed: ${res.status} ${res.statusText}`);
 }
-const html = await res.text();
+let html = await res.text();
+
+// GitHub project pages are served from /<repo>/, so absolute /assets URLs 404.
+html = html.replaceAll(/([("'`])\/assets\//g, "$1./assets/");
 
 // Copy Nitro static output directly into gh-pages root.
 // staticSrc already contains an `assets/` directory.
