@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "build:github-pages": "VERCEL=1 npm run build && node scripts/prerender-github-pages.mjs",
+    "build:github-pages": "node scripts/github-pages-build.mjs",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "test": "vitest run",

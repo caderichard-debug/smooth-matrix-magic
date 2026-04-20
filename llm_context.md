@@ -39,18 +39,11 @@
 - Generator utilities implemented: zero/ones/random/Toeplitz/circulant/diagonal.
 - Metrics implemented: Frobenius, L1, infinity norms, distance, relative error, nullity, and 1-norm condition number.
 
-## Deployment (Vercel)
-
-- **TanStack Start** serves SSR via `hydrateRoot(document, …)`; publishing only `dist/client` (no `index.html`) caused Vercel `NOT_FOUND`. Fix: on Vercel builds (`VERCEL=1`), disable the Cloudflare Vite plugin and enable **Nitro** (`nitro/vite`) so the build emits `.vercel/output` for Vercel Functions + static assets (see `vite.config.ts` and [Vercel TanStack Start docs](https://vercel.com/docs/frameworks/full-stack/tanstack-start)).
-- `vercel.json` sets `installCommand` + `buildCommand` only; do **not** set `outputDirectory` to `dist/client` for production—let Nitro/Vercel consume `.vercel/output`.
-- Non-Vercel builds keep the default Cloudflare worker output under `dist/`.
-
 ## Deployment (GitHub Pages)
 
-- Classic static hosting cannot run the Nitro server; **`.github/workflows/deploy-pages.yml`** runs `VERCEL=1 npm run build`, then **`scripts/prerender-github-pages.mjs`** (invokes the Vercel fallback handler for `/`) and uploads **`gh-pages/`** (includes `CNAME` for `matrixdojo.app`, `.nojekyll`, `404.html` copy of home for SPA-ish refresh).
-- Local preview of the Pages bundle: `npm run build:github-pages` then serve the `gh-pages` folder (not committed; listed in `.gitignore`).
-- In the repo **Settings → Pages**, set **Build and deployment → Source** to **GitHub Actions** (not “Deploy from a branch”). Until this is set, `*.github.io/...` can 404 even if the workflow file exists.
-- After the first run, check **Actions → Deploy GitHub Pages** for failures; if the **`github-pages` environment** waits for approval, approve it once under the run’s “Review deployments” prompt.
+- **One command:** `npm run build:github-pages` runs **`scripts/github-pages-build.mjs`** (Nitro build with `GITHUB_PAGES=1`, then prerender into **`gh-pages/`**). CI runs the same after `npm ci` + `npm test`.
+- Default **`npm run build`** (no env) keeps the Cloudflare worker output under `dist/`.
+- **Settings → Pages → Source:** **GitHub Actions**. First deploy may ask to approve the **`github-pages`** environment once.
 
 ## Testing conventions
 

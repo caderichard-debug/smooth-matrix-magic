@@ -5,17 +5,16 @@
 //     error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 //
-// Vercel: TanStack Start needs Nitro for SSR (see https://vercel.com/docs/frameworks/full-stack/tanstack-start).
-// GitHub Pages: CI uses the same Nitro build (`VERCEL=1`) then `scripts/prerender-github-pages.mjs` to emit static HTML.
-// Cloudflare's Vite plugin is disabled for Nitro builds so Nitro can emit deploy output.
+// `GITHUB_PAGES=1` enables Nitro for static prerender (see `scripts/github-pages-build.mjs`).
+// Default `vite build` keeps the Cloudflare worker output under `dist/`.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { nitro } from "nitro/vite";
 
-const useNitro = process.env.VERCEL === "1";
+const githubPages = process.env.GITHUB_PAGES === "1";
 
 export default defineConfig({
-  cloudflare: useNitro ? false : undefined,
+  cloudflare: githubPages ? false : undefined,
   vite: {
-    plugins: useNitro ? [nitro()] : [],
+    plugins: githubPages ? [nitro()] : [],
   },
 });
