@@ -5,16 +5,12 @@
 //     error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 //
-// `GITHUB_PAGES=1` enables Nitro for static prerender (see `scripts/github-pages-build.mjs`).
+// `GITHUB_PAGES=1` sets base path for GitHub project pages.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
-import { nitro } from "nitro/vite";
 
 const githubPages = process.env.GITHUB_PAGES === "1";
 
 export default defineConfig({
   // GitHub project pages are served from /<repo>/.
   base: githubPages ? "/smooth-matrix-magic/" : undefined,
-  vite: {
-    plugins: githubPages ? [nitro()] : [],
-  },
 });
