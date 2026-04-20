@@ -1,11 +1,11 @@
 /**
- * Pure client-side GitHub Pages build.
- * - No Nitro
- * - No server prerender
- * - Browser-only app boot
+ * GitHub Pages build.
+ * - Build app
+ * - Render one HTML shell via local build-time server
+ * - Publish static assets + prerendered shell
  */
 import { spawnSync } from "node:child_process";
-import { cp, mkdir, readdir, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -13,6 +13,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const pagesPrefix = "/smooth-matrix-magic";
 const outDir = join(root, "gh-pages");
 const clientAssets = join(root, "dist/client/assets");
+const serverEntry = join(root, "dist/server/server.js");
 
 const env = {
   ...process.env,
@@ -27,27 +28,16 @@ await rm(outDir, { recursive: true, force: true });
 await mkdir(outDir, { recursive: true });
 await cp(clientAssets, join(outDir, "assets"), { recursive: true });
 
-const files = await readdir(clientAssets);
-const entryJs = files.find((f) => /^index-.*\.js$/.test(f));
-const stylesCss = files.find((f) => /^styles-.*\.css$/.test(f));
-if (!entryJs) {
-  throw new Error("Could not find entry JS chunk in dist/client/assets");
+const { default: server } = await import(serverEntry);
+if (!server?.fetch) {
+  throw new Error("dist/server/server.js does not export a fetch handler");
 }
 
-const html = `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Matrix Calculator</title>
-    ${stylesCss ? `<link rel="stylesheet" href="${pagesPrefix}/assets/${stylesCss}" />` : ""}
-  </head>
-  <body>
-    <script type="module" src="${pagesPrefix}/assets/${entryJs}"></script>
-  </body>
-</html>
-`;
-
+const res = await server.fetch(new Request(`https://example.com${pagesPrefix}/`));
+if (!res.ok) {
+  throw new Error(`SSR shell fetch failed: ${res.status} ${res.statusText}`);
+}
+const html = await res.text();
 await writeFile(join(outDir, "index.html"), html, "utf8");
 await writeFile(join(outDir, "404.html"), html, "utf8");
 await writeFile(join(outDir, ".nojekyll"), "", "utf8");
