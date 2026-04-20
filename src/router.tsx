@@ -55,8 +55,14 @@ function DefaultErrorComponent({ error, reset }: { error: Error; reset: () => vo
 }
 
 export const getRouter = () => {
+  const basepath =
+    typeof window !== "undefined" && window.location.hostname.endsWith("github.io")
+      ? "/smooth-matrix-magic"
+      : "/";
+
   const router = createRouter({
     routeTree,
+    basepath,
     context: {},
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
