@@ -14,7 +14,6 @@ dist-ssr
 .vinxi
 .tanstack/**
 .nitro
-.vercel
 *.local
 
 # GitHub Pages prerender output (generated in CI / locally)
