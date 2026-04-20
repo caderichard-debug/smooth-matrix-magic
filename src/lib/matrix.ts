@@ -730,6 +730,255 @@ export function matrixExponential(a: Matrix, terms = 20): Matrix {
   }
 }
 
+export function scalarDivide(a: Matrix, s: Expr): Matrix {
+  if (isZero(s)) throw new Error("Cannot divide by zero scalar");
+  return a.map((row) => row.map((v) => eDiv(v, s)));
+}
+
+export function hadamardDivide(a: Matrix, b: Matrix): Matrix {
+  const ad = dims(a);
+  const bd = dims(b);
+  if (ad.rows !== bd.rows || ad.cols !== bd.cols) {
+    throw new Error("Hadamard division requires matrices with the same dimensions");
+  }
+  return a.map((row, i) => row.map((v, j) => {
+    if (isZero(b[i][j])) throw new Error("Hadamard division encountered a zero entry in the divisor matrix");
+    return eDiv(v, b[i][j]);
+  }));
+}
+
+export function elementWisePower(a: Matrix, p: number): Matrix {
+  if (!Number.isInteger(p)) throw new Error("Element-wise power requires an integer exponent");
+  return a.map((row) => row.map((value) => {
+    if (p === 0) return ONE;
+    if (p > 0) {
+      let out = value;
+      for (let i = 1; i < p; i++) out = eMul(out, value);
+      return out;
+    }
+    if (isZero(value)) throw new Error("Element-wise negative powers are undefined for zero entries");
+    let out = ONE;
+    for (let i = 0; i < -p; i++) out = eDiv(out, value);
+    return out;
+  }));
+}
+
+export function conjugateTranspose(a: Matrix): Matrix {
+  // Entries are real-valued Expr terms for now, so conjugation is identity.
+  return transpose(a);
+}
+
+export function flattenMatrix(a: Matrix): Matrix {
+  return [a.flatMap((row) => row)];
+}
+
+export function reshapeMatrix(a: Matrix, rows: number, cols: number, fill: Expr = ZERO): Matrix {
+  if (rows < 1 || cols < 1 || !Number.isInteger(rows) || !Number.isInteger(cols)) {
+    throw new Error("Reshape requires positive integer dimensions");
+  }
+  const src = a.flatMap((row) => row);
+  const total = rows * cols;
+  const padded = src.slice(0, total);
+  while (padded.length < total) padded.push(fill);
+  const out = makeMatrix(rows, cols);
+  let idx = 0;
+  for (let i = 0; i < rows; i++) for (let j = 0; j < cols; j++) out[i][j] = padded[idx++];
+  return out;
+}
+
+export function resizeMatrix(a: Matrix, rows: number, cols: number, fill: Expr = ZERO): Matrix {
+  if (rows < 1 || cols < 1 || !Number.isInteger(rows) || !Number.isInteger(cols)) {
+    throw new Error("Resize requires positive integer dimensions");
+  }
+  const out = makeMatrix(rows, cols, fill);
+  const ad = dims(a);
+  const rr = Math.min(rows, ad.rows);
+  const cc = Math.min(cols, ad.cols);
+  for (let i = 0; i < rr; i++) for (let j = 0; j < cc; j++) out[i][j] = a[i][j];
+  return out;
+}
+
+export function concatHorizontal(a: Matrix, b: Matrix): Matrix {
+  const ad = dims(a);
+  const bd = dims(b);
+  if (ad.rows !== bd.rows) throw new Error("Horizontal concatenation requires matrices with the same row count");
+  return a.map((row, i) => [...row, ...b[i]]);
+}
+
+export function concatVertical(a: Matrix, b: Matrix): Matrix {
+  const ad = dims(a);
+  const bd = dims(b);
+  if (ad.cols !== bd.cols) throw new Error("Vertical concatenation requires matrices with the same column count");
+  return [...a.map((row) => [...row]), ...b.map((row) => [...row])];
+}
+
+export function sliceMatrix(a: Matrix, rowStart: number, rowEnd: number, colStart: number, colEnd: number): Matrix {
+  const { rows, cols } = dims(a);
+  if (rowStart < 0 || colStart < 0 || rowEnd > rows || colEnd > cols || rowStart >= rowEnd || colStart >= colEnd) {
+    throw new Error("Slice indices are out of range");
+  }
+  return a.slice(rowStart, rowEnd).map((row) => row.slice(colStart, colEnd));
+}
+
+export function permuteRows(a: Matrix, order: number[]): Matrix {
+  const { rows } = dims(a);
+  if (order.length !== rows) throw new Error("Row permutation length must match row count");
+  const seen = new Set(order);
+  if (seen.size !== rows || order.some((i) => i < 0 || i >= rows)) throw new Error("Invalid row permutation");
+  return order.map((idx) => [...a[idx]]);
+}
+
+export function permuteCols(a: Matrix, order: number[]): Matrix {
+  const { cols } = dims(a);
+  if (order.length !== cols) throw new Error("Column permutation length must match column count");
+  const seen = new Set(order);
+  if (seen.size !== cols || order.some((i) => i < 0 || i >= cols)) throw new Error("Invalid column permutation");
+  return a.map((row) => order.map((idx) => row[idx]));
+}
+
+export function reverseRows(a: Matrix): Matrix {
+  return [...a].reverse().map((row) => [...row]);
+}
+
+export function reverseCols(a: Matrix): Matrix {
+  return a.map((row) => [...row].reverse());
+}
+
+export function diagonalExtract(a: Matrix): Expr[] {
+  const { rows, cols } = dims(a);
+  const n = Math.min(rows, cols);
+  return Array.from({ length: n }, (_, i) => a[i][i]);
+}
+
+export function diagonalMatrix(values: Expr[]): Matrix {
+  const n = values.length;
+  const out = makeMatrix(n, n);
+  for (let i = 0; i < n; i++) out[i][i] = values[i];
+  return out;
+}
+
+export function bandExtract(a: Matrix, lowerBandwidth: number, upperBandwidth: number): Matrix {
+  if (lowerBandwidth < 0 || upperBandwidth < 0) throw new Error("Bandwidth values must be non-negative");
+  const { rows, cols } = dims(a);
+  const out = makeMatrix(rows, cols);
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      const d = i - j;
+      if (d <= lowerBandwidth && -d <= upperBandwidth) out[i][j] = a[i][j];
+    }
+  }
+  return out;
+}
+
+export function zeroMatrix(rows: number, cols: number): Matrix {
+  if (rows < 1 || cols < 1 || !Number.isInteger(rows) || !Number.isInteger(cols)) {
+    throw new Error("Zero matrix requires positive integer dimensions");
+  }
+  return makeMatrix(rows, cols, ZERO);
+}
+
+export function onesMatrix(rows: number, cols: number): Matrix {
+  if (rows < 1 || cols < 1 || !Number.isInteger(rows) || !Number.isInteger(cols)) {
+    throw new Error("Ones matrix requires positive integer dimensions");
+  }
+  return makeMatrix(rows, cols, ONE);
+}
+
+export function randomMatrix(rows: number, cols: number, min = 0, max = 1, integer = false): Matrix {
+  if (rows < 1 || cols < 1 || !Number.isInteger(rows) || !Number.isInteger(cols)) {
+    throw new Error("Random matrix requires positive integer dimensions");
+  }
+  if (max <= min) throw new Error("Random matrix requires max > min");
+  const out = makeMatrix(rows, cols);
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      const v = min + Math.random() * (max - min);
+      out[i][j] = integer ? fromInt(Math.floor(v)) : parse(formatNumber(v));
+    }
+  }
+  return out;
+}
+
+export function toeplitzMatrix(firstColumn: number[], firstRow: number[]): Matrix {
+  if (firstColumn.length === 0 || firstRow.length === 0) throw new Error("Toeplitz matrix requires non-empty vectors");
+  if (Math.abs(firstColumn[0] - firstRow[0]) > 1e-10) throw new Error("Toeplitz first column/row must share the same first value");
+  const rows = firstColumn.length;
+  const cols = firstRow.length;
+  const out = makeMatrix(rows, cols);
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      const value = i >= j ? firstColumn[i - j] : firstRow[j - i];
+      out[i][j] = parse(formatNumber(value));
+    }
+  }
+  return out;
+}
+
+export function circulantMatrix(firstRow: number[]): Matrix {
+  if (firstRow.length === 0) throw new Error("Circulant matrix requires a non-empty first row");
+  const n = firstRow.length;
+  const out = makeMatrix(n, n);
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      const idx = (j - i + n) % n;
+      out[i][j] = parse(formatNumber(firstRow[idx]));
+    }
+  }
+  return out;
+}
+
+export function nullity(a: Matrix): number {
+  const { cols } = dims(a);
+  return cols - rank(a);
+}
+
+export function frobeniusNorm(a: Matrix): number {
+  const m = toNumericMatrix(a, "Frobenius norm");
+  let s = 0;
+  for (const row of m) for (const v of row) s += v * v;
+  return Math.sqrt(s);
+}
+
+export function l1Norm(a: Matrix): number {
+  const m = toNumericMatrix(a, "L1 norm");
+  const cols = m[0]?.length ?? 0;
+  let best = 0;
+  for (let j = 0; j < cols; j++) {
+    let colSum = 0;
+    for (let i = 0; i < m.length; i++) colSum += Math.abs(m[i][j]);
+    best = Math.max(best, colSum);
+  }
+  return best;
+}
+
+export function infinityNorm(a: Matrix): number {
+  const m = toNumericMatrix(a, "Infinity norm");
+  let best = 0;
+  for (const row of m) {
+    let rowSum = 0;
+    for (const v of row) rowSum += Math.abs(v);
+    best = Math.max(best, rowSum);
+  }
+  return best;
+}
+
+export function distanceFrobenius(a: Matrix, b: Matrix): number {
+  return frobeniusNorm(subtract(a, b));
+}
+
+export function relativeError(a: Matrix, b: Matrix): number {
+  const denom = frobeniusNorm(a);
+  if (denom < 1e-12) throw new Error("Relative error is undefined when reference matrix norm is zero");
+  return distanceFrobenius(a, b) / denom;
+}
+
+export function conditionNumber1(a: Matrix): number {
+  const n = requireSquare(a, "Condition number");
+  if (n < 1) throw new Error("Condition number requires a non-empty square matrix");
+  const inv = inverse(a);
+  return l1Norm(a) * l1Norm(inv);
+}
+
 // ---------- Helpers ----------
 
 export function isFullyNumeric(m: Matrix): boolean {

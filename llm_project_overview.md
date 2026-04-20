@@ -21,11 +21,17 @@ Smooth Matrix Magic is a web-based matrix manipulation toolset built for:
 - Matrix multiplication
 - Matrix addition/subtraction
 - Scalar multiplication
+- Scalar division
 - Hadamard product / Kronecker product
 - Commutator / anticommutator / direct sum
+- Element-wise division / element-wise power
 - Matrix power
 - Matrix exponential
 - Transpose
+- Conjugate transpose
+- Shape & structure tools (reshape, flatten, concat, reverse, band/diagonal extraction)
+- Matrix generators (zero/ones/identity/random/Toeplitz/circulant)
+- Norms & metrics (Frobenius/L1/Infinity/distance/relative error/condition number)
 - Determinant
 - Inverse
 - LU / QR / Gram-Schmidt decompositions
@@ -44,6 +50,10 @@ Smooth Matrix Magic is a web-based matrix manipulation toolset built for:
 - Matrix exponential (`e^A`) is live in `src/routes/matrix-exponential.tsx` using a truncated series (20 terms).
 - Hadamard and Kronecker products are live in `src/routes/matrix-products.tsx`.
 - Commutator, anticommutator, and direct sum are live in `src/routes/advanced-products.tsx`.
+- Element-wise division and explicit element-wise-vs-matrix power are live in `src/routes/elementwise.tsx`.
+- Shape and structural operations are grouped in `src/routes/structure-tools.tsx`.
+- Matrix creation utilities are grouped in `src/routes/generators.tsx`.
+- Norms and metrics are grouped in `src/routes/norms-metrics.tsx`.
 
 ## Architecture notes
 

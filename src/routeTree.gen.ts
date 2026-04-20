@@ -11,14 +11,18 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransposeRouteImport } from './routes/transpose'
 import { Route as TraceRankRouteImport } from './routes/trace-rank'
+import { Route as StructureToolsRouteImport } from './routes/structure-tools'
 import { Route as SpacesRouteImport } from './routes/spaces'
 import { Route as ScalarRouteImport } from './routes/scalar'
 import { Route as RrefRouteImport } from './routes/rref'
 import { Route as PowerRouteImport } from './routes/power'
+import { Route as NormsMetricsRouteImport } from './routes/norms-metrics'
 import { Route as MatrixProductsRouteImport } from './routes/matrix-products'
 import { Route as MatrixExponentialRouteImport } from './routes/matrix-exponential'
 import { Route as LinearSystemRouteImport } from './routes/linear-system'
 import { Route as InverseRouteImport } from './routes/inverse'
+import { Route as GeneratorsRouteImport } from './routes/generators'
+import { Route as ElementwiseRouteImport } from './routes/elementwise'
 import { Route as EigenCharacteristicRouteImport } from './routes/eigen-characteristic'
 import { Route as DeterminantRouteImport } from './routes/determinant'
 import { Route as DecompositionsRouteImport } from './routes/decompositions'
@@ -34,6 +38,11 @@ const TransposeRoute = TransposeRouteImport.update({
 const TraceRankRoute = TraceRankRouteImport.update({
   id: '/trace-rank',
   path: '/trace-rank',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StructureToolsRoute = StructureToolsRouteImport.update({
+  id: '/structure-tools',
+  path: '/structure-tools',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SpacesRoute = SpacesRouteImport.update({
@@ -56,6 +65,11 @@ const PowerRoute = PowerRouteImport.update({
   path: '/power',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NormsMetricsRoute = NormsMetricsRouteImport.update({
+  id: '/norms-metrics',
+  path: '/norms-metrics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MatrixProductsRoute = MatrixProductsRouteImport.update({
   id: '/matrix-products',
   path: '/matrix-products',
@@ -74,6 +88,16 @@ const LinearSystemRoute = LinearSystemRouteImport.update({
 const InverseRoute = InverseRouteImport.update({
   id: '/inverse',
   path: '/inverse',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GeneratorsRoute = GeneratorsRouteImport.update({
+  id: '/generators',
+  path: '/generators',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ElementwiseRoute = ElementwiseRouteImport.update({
+  id: '/elementwise',
+  path: '/elementwise',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EigenCharacteristicRoute = EigenCharacteristicRouteImport.update({
@@ -114,14 +138,18 @@ export interface FileRoutesByFullPath {
   '/decompositions': typeof DecompositionsRoute
   '/determinant': typeof DeterminantRoute
   '/eigen-characteristic': typeof EigenCharacteristicRoute
+  '/elementwise': typeof ElementwiseRoute
+  '/generators': typeof GeneratorsRoute
   '/inverse': typeof InverseRoute
   '/linear-system': typeof LinearSystemRoute
   '/matrix-exponential': typeof MatrixExponentialRoute
   '/matrix-products': typeof MatrixProductsRoute
+  '/norms-metrics': typeof NormsMetricsRoute
   '/power': typeof PowerRoute
   '/rref': typeof RrefRoute
   '/scalar': typeof ScalarRoute
   '/spaces': typeof SpacesRoute
+  '/structure-tools': typeof StructureToolsRoute
   '/trace-rank': typeof TraceRankRoute
   '/transpose': typeof TransposeRoute
 }
@@ -132,14 +160,18 @@ export interface FileRoutesByTo {
   '/decompositions': typeof DecompositionsRoute
   '/determinant': typeof DeterminantRoute
   '/eigen-characteristic': typeof EigenCharacteristicRoute
+  '/elementwise': typeof ElementwiseRoute
+  '/generators': typeof GeneratorsRoute
   '/inverse': typeof InverseRoute
   '/linear-system': typeof LinearSystemRoute
   '/matrix-exponential': typeof MatrixExponentialRoute
   '/matrix-products': typeof MatrixProductsRoute
+  '/norms-metrics': typeof NormsMetricsRoute
   '/power': typeof PowerRoute
   '/rref': typeof RrefRoute
   '/scalar': typeof ScalarRoute
   '/spaces': typeof SpacesRoute
+  '/structure-tools': typeof StructureToolsRoute
   '/trace-rank': typeof TraceRankRoute
   '/transpose': typeof TransposeRoute
 }
@@ -151,14 +183,18 @@ export interface FileRoutesById {
   '/decompositions': typeof DecompositionsRoute
   '/determinant': typeof DeterminantRoute
   '/eigen-characteristic': typeof EigenCharacteristicRoute
+  '/elementwise': typeof ElementwiseRoute
+  '/generators': typeof GeneratorsRoute
   '/inverse': typeof InverseRoute
   '/linear-system': typeof LinearSystemRoute
   '/matrix-exponential': typeof MatrixExponentialRoute
   '/matrix-products': typeof MatrixProductsRoute
+  '/norms-metrics': typeof NormsMetricsRoute
   '/power': typeof PowerRoute
   '/rref': typeof RrefRoute
   '/scalar': typeof ScalarRoute
   '/spaces': typeof SpacesRoute
+  '/structure-tools': typeof StructureToolsRoute
   '/trace-rank': typeof TraceRankRoute
   '/transpose': typeof TransposeRoute
 }
@@ -171,14 +207,18 @@ export interface FileRouteTypes {
     | '/decompositions'
     | '/determinant'
     | '/eigen-characteristic'
+    | '/elementwise'
+    | '/generators'
     | '/inverse'
     | '/linear-system'
     | '/matrix-exponential'
     | '/matrix-products'
+    | '/norms-metrics'
     | '/power'
     | '/rref'
     | '/scalar'
     | '/spaces'
+    | '/structure-tools'
     | '/trace-rank'
     | '/transpose'
   fileRoutesByTo: FileRoutesByTo
@@ -189,14 +229,18 @@ export interface FileRouteTypes {
     | '/decompositions'
     | '/determinant'
     | '/eigen-characteristic'
+    | '/elementwise'
+    | '/generators'
     | '/inverse'
     | '/linear-system'
     | '/matrix-exponential'
     | '/matrix-products'
+    | '/norms-metrics'
     | '/power'
     | '/rref'
     | '/scalar'
     | '/spaces'
+    | '/structure-tools'
     | '/trace-rank'
     | '/transpose'
   id:
@@ -207,14 +251,18 @@ export interface FileRouteTypes {
     | '/decompositions'
     | '/determinant'
     | '/eigen-characteristic'
+    | '/elementwise'
+    | '/generators'
     | '/inverse'
     | '/linear-system'
     | '/matrix-exponential'
     | '/matrix-products'
+    | '/norms-metrics'
     | '/power'
     | '/rref'
     | '/scalar'
     | '/spaces'
+    | '/structure-tools'
     | '/trace-rank'
     | '/transpose'
   fileRoutesById: FileRoutesById
@@ -226,14 +274,18 @@ export interface RootRouteChildren {
   DecompositionsRoute: typeof DecompositionsRoute
   DeterminantRoute: typeof DeterminantRoute
   EigenCharacteristicRoute: typeof EigenCharacteristicRoute
+  ElementwiseRoute: typeof ElementwiseRoute
+  GeneratorsRoute: typeof GeneratorsRoute
   InverseRoute: typeof InverseRoute
   LinearSystemRoute: typeof LinearSystemRoute
   MatrixExponentialRoute: typeof MatrixExponentialRoute
   MatrixProductsRoute: typeof MatrixProductsRoute
+  NormsMetricsRoute: typeof NormsMetricsRoute
   PowerRoute: typeof PowerRoute
   RrefRoute: typeof RrefRoute
   ScalarRoute: typeof ScalarRoute
   SpacesRoute: typeof SpacesRoute
+  StructureToolsRoute: typeof StructureToolsRoute
   TraceRankRoute: typeof TraceRankRoute
   TransposeRoute: typeof TransposeRoute
 }
@@ -252,6 +304,13 @@ declare module '@tanstack/react-router' {
       path: '/trace-rank'
       fullPath: '/trace-rank'
       preLoaderRoute: typeof TraceRankRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/structure-tools': {
+      id: '/structure-tools'
+      path: '/structure-tools'
+      fullPath: '/structure-tools'
+      preLoaderRoute: typeof StructureToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/spaces': {
@@ -282,6 +341,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PowerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/norms-metrics': {
+      id: '/norms-metrics'
+      path: '/norms-metrics'
+      fullPath: '/norms-metrics'
+      preLoaderRoute: typeof NormsMetricsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/matrix-products': {
       id: '/matrix-products'
       path: '/matrix-products'
@@ -308,6 +374,20 @@ declare module '@tanstack/react-router' {
       path: '/inverse'
       fullPath: '/inverse'
       preLoaderRoute: typeof InverseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/generators': {
+      id: '/generators'
+      path: '/generators'
+      fullPath: '/generators'
+      preLoaderRoute: typeof GeneratorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/elementwise': {
+      id: '/elementwise'
+      path: '/elementwise'
+      fullPath: '/elementwise'
+      preLoaderRoute: typeof ElementwiseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/eigen-characteristic': {
@@ -362,14 +442,18 @@ const rootRouteChildren: RootRouteChildren = {
   DecompositionsRoute: DecompositionsRoute,
   DeterminantRoute: DeterminantRoute,
   EigenCharacteristicRoute: EigenCharacteristicRoute,
+  ElementwiseRoute: ElementwiseRoute,
+  GeneratorsRoute: GeneratorsRoute,
   InverseRoute: InverseRoute,
   LinearSystemRoute: LinearSystemRoute,
   MatrixExponentialRoute: MatrixExponentialRoute,
   MatrixProductsRoute: MatrixProductsRoute,
+  NormsMetricsRoute: NormsMetricsRoute,
   PowerRoute: PowerRoute,
   RrefRoute: RrefRoute,
   ScalarRoute: ScalarRoute,
   SpacesRoute: SpacesRoute,
+  StructureToolsRoute: StructureToolsRoute,
   TraceRankRoute: TraceRankRoute,
   TransposeRoute: TransposeRoute,
 }

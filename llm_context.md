@@ -34,8 +34,19 @@
 - `solveLinearSystem`, `luDecomposition`, `qrDecomposition`, `gramSchmidtOrthogonalization`, `nullSpaceBasis`, and `columnSpaceBasis` are numeric-only and provide user-readable validation errors.
 - `commutator` and `anticommutator` require same-size square matrices.
 - `directSum` builds a block diagonal matrix from two inputs of any dimensions.
+- `elementWisePower` and `matrixPower` are both exposed and intentionally separated in UX.
+- Shape utilities implemented: `reshapeMatrix`, `flattenMatrix`, `resizeMatrix`, concat/slice/permutation/reverse, diagonal and band extraction.
+- Generator utilities implemented: zero/ones/random/Toeplitz/circulant/diagonal.
+- Metrics implemented: Frobenius, L1, infinity norms, distance, relative error, nullity, and 1-norm condition number.
+
+## Deployment (Vercel)
+
+- **TanStack Start** serves SSR via `hydrateRoot(document, …)`; publishing only `dist/client` (no `index.html`) caused Vercel `NOT_FOUND`. Fix: on Vercel builds (`VERCEL=1`), disable the Cloudflare Vite plugin and enable **Nitro** (`nitro/vite`) so the build emits `.vercel/output` for Vercel Functions + static assets (see `vite.config.ts` and [Vercel TanStack Start docs](https://vercel.com/docs/frameworks/full-stack/tanstack-start)).
+- `vercel.json` sets `installCommand` + `buildCommand` only; do **not** set `outputDirectory` to `dist/client` for production—let Nitro/Vercel consume `.vercel/output`.
+- Non-Vercel builds keep the default Cloudflare worker output under `dist/`.
 
 ## Testing conventions
 
 - Unit tests for matrix operations live in `src/lib/matrix.test.ts`.
 - Use numeric assertions with tolerance for decomposition/eigen/exponential routines.
+- Sidebar navigation is now organized by operation subsections via accordion dropdowns to match product taxonomy.
