@@ -83,7 +83,11 @@ try {
   if (!res.ok) {
     throw new Error(`SSR failed: ${res.status} ${res.statusText}`);
   }
-  const html = await res.text();
+  let html = await res.text();
+
+  // GitHub project pages are served from /<repo>/, not root.
+  // Rewrite root-relative URLs in SSR HTML (assets, links, script imports).
+  html = html.replaceAll(/([("'`])\/(?!\/)/g, `$1${pagesPrefix}/`);
 
   await cp(staticSrc, outDir, { recursive: true });
   await writeFile(join(outDir, "index.html"), html, "utf8");
