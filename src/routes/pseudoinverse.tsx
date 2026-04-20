@@ -25,18 +25,28 @@ export const Route = createFileRoute("/pseudoinverse")({
           "Compute matrix pseudoinverse using full-rank formulas for tall or wide numeric matrices and inspect projection checks.",
       },
       { property: "og:title", content: "Moore-Penrose Pseudoinverse Calculator" },
-      { property: "og:description", content: "Find A+ for rectangular systems and least-squares workflows." },
+      {
+        property: "og:description",
+        content: "Find A+ for rectangular systems and least-squares workflows.",
+      },
     ],
   }),
   component: PseudoinversePage,
 });
 
 function PseudoinversePage() {
-  const [a, setA] = useState<Matrix>(() => fromNumbers([[1, 2], [2, 1], [0, 1]]));
+  const [a, setA] = useState<Matrix>(() =>
+    fromNumbers([
+      [1, 2],
+      [2, 1],
+      [0, 1],
+    ]),
+  );
 
   const out = useMemo(() => {
     try {
-      if (!isFullyNumeric(a)) throw new Error("Pseudoinverse currently requires a fully numeric matrix");
+      if (!isFullyNumeric(a))
+        throw new Error("Pseudoinverse currently requires a fully numeric matrix");
       const { rows, cols } = dims(a);
       const r = rank(a);
       const at = transpose(a);
@@ -64,7 +74,14 @@ function PseudoinversePage() {
         error: null as string | null,
       };
     } catch (e) {
-      return { pinv: null, leftProjection: null, rightProjection: null, rankText: "", method: "", error: e instanceof Error ? e.message : "Error" };
+      return {
+        pinv: null,
+        leftProjection: null,
+        rightProjection: null,
+        rankText: "",
+        method: "",
+        error: e instanceof Error ? e.message : "Error",
+      };
     }
   }, [a]);
 
@@ -85,9 +102,21 @@ function PseudoinversePage() {
             <p className="text-sm text-muted-foreground">{out.method}</p>
             <p className="text-sm text-muted-foreground font-mono">{out.rankText}</p>
             <div className="grid lg:grid-cols-2 gap-4">
-              {out.pinv && <div className="overflow-x-auto"><MatrixDisplay m={out.pinv} label="A+" /></div>}
-              {out.leftProjection && <div className="overflow-x-auto"><MatrixDisplay m={out.leftProjection} label="A A+ A (should equal A)" /></div>}
-              {out.rightProjection && <div className="overflow-x-auto"><MatrixDisplay m={out.rightProjection} label="A+ A A+ (should equal A+)" /></div>}
+              {out.pinv && (
+                <div className="overflow-x-auto">
+                  <MatrixDisplay m={out.pinv} label="A+" />
+                </div>
+              )}
+              {out.leftProjection && (
+                <div className="overflow-x-auto">
+                  <MatrixDisplay m={out.leftProjection} label="A A+ A (should equal A)" />
+                </div>
+              )}
+              {out.rightProjection && (
+                <div className="overflow-x-auto">
+                  <MatrixDisplay m={out.rightProjection} label="A+ A A+ (should equal A+)" />
+                </div>
+              )}
             </div>
           </>
         )}
@@ -96,14 +125,31 @@ function PseudoinversePage() {
       <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
         <h2 className="text-xl font-semibold">How pseudoinverse works</h2>
         <p className="text-sm text-muted-foreground">
-          The Moore-Penrose pseudoinverse extends inversion to rectangular matrices and gives least-squares solutions
+          The Moore-Penrose pseudoinverse extends inversion to rectangular matrices and gives
+          least-squares solutions
           <span className="font-mono"> x* = A+ b</span> when exact solves do not exist.
         </p>
         <p className="text-sm text-muted-foreground">
-          For full column rank, <span className="font-mono">A+ = (A^T A)^(-1)A^T</span>; for full row rank,
-          <span className="font-mono"> A+ = A^T(AA^T)^(-1)</span>. Rank-deficient cases generally require SVD.
+          For full column rank, <span className="font-mono">A+ = (A^T A)^(-1)A^T</span>; for full
+          row rank,
+          <span className="font-mono"> A+ = A^T(AA^T)^(-1)</span>. Rank-deficient cases generally
+          require SVD, which enforces all four Moore-Penrose conditions.
         </p>
+        <ul className="list-disc pl-6 space-y-1 text-sm text-muted-foreground">
+          <li>Moore-Penrose conditions: AA+A=A, A+AA+=A+, (AA+)^T=AA+, (A+A)^T=A+A.</li>
+          <li>AA+ projects onto col(A), while A+A projects onto row(A).</li>
+          <li>SVD-based A+ is preferred numerically near rank-deficiency or noisy data.</li>
+          <li>
+            Residual checks: ||AA+A-A|| and ||A+AA+-A+|| should be near zero for stable inputs.
+          </li>
+        </ul>
       </section>
+
+      <p className="text-sm text-muted-foreground">
+        In data fitting terms, A+ maps observations to minimum-norm least-squares parameters when
+        the original system is over- or under-determined. The displayed checks A A+ A = A and A+ A
+        A+ = A+ are residual-style sanity tests.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

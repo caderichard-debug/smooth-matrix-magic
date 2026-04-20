@@ -84,14 +84,25 @@ function PolarDecompositionPage() {
         <p className="text-sm text-muted-foreground">
           Any invertible real square matrix A can be factored as A = U P, where U is orthogonal (U^T
           U = I) and P is symmetric positive-definite. Geometrically, U is a pure
-          rotation/reflection and P is pure stretch.
+          rotation/reflection and P is pure stretch; also P = (A^T A)^(1/2).
         </p>
         <p className="text-sm text-muted-foreground">
           This page uses Newton iteration for the unitary factor:
           <span className="font-mono"> X_(k+1) = 0.5 * (X_k + X_k^(-T))</span>, starting from X_0 =
-          A. Then P is formed as U^T A.
+          A. Then P is formed as U^T A and symmetrized numerically.
         </p>
+        <ul className="list-disc pl-6 space-y-1 text-sm text-muted-foreground">
+          <li>Algorithm sketch: set X0=A, iterate Newton map, set U=Xk, set P=U^T A.</li>
+          <li>Convergence is best when A is invertible and not severely ill-conditioned.</li>
+          <li>Useful checks: ||A-UP||_F near 0, ||U^T U-I||_F near 0, and P approximately symmetric.</li>
+          <li>The complementary left form is A=P&apos;U with P&apos;=(A A^T)^(1/2).</li>
+        </ul>
       </section>
+
+      <p className="text-sm text-muted-foreground">
+        A small residual means the computed factors numerically reconstruct A well; larger residuals
+        often indicate ill-conditioning, weak invertibility, or too few Newton iterations.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

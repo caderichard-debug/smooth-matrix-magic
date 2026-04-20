@@ -42,8 +42,8 @@ type FunctionMode = "exp" | "power" | "resolvent";
 function MatrixFunctionsSpectrumPage() {
   const [a, setA] = useState<Matrix>(() =>
     fromNumbers([
-      [2, 1],
-      [0, 3],
+      [2.5, 1],
+      [0, 3.2],
     ]),
   );
   const [mode, setMode] = useState<FunctionMode>("exp");
@@ -132,12 +132,18 @@ function MatrixFunctionsSpectrumPage() {
         <p className="text-sm text-muted-foreground">
           If A is diagonalizable, A = P D P^-1 with D = diag(lambda1, lambda2). For a scalar
           function f defined on the eigenvalues, f(A) is computed as P diag(f(lambda1), f(lambda2))
-          P^-1.
+          P^-1. This is the finite-dimensional functional calculus and implies spectral mapping
+          <span className="font-mono"> spec(f(A)) = f(spec(A))</span>.
         </p>
         <p className="text-sm text-muted-foreground">
           This route provides three valid examples: exponential, integer power, and the
           resolvent-like map 1/(1-lambda) (which requires lambda != 1). The implementation is
           intentionally scoped to real diagonalizable 2x2 input.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          Stability note: when eigenvalues are very close, eigenvector matrices can become
+          ill-conditioned and amplify rounding in f(A), even if scalar evaluations f(lambda_i) are
+          stable.
         </p>
       </section>
 

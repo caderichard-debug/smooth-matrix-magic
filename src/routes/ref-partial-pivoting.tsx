@@ -94,15 +94,20 @@ function RefPartialPivotingPage() {
           How ref with partial pivoting works
         </h2>
         <p>
-          For each pivot column, the algorithm swaps in the row with largest absolute candidate
-          entry below the current pivot row. This reduces growth in multipliers and improves
-          floating-point stability.
+          For each pivot column k, choose p = argmax(i ge k)|a_ik| and swap R_k with R_p. This keeps
+          the elimination multipliers m_ik = a_ik/a_kk smaller on average, improving stability.
         </p>
         <p>
-          The output is row echelon form (REF), not reduced REF. Logs report swap decisions and
-          elimination factors so users can trace conditioning-sensitive steps.
+          Elimination uses <span className="font-mono">R_i = R_i - m_ik R_k</span> for i &gt; k,
+          yielding REF (not RREF). If every candidate pivot in a column is below tolerance, that
+          column is skipped and no pivot is recorded there.
         </p>
       </section>
+
+      <p>
+        Comparing pivot magnitudes across steps helps spot poorly scaled systems where rescaling or
+        reordering variables may improve numerical behavior.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

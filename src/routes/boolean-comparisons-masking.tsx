@@ -35,14 +35,14 @@ export const Route = createFileRoute("/boolean-comparisons-masking")({
 function BooleanComparisonsMaskingPage() {
   const [a, setA] = useState<Matrix>(() =>
     fromNumbers([
-      [3, 1, 5],
-      [0, 4, 2],
+      [3.2, 1.0, 5.5],
+      [0.4, 4.1, 2.3],
     ]),
   );
   const [b, setB] = useState<Matrix>(() =>
     fromNumbers([
-      [1, 1, 3],
-      [2, 2, 2],
+      [1.0, 1.3, 3.2],
+      [2.2, 2.0, 2.1],
     ]),
   );
 
@@ -149,8 +149,14 @@ function BooleanComparisonsMaskingPage() {
           positions with 1 keep the original value.
         </p>
         <p>
-          This is useful for thresholding, highlighting differences, and selecting diagonal or
-          banded structure before later matrix operations.
+          Masks can be combined with boolean algebra:
+          <span className="font-mono">M = (A&gt;B) AND bandMask</span> or
+          <span className="font-mono">M1 OR M2</span>, then applied as
+          <span className="font-mono">A .* M</span>.
+        </p>
+        <p>
+          When values are noisy measurements, prefer tolerance-based comparisons over strict
+          equality so masks reflect meaningful differences instead of floating-point jitter.
         </p>
       </section>
 

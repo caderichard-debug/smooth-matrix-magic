@@ -88,14 +88,19 @@ function JordanFormPage() {
           Jordan form places eigenvalues on the diagonal and uses 1s on superdiagonal positions when
           independent eigenvectors are missing. For a 2x2 matrix with repeated eigenvalue lambda,
           either J = diag(lambda, lambda) (diagonalizable) or J = [[lambda, 1], [0, lambda]]
-          (defective).
+          (defective), corresponding to geometric multiplicity 2 vs 1.
         </p>
         <p className="text-sm text-muted-foreground">
           This route is intentionally scoped to real 2x2 numeric input. For complex-conjugate
           eigenvalues, a real canonical block [[a, b], [-b, a]] is returned instead of complex
-          Jordan entries.
+          Jordan entries, preserving real arithmetic.
         </p>
       </section>
+
+      <p className="text-sm text-muted-foreground">
+        Jordan classification is especially useful for understanding repeated-eigenvalue dynamics,
+        where defective blocks lead to polynomial factors (e.g., k*lambda^(k-1)) in matrix powers.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

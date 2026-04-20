@@ -146,6 +146,10 @@ function TransformMatricesPage() {
           <span className="font-mono">T in R^(3x3)</span>.
         </p>
         <p className="text-sm text-muted-foreground">
+          Matrix composition follows <span className="font-mono">(AB)x = A(Bx)</span>, so the right
+          factor acts first on vectors.
+        </p>
+        <p className="text-sm text-muted-foreground">
           The determinant controls geometric scaling: <span className="font-mono">|det(T)|</span> is
           the area scale in 2D and volume scale in 3D. If{" "}
           <span className="font-mono">det(T)=0</span>, dimensions collapse and no inverse exists.
@@ -154,7 +158,16 @@ function TransformMatricesPage() {
           The sign of <span className="font-mono">det(T)</span> tracks orientation: positive
           preserves orientation, negative reverses it.
         </p>
+        <p className="text-sm text-muted-foreground">
+          The singular case <span className="font-mono">det(T)=0</span> maps all vectors into a
+          lower-dimensional subspace (line/plane), losing recoverable information.
+        </p>
       </section>
+
+      <p className="text-sm text-muted-foreground">
+        For square T, the columns of T are exactly the transformed basis vectors, so the matrix can
+        be read as a geometric recipe for the entire transform.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

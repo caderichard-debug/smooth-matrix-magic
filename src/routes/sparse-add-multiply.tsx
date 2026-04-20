@@ -26,8 +26,8 @@ export const Route = createFileRoute("/sparse-add-multiply")({
 });
 
 function SparseAddMultiplyPage() {
-  const [aText, setAText] = useState("1 0 0\n0 2 0\n3 0 4");
-  const [bText, setBText] = useState("0 5 0\n0 0 6\n7 0 0");
+  const [aText, setAText] = useState("1.5 0 0\n0 2.25 0\n3.75 0 4.5");
+  const [bText, setBText] = useState("0 5.2 0\n0 0 6.4\n7.1 0 0");
 
   const result = useMemo(() => {
     try {
@@ -113,13 +113,16 @@ function SparseAddMultiplyPage() {
       <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
         <h2 className="text-foreground text-xl font-semibold">How sparse add and multiply works</h2>
         <p>
-          Inputs are parsed as dense numeric matrices, then converted into sparse coordinate
-          entries. Addition merges matching coordinates; multiplication accumulates products only
-          where non-zero row/column links exist.
+          Sparse addition is coordinate-wise: (A+B)_ij = A_ij + B_ij, so only shared coordinates are
+          summed and unique non-zeros are carried through.
         </p>
         <p>
-          Results are returned as compact (row, col, value) lines to help compare non-zero growth
-          before pushing data into CSR/CSC pipelines or iterative solvers.
+          Sparse multiplication uses C_ij = sum_k A_ik B_kj but only for k where both factors are
+          non-zero, so work scales with structural overlap instead of dense m*n*p loops.
+        </p>
+        <p>
+          Track nnz(C) after multiply: fill-in can make C much denser than A or B, signaling when
+          reordering, blocking, or approximation is needed.
         </p>
       </section>
 

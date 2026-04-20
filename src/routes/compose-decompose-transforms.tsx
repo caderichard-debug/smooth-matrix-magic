@@ -150,10 +150,25 @@ function ComposeDecomposeTransformsPage() {
           apply A first and then B, the net transform is <span className="font-mono">C = B·A</span>.
         </p>
         <p className="text-sm text-muted-foreground">
+          The linear 2x2 block of <span className="font-mono">C</span> controls
+          rotation/scale/shear, while the third column stores translation; this separates motion and
+          shape effects.
+        </p>
+        <p className="text-sm text-muted-foreground">
           Decomposition separates the linear 2x2 block into rotation-scale-shear terms using a
           Gram-Schmidt style factorization. Translation is read directly from the third column.
         </p>
+        <p className="text-sm text-muted-foreground">
+          Near-zero recovered scale (<span className="font-mono">det approx 0</span> in the linear
+          block) indicates a near-singular map, where extracted angles/shears become highly
+          condition-sensitive.
+        </p>
       </section>
+
+      <p className="text-sm text-muted-foreground">
+        Because decomposition is not unique in degenerate cases, treat extracted parameters as a
+        practical local description rather than a universal canonical form.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

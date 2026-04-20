@@ -128,6 +128,11 @@ function HomogeneousCoordinatesPage() {
           with a single 3x3 matrix.
         </p>
         <p className="text-sm text-muted-foreground">
+          In block form, <span className="font-mono">H = [[A,t],[0,1]]</span> where{" "}
+          <span className="font-mono">A</span> is the 2x2 linear part and{" "}
+          <span className="font-mono">t</span> is translation.
+        </p>
+        <p className="text-sm text-muted-foreground">
           Translation is linear in homogeneous form, so composition order is explicit: this page
           uses <span className="font-mono">H = T·R·S</span>, meaning scale first, then rotate, then
           translate.
@@ -136,7 +141,17 @@ function HomogeneousCoordinatesPage() {
           Cartesian output recovers by dividing by <span className="font-mono">w</span>. For affine
           maps, ideal arithmetic gives <span className="font-mono">w=1</span>.
         </p>
+        <p className="text-sm text-muted-foreground">
+          If <span className="font-mono">w=0</span>, the mapped point is at infinity in projective
+          geometry; this is why normalization by <span className="font-mono">w</span> is the key
+          final interpretation step.
+        </p>
       </section>
+
+      <p className="text-sm text-muted-foreground">
+        Homogeneous form also generalizes cleanly to perspective/projective mappings, where w varies
+        and normalization becomes the key final step.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

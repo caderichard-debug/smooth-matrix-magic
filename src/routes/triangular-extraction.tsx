@@ -16,14 +16,23 @@ export const Route = createFileRoute("/triangular-extraction")({
           "Extract upper, lower, strict-upper, strict-lower, and unit-triangular forms from a matrix for elimination workflows.",
       },
       { property: "og:title", content: "Triangular Matrix Extraction Calculator" },
-      { property: "og:description", content: "Inspect triangular parts used in LU-style algorithms and matrix splitting." },
+      {
+        property: "og:description",
+        content: "Inspect triangular parts used in LU-style algorithms and matrix splitting.",
+      },
     ],
   }),
   component: TriangularExtractionPage,
 });
 
 function TriangularExtractionPage() {
-  const [a, setA] = useState<Matrix>(() => fromNumbers([[2, -1, 3], [4, 5, 6], [7, 8, 9]]));
+  const [a, setA] = useState<Matrix>(() =>
+    fromNumbers([
+      [2.5, -1.0, 3.5],
+      [4.0, 5.5, 6.5],
+      [7.5, 8.5, 9.0],
+    ]),
+  );
 
   const tri = useMemo(() => {
     const lower = bandExtract(a, Number.MAX_SAFE_INTEGER, 0);
@@ -46,28 +55,53 @@ function TriangularExtractionPage() {
       <div className="grid lg:grid-cols-2 gap-6">
         <section className="rounded-lg border border-border bg-card/40 p-6 space-y-4">
           <h2 className="text-xl font-semibold">Triangular parts</h2>
-          <div className="overflow-x-auto"><MatrixDisplay m={tri.lower} label="Lower triangular part L(A)" /></div>
-          <div className="overflow-x-auto"><MatrixDisplay m={tri.upper} label="Upper triangular part U(A)" /></div>
-          <div className="overflow-x-auto"><MatrixDisplay m={tri.strictLower} label="Strict lower part (diag removed)" /></div>
-          <div className="overflow-x-auto"><MatrixDisplay m={tri.strictUpper} label="Strict upper part (diag removed)" /></div>
+          <div className="overflow-x-auto">
+            <MatrixDisplay m={tri.lower} label="Lower triangular part L(A)" />
+          </div>
+          <div className="overflow-x-auto">
+            <MatrixDisplay m={tri.upper} label="Upper triangular part U(A)" />
+          </div>
+          <div className="overflow-x-auto">
+            <MatrixDisplay m={tri.strictLower} label="Strict lower part (diag removed)" />
+          </div>
+          <div className="overflow-x-auto">
+            <MatrixDisplay m={tri.strictUpper} label="Strict upper part (diag removed)" />
+          </div>
         </section>
         <section className="rounded-lg border border-border bg-card/40 p-6 space-y-4">
           <h2 className="text-xl font-semibold">Unit triangular variants</h2>
-          <div className="overflow-x-auto"><MatrixDisplay m={tri.unitLower} label="Unit-lower (diag set to 1)" /></div>
-          <div className="overflow-x-auto"><MatrixDisplay m={tri.unitUpper} label="Unit-upper (diag set to 1)" /></div>
+          <div className="overflow-x-auto">
+            <MatrixDisplay m={tri.unitLower} label="Unit-lower (diag set to 1)" />
+          </div>
+          <div className="overflow-x-auto">
+            <MatrixDisplay m={tri.unitUpper} label="Unit-upper (diag set to 1)" />
+          </div>
         </section>
       </div>
 
       <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
         <h2 className="text-xl font-semibold">How triangular extraction works</h2>
         <p className="text-sm text-muted-foreground">
-          Lower extraction keeps entries with <span className="font-mono">i &ge; j</span>, while upper extraction keeps
-          entries with <span className="font-mono">i &le; j</span>. Strict forms drop the diagonal.
+          Lower extraction keeps entries with <span className="font-mono">i &ge; j</span>, while
+          upper extraction keeps entries with <span className="font-mono">i &le; j</span>. Strict
+          forms drop the diagonal.
         </p>
         <p className="text-sm text-muted-foreground">
-          Unit triangular matrices force diagonal entries to 1, which is common in LU factorizations where L is unit-lower
-          and U is upper triangular.
+          Unit triangular matrices force diagonal entries to 1, which is common in LU factorizations
+          where L is unit-lower and U is upper triangular.
         </p>
+        <p className="text-sm text-muted-foreground">
+          For square A with diagonal D, decomposition identities include
+          <span className="font-mono"> A = lower(A) + strictUpper(A)</span> and
+          <span className="font-mono"> A = strictLower(A) + upper(A)</span>. Triangular extraction
+          is also used in splittings like <span className="font-mono">A = D + L + U</span> for
+          iterative solvers.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+          <li>The strict lower and strict upper parts always have zeros on the diagonal.</li>
+          <li>If D is the diagonal matrix of A, then A = strictLower(A) + D + strictUpper(A).</li>
+          <li>For square A, lower(A) + upper(A) - D recovers A exactly.</li>
+        </ul>
       </section>
 
       <AdSlot label="Ad space — below result" height="h-28" />

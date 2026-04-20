@@ -68,6 +68,12 @@
 - These new pages follow `PageLayout` + route-level custom "How ... works" sections + below-result `AdSlot`, with friendly numeric/shape validation and in-browser computation.
 - Newly added route tools: Gaussian elimination step logger, pivot/free-variable analyzer, REF with partial pivoting, CSR/CSC conversion, sparse add/multiply, sparse bandwidth profile, and sparse Jacobi iterative solve.
 - Sparse tooling now uses `src/lib/sparse.ts` for dense numeric parsing assumptions, sparse entry extraction, CSR/CSC conversion, bandwidth/profile metrics, and Jacobi residual-history reporting.
+- April 2026 copy pass: decomposition/transform/structure pages now include one extra concise explanatory paragraph each, while keeping defaults decimal-first (no non-essential fraction-prefilled inputs in that route cluster).
+- April 2026 spectral/decomposition copy refinement: "How ... works" sections on advanced linear-algebra routes now include concise equation-level properties (spectral mapping, SPD/orthogonality conditions, convergence caveats, and residual interpretation checks) without behavior changes.
+- April 2026 copy pass (follow-up): expanded "How ... works" sections for matrix product/structure/block/classical determinant pages with concise formulas for dimension constraints, identities, and cofactor/multilinearity relations in:
+  - `matrix-products`, `advanced-products`, `elementwise`, `structure-tools`, `split-partition`, `stack-unstack-blocks`,
+    `triangular-extraction`, `symmetrize-skew`, `block-matrix-builder`, `adjugate-cofactor`,
+    `determinant-expansion`, and `vandermonde-pascal-hilbert`.
 
 ## Deployment (GitHub Pages)
 

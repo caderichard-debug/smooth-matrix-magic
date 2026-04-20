@@ -27,7 +27,12 @@ export const Route = createFileRoute("/power")({
 });
 
 function PowerPage() {
-  const [a, setA] = useState<Matrix>(() => fromNumbers([[1, 1], [1, 0]]));
+  const [a, setA] = useState<Matrix>(() =>
+    fromNumbers([
+      [1.2, 0.5],
+      [-0.3, 0.9],
+    ]),
+  );
   const [n, setN] = useState(5);
 
   const { result, error } = useMemo(() => {
@@ -59,7 +64,9 @@ function PowerPage() {
       <div className="grid lg:grid-cols-2 gap-6 items-start">
         <MatrixInput title="Matrix A" value={a} onChange={setA} />
         <section className="rounded-lg border border-border bg-card/40 p-6">
-          <h2 className="text-xl font-semibold mb-4">Result: A<sup>{n}</sup></h2>
+          <h2 className="text-xl font-semibold mb-4">
+            Result: A<sup>{n}</sup>
+          </h2>
           {error ? (
             <p className="text-destructive font-mono text-sm">{error}</p>
           ) : (
@@ -89,8 +96,20 @@ function PowerPage() {
         <p>
           This is only defined for square matrices because each multiplication needs matching inner
           dimensions. Special cases: <span className="font-mono text-primary">A⁰ = I</span>{" "}
-          (identity matrix of the same size) and <span className="font-mono text-primary">A¹ = A</span>.
+          (identity matrix of the same size) and{" "}
+          <span className="font-mono text-primary">A¹ = A</span>.
         </p>
+        <p>
+          Growth behavior depends on the matrix: some powers get large quickly, while others shrink
+          toward zero. In applications, <span className="font-mono text-primary">Aⁿ</span> often
+          models repeated transitions over <span className="font-mono text-primary">n</span> steps.
+        </p>
+        <ul className="list-disc pl-6 space-y-1 text-sm">
+          <li>Exponent law for one matrix: A^m A^n = A^(m+n).</li>
+          <li>(A^m)^n = A^(mn), valid for non-negative integers m, n.</li>
+          <li>If A is invertible, A^-n = (A^-1)^n.</li>
+          <li>In general (A + B)^n is not A^n + B^n, and (AB)^n = A^nB^n only when AB = BA.</li>
+        </ul>
       </section>
     </PageLayout>
   );

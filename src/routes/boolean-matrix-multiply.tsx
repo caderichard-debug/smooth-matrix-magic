@@ -99,17 +99,21 @@ function BooleanMatrixMultiplyPage() {
           How boolean matrix multiplication works
         </h2>
         <p>
-          Boolean product uses logical operations instead of arithmetic:
-          <span className="font-mono"> c_ij = OR_k (a_ik AND b_kj)</span>. So each output entry is 1
-          if at least one connecting path through k exists.
+          Boolean product replaces +/* with OR/AND:
+          <span className="font-mono"> c_ij = OR_k (a_ik AND b_kj)</span>. So c_ij=1 iff at least
+          one intermediate index k links i to j.
         </p>
         <p>
           This is common in graph reachability and relation composition. If A and B are
           adjacency-like matrices, the product tells you whether two-step connections exist.
         </p>
         <p>
-          Inputs must be 0/1 matrices, and dimensions must satisfy A columns = B rows, just like
-          standard matrix multiplication.
+          Inputs must be 0/1 and dimensions still follow A.cols=B.rows. The operation is
+          associative, so repeated products model longer path composition.
+        </p>
+        <p>
+          Read each output 1 as "at least one valid intermediate link exists"; this interpretation
+          is often clearer than treating boolean products as numeric arithmetic.
         </p>
       </section>
 

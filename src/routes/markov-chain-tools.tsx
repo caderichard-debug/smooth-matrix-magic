@@ -171,7 +171,18 @@ function MarkovChainToolsPage() {
           <span className="font-mono">pi*P = pi*</span>. This page estimates it by repeated
           multiplication, which converges under common ergodicity assumptions.
         </p>
+        <p className="text-sm text-muted-foreground">
+          Equivalent characterization: <span className="font-mono">P^T pi*^T = pi*^T</span> with{" "}
+          <span className="font-mono">sum_i pi*_i = 1</span> and{" "}
+          <span className="font-mono">pi*_i &gt;= 0</span>; for irreducible, aperiodic chains this
+          fixed point is unique and attracts all initial distributions.
+        </p>
       </section>
+
+      <p className="text-sm text-muted-foreground">
+        Comparing pi_n against pi* gives a quick empirical sense of mixing speed for your chosen
+        starting distribution.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

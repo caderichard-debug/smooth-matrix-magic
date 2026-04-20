@@ -16,18 +16,23 @@ export const Route = createFileRoute("/rref")({
           "Compute reduced row echelon form (RREF) of a matrix online using Gauss-Jordan elimination.",
       },
       { property: "og:title", content: "Matrix RREF Calculator" },
-      { property: "og:description", content: "Find the reduced row echelon form of a matrix online — free." },
+      {
+        property: "og:description",
+        content: "Find the reduced row echelon form of a matrix online — free.",
+      },
     ],
   }),
   component: RrefPage,
 });
 
 function RrefPage() {
-  const [a, setA] = useState<Matrix>(() => fromNumbers([
-    [1, 2, -1, -4],
-    [2, 3, -1, -11],
-    [-2, 0, -3, 22],
-  ]));
+  const [a, setA] = useState<Matrix>(() =>
+    fromNumbers([
+      [1.5, 2, -1, -4.5],
+      [2, 3.5, -1, -11],
+      [-2, 0.5, -3, 22],
+    ]),
+  );
 
   const { result, error } = useMemo(() => {
     try {
@@ -61,13 +66,28 @@ function RrefPage() {
 
       <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
         <h2 className="text-xl font-semibold">How RREF works</h2>
+        <p className="text-sm text-muted-foreground">
+          RREF is produced with elementary row operations that preserve row-equivalence and rank, so
+          the reduced form keeps the same solution set as the original system.
+        </p>
         <ul className="list-disc pl-6 space-y-1 text-sm text-muted-foreground">
-          <li>Use Gauss-Jordan elimination: swap rows, scale rows, and add multiples of rows to eliminate entries.</li>
+          <li>
+            Use Gauss-Jordan elimination: swap rows, scale rows, and add multiples of rows to
+            eliminate entries.
+          </li>
           <li>In RREF, each pivot is 1 and is the only nonzero value in its column.</li>
           <li>Columns without pivots are free-variable columns; pivot count equals rank.</li>
+          <li>Each pivot in a lower row appears to the right of pivots above it.</li>
+          <li>All-zero rows (if any) move to the bottom.</li>
+          <li>RREF(A) = I exactly when A is square and invertible.</li>
         </ul>
         <p className="text-sm text-muted-foreground">
-          RREF is unique for a matrix, so it gives a stable way to compare systems, find dependencies, and read solution structure.
+          RREF is unique for a matrix, so it gives a stable way to compare systems, find
+          dependencies, and read solution structure.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          Practical caveat: entries extremely close to zero may be rounding artifacts in numeric
+          elimination, not exact symbolic zeros.
         </p>
       </section>
 

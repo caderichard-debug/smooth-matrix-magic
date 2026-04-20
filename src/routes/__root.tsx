@@ -30,17 +30,37 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Lovable App" },
-      { name: "description", content: "Smooth Matrix is a user-friendly tool for performing matrix operations with symbolic math support." },
+      {
+        name: "description",
+        content:
+          "Smooth Matrix is a user-friendly tool for performing matrix operations with symbolic math support.",
+      },
       { name: "author", content: "Lovable" },
       { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Smooth Matrix is a user-friendly tool for performing matrix operations with symbolic math support." },
+      {
+        property: "og:description",
+        content:
+          "Smooth Matrix is a user-friendly tool for performing matrix operations with symbolic math support.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Lovable App" },
-      { name: "twitter:description", content: "Smooth Matrix is a user-friendly tool for performing matrix operations with symbolic math support." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7a068439-8c9c-44af-8e35-08bea7967502/id-preview-16bc57d3--a8783d19-ee1f-4df0-ac13-2755b27c9f0e.lovable.app-1776593017713.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7a068439-8c9c-44af-8e35-08bea7967502/id-preview-16bc57d3--a8783d19-ee1f-4df0-ac13-2755b27c9f0e.lovable.app-1776593017713.png" },
+      {
+        name: "twitter:description",
+        content:
+          "Smooth Matrix is a user-friendly tool for performing matrix operations with symbolic math support.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7a068439-8c9c-44af-8e35-08bea7967502/id-preview-16bc57d3--a8783d19-ee1f-4df0-ac13-2755b27c9f0e.lovable.app-1776593017713.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7a068439-8c9c-44af-8e35-08bea7967502/id-preview-16bc57d3--a8783d19-ee1f-4df0-ac13-2755b27c9f0e.lovable.app-1776593017713.png",
+      },
     ],
     links: [
       {

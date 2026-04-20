@@ -64,6 +64,9 @@ Smooth Matrix Magic is a web-based matrix manipulation toolset built for:
 - New transform and stochastic/graph pages are live: `transform-matrices-2d-3d`, `rotation-reflection-shear`,
   `homogeneous-coordinates`, `compose-decompose-transforms`, `householder-givens`, `companion-fiedler`,
   `markov-chain-tools`, and `graph-laplacian`.
+- The advanced route cluster (decomposition, transforms, spectral, block/structured tools) received a concise explanatory-copy refresh while preserving lean UI and decimal-first defaults.
+- Follow-up copy pass enriched "How ... works" blurbs on decomposition/spectral routes with compact mathematical properties, constraints, and diagnostic interpretation notes, preserving existing runtime behavior.
+- Follow-up explanatory-copy refresh expanded "How ... works" sections on product/structure/classical-identity pages with concise equations and dimension constraints (`matrix-products`, `advanced-products`, `elementwise`, `structure-tools`, `split-partition`, `stack-unstack-blocks`, `triangular-extraction`, `symmetrize-skew`, `block-matrix-builder`, `adjugate-cofactor`, `determinant-expansion`, `vandermonde-pascal-hilbert`).
 
 ## Architecture notes
 

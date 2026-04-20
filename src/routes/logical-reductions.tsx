@@ -123,12 +123,18 @@ function LogicalReductionsPage() {
           <span className="font-mono"> all </span> checks if every entry in that row is 1.
         </p>
         <p>
-          Column reductions do the same down each column. These summaries are helpful for quickly
-          identifying active rows, fully-satisfied constraints, or sparse patterns.
+          Formally, rowAny_i = OR_j a_ij, rowAll_i = AND_j a_ij, colAny_j = OR_i a_ij, and colAll_j
+          = AND_i a_ij. Column reductions apply the same logic down each column.
         </p>
         <p>
           The true-count and density give a compact global summary: how many entries are 1 and what
           fraction of the matrix is active.
+        </p>
+        <p>
+          Use row-wise <span className="font-mono">all</span> as a quick feasibility check and
+          row-wise
+          <span className="font-mono">any</span> as an activity check when screening large binary
+          feature sets.
         </p>
       </section>
 

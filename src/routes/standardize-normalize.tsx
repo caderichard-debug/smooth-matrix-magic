@@ -27,10 +27,10 @@ export const Route = createFileRoute("/standardize-normalize")({
 
 function StandardizeNormalizePage() {
   const [x, setX] = useState<Matrix>(() => [
-    [parseExpr("10"), parseExpr("1")],
-    [parseExpr("12"), parseExpr("3")],
-    [parseExpr("18"), parseExpr("2")],
-    [parseExpr("20"), parseExpr("4")],
+    [parseExpr("10.5"), parseExpr("1.2")],
+    [parseExpr("12.4"), parseExpr("3.1")],
+    [parseExpr("18.2"), parseExpr("2.4")],
+    [parseExpr("20.1"), parseExpr("4.3")],
   ]);
 
   const transformed = useMemo(() => {
@@ -141,8 +141,22 @@ function StandardizeNormalizePage() {
           easy to interpret.
         </p>
         <p>
+          Standardization is shift-and-scale invariant within a feature, while min-max scaling is
+          bounded but sensitive to extreme values that stretch{" "}
+          <span className="font-mono">max-min</span>.
+        </p>
+        <p>
           Both operations are done per column because each column usually represents a different
           feature scale.
+        </p>
+        <p>
+          If a column has near-zero spread (<span className="font-mono">std approx 0</span> or{" "}
+          <span className="font-mono">max=min</span>), this tool returns 0 for that transformed
+          column to avoid unstable division.
+        </p>
+        <p>
+          Fit scaling parameters on training data only, then reuse those same parameters on
+          validation/test data to avoid leakage and inflated model quality estimates.
         </p>
       </section>
 

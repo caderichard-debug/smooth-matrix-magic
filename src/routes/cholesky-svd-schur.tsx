@@ -138,20 +138,26 @@ function CholeskySvdSchurPage() {
         <h2 className="text-xl font-semibold">How these factorizations work</h2>
         <p className="text-sm text-muted-foreground">
           Cholesky applies only to symmetric positive-definite matrices and returns a lower
-          triangular factor L such that A = LL^T. If A is not SPD, the decomposition is undefined
-          and this page shows a direct error.
+          triangular factor L such that A = LL^T. Equivalent SPD checks are x^T A x &gt; 0 for
+          nonzero x and all-positive pivots in the factorization. If A is not SPD, the decomposition
+          is undefined and this page shows a direct error.
         </p>
         <p className="text-sm text-muted-foreground">
           SVD writes A = U S V^T with orthogonal U, V and nonnegative singular values on S. This
           route computes a mathematically exact numeric SVD for 2x2 real input by diagonalizing A^T
-          A.
+          A, so singular values are sqrt(eigenvalues of A^T A) and satisfy sigma_i &gt;= 0.
         </p>
         <p className="text-sm text-muted-foreground">
           The Schur panel runs unshifted QR iteration and accumulates orthogonal similarity
           transforms. After enough iterations, A_k trends toward a Schur-like upper form T with A ≈
-          Q T Q^T.
+          Q T Q^T; the displayed off-diagonal L1 value is a convergence indicator.
         </p>
       </section>
+
+      <p className="text-sm text-muted-foreground">
+        In practice: use Cholesky for SPD solves, SVD for rank/conditioning insight, and Schur form
+        as a stable stepping stone for many matrix-function algorithms.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

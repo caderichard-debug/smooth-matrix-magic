@@ -27,7 +27,7 @@ export const Route = createFileRoute("/sparse-bandwidth-profile")({
 
 function SparseBandwidthProfilePage() {
   const [matrixText, setMatrixText] = useState(
-    "10 2 0 0 0\n3 9 4 0 0\n0 7 8 5 0\n0 0 6 7 1\n0 0 0 2 6",
+    "10.2 2.1 0 0 0\n3.4 9.3 4.2 0 0\n0 7.6 8.4 5.1 0\n0 0 6.3 7.2 1.5\n0 0 0 2.4 6.8",
   );
 
   const analysis = useMemo(() => {
@@ -84,13 +84,18 @@ function SparseBandwidthProfilePage() {
           How sparse bandwidth profile works
         </h2>
         <p>
-          Lower bandwidth is max(i-j) over non-zero entries; upper bandwidth is max(j-i). Total
-          bandwidth is lower+upper+1, showing diagonal envelope width.
+          Over all non-zero coordinates (i, j), lower bandwidth is max(i-j), upper bandwidth is
+          max(j-i), and total bandwidth is b = l+u+1.
         </p>
         <p>
-          Row profile uses the first non-zero in each row and sums row distance to that column.
-          Lower profile values often improve sparse factorization memory behavior and cache
-          locality.
+          Row profile uses leftmost non-zero j_min(i): p_i = i-j_min(i) (or 0 if row i is empty),
+          then profile = sum_i p_i. Smaller profile usually means less fill and better cache
+          locality in sparse factorizations.
+        </p>
+        <p>
+          Values themselves do not change these structure metrics, so use this page to evaluate
+          reordering effects (AMD, RCM, domain-specific permutations) before expensive numeric
+          factorization steps.
         </p>
       </section>
 

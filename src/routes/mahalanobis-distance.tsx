@@ -35,14 +35,14 @@ export const Route = createFileRoute("/mahalanobis-distance")({
 function MahalanobisDistancePage() {
   const [data, setData] = useState<Matrix>(() =>
     fromNumbers([
-      [2, 3],
-      [3, 5],
-      [4, 4],
-      [5, 6],
-      [6, 7],
+      [2.1, 3.2],
+      [3.3, 5.1],
+      [4.0, 4.2],
+      [5.2, 6.4],
+      [6.1, 7.3],
     ]),
   );
-  const [query, setQuery] = useState<Matrix>(() => fromNumbers([[4, 5]]));
+  const [query, setQuery] = useState<Matrix>(() => fromNumbers([[4.4, 5.2]]));
 
   const result = useMemo(() => {
     try {
@@ -139,8 +139,21 @@ function MahalanobisDistancePage() {
           mu is the sample mean and S is sample covariance.
         </p>
         <p>
+          The squared form <span className="font-mono">d^2 = (x-mu)^T S^(-1) (x-mu)</span> is a
+          quadratic form that measures distance in covariance-whitened coordinates.
+        </p>
+        <p>
           A larger distance indicates the query point is less typical under the data distribution,
           which makes this metric useful for outlier detection.
+        </p>
+        <p>
+          Ellipses/ellipsoids of constant <span className="font-mono">d^2</span> align with
+          covariance eigenvectors, so correlated features are judged jointly instead of
+          axis-by-axis.
+        </p>
+        <p>
+          In many applications, compare squared distance against chi-square quantiles (with
+          feature-count degrees of freedom) for a more explicit anomaly threshold.
         </p>
       </section>
 

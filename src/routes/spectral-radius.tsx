@@ -89,9 +89,15 @@ function SpectralRadiusPage() {
         <p className="text-sm text-muted-foreground">
           For iterative methods, rho(A) &lt; 1 is a key contraction condition. This page reports
           both the eigenvalues and the final max absolute value so you can inspect dominant modes
-          directly.
+          directly; by spectral mapping, rho(A^k) = rho(A)^k.
         </p>
       </section>
+
+      <p className="text-sm text-muted-foreground">
+        If one eigenvalue modulus is strictly largest, that mode dominates long-run behavior in
+        repeated applications of A. Caveat: non-normal matrices can show transient growth even when
+        rho(A) &lt; 1.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

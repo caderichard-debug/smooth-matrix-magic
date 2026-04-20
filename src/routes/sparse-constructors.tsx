@@ -18,7 +18,10 @@ export const Route = createFileRoute("/sparse-constructors")({
           "Build a sparse matrix from coordinate triplets (row, col, value), validate indices, and inspect density statistics.",
       },
       { property: "og:title", content: "Sparse Matrix Constructor (COO Triplets)" },
-      { property: "og:description", content: "Create sparse matrices from nonzero entries and preview dense form." },
+      {
+        property: "og:description",
+        content: "Create sparse matrices from nonzero entries and preview dense form.",
+      },
     ],
   }),
   component: SparseConstructorsPage,
@@ -27,12 +30,12 @@ export const Route = createFileRoute("/sparse-constructors")({
 function SparseConstructorsPage() {
   const [rows, setRows] = useState("5");
   const [cols, setCols] = useState("5");
-  const [triplets, setTriplets] = useState("1,1,10\n1,4,3\n3,3,5\n5,2,-2");
+  const [triplets, setTriplets] = useState("1,1,10.5\n1,4,3.25\n3,3,5.75\n5,2,-2.5");
 
   const sample = () => {
     setRows("6");
     setCols("6");
-    setTriplets("1,1,12\n1,6,1\n2,2,8\n3,5,-4\n4,3,7\n6,6,9");
+    setTriplets("1,1,12.5\n1,6,1.25\n2,2,8.5\n3,5,-4.25\n4,3,7.75\n6,6,9.5");
   };
 
   const out = useMemo(() => {
@@ -42,7 +45,10 @@ function SparseConstructorsPage() {
       if (!Number.isInteger(r) || r < 1) throw new Error("Rows must be a positive integer");
       if (!Number.isInteger(c) || c < 1) throw new Error("Columns must be a positive integer");
       const m = makeMatrix(r, c, ZERO);
-      const lines = triplets.split("\n").map((line) => line.trim()).filter(Boolean);
+      const lines = triplets
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean);
       let nonzeros = 0;
       lines.forEach((line, idx) => {
         const [iText, jText, valueText] = line.split(",").map((p) => p.trim());
@@ -59,7 +65,12 @@ function SparseConstructorsPage() {
       });
       for (const row of m) for (const value of row) if (!isZero(value)) nonzeros++;
       const { rows: rr, cols: cc } = dims(m);
-      return { matrix: m, nnz: nonzeros, density: nonzeros / (rr * cc), error: null as string | null };
+      return {
+        matrix: m,
+        nnz: nonzeros,
+        density: nonzeros / (rr * cc),
+        error: null as string | null,
+      };
     } catch (e) {
       return { matrix: null, nnz: 0, density: 0, error: e instanceof Error ? e.message : "Error" };
     }
@@ -84,8 +95,12 @@ function SparseConstructorsPage() {
 
       <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
         <div className="flex items-center justify-between gap-2 flex-wrap">
-          <Label className="text-xs uppercase tracking-wider text-muted-foreground">Triplets (row,col,value), one per line</Label>
-          <Button type="button" variant="secondary" onClick={sample}>Load sample pattern</Button>
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">
+            Triplets (row,col,value), one per line
+          </Label>
+          <Button type="button" variant="secondary" onClick={sample}>
+            Load sample pattern
+          </Button>
         </div>
         <textarea
           className="w-full min-h-44 rounded-md border border-border bg-background/70 p-3 font-mono text-sm"
@@ -101,9 +116,14 @@ function SparseConstructorsPage() {
         ) : (
           <>
             <p className="text-sm text-muted-foreground">
-              Nonzeros: <span className="font-mono">{out.nnz}</span> | Density: <span className="font-mono">{(100 * out.density).toFixed(2)}%</span>
+              Nonzeros: <span className="font-mono">{out.nnz}</span> | Density:{" "}
+              <span className="font-mono">{(100 * out.density).toFixed(2)}%</span>
             </p>
-            {out.matrix && <div className="overflow-x-auto"><MatrixDisplay m={out.matrix} label="Resulting sparse matrix (dense view)" /></div>}
+            {out.matrix && (
+              <div className="overflow-x-auto">
+                <MatrixDisplay m={out.matrix} label="Resulting sparse matrix (dense view)" />
+              </div>
+            )}
           </>
         )}
       </section>
@@ -111,12 +131,20 @@ function SparseConstructorsPage() {
       <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
         <h2 className="text-xl font-semibold">How sparse constructors works</h2>
         <p className="text-sm text-muted-foreground">
-          The COO format stores only nonzero entries as triplets <span className="font-mono">(i, j, value)</span>. This avoids
-          filling memory with explicit zeros for large sparse systems.
+          COO stores only non-zeros as triplets <span className="font-mono">(i, j, value)</span>, so
+          storage is O(nnz) instead of O(rows*cols) for dense form.
         </p>
         <p className="text-sm text-muted-foreground">
-          Here indices are 1-based for readability. Repeated coordinates overwrite earlier values, and density is
-          <span className="font-mono"> nnz/(rows*cols)</span>, a quick predictor of sparse algorithm efficiency.
+          Here indices are 1-based. Repeated coordinates overwrite earlier entries, and density is
+          <span className="font-mono"> nnz/(rows*cols)</span>, which estimates whether sparse
+          kernels are worthwhile.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          For conversion to CSR/CSC, keep triplets sorted and validate index bounds:
+          <span className="font-mono">1 &lt;= i &lt;= rows</span>,
+          <span className="font-mono">1 &lt;= j &lt;= cols</span>. Ordered input usually speeds
+          sparse assembly and helps cache-friendly traversal. Input is 1-based here, while many
+          low-level sparse APIs store 0-based indices.
         </p>
       </section>
 

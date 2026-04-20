@@ -12,8 +12,7 @@ export const Route = createFileRoute("/matrix-exponential")({
       { title: "Matrix Exponential e^A Calculator — Free Online" },
       {
         name: "description",
-        content:
-          "Compute matrix exponential e^A numerically using a truncated power series.",
+        content: "Compute matrix exponential e^A numerically using a truncated power series.",
       },
       { property: "og:title", content: "Matrix Exponential e^A Calculator" },
       { property: "og:description", content: "Find e^A for a square matrix online — free." },
@@ -23,10 +22,12 @@ export const Route = createFileRoute("/matrix-exponential")({
 });
 
 function MatrixExponentialPage() {
-  const [a, setA] = useState<Matrix>(() => fromNumbers([
-    [0, 1],
-    [-1, 0],
-  ]));
+  const [a, setA] = useState<Matrix>(() =>
+    fromNumbers([
+      [0, 0.5],
+      [-0.5, 0],
+    ]),
+  );
 
   const { result, error } = useMemo(() => {
     try {
@@ -51,10 +52,12 @@ function MatrixExponentialPage() {
           </p>
           {error ? (
             <p className="text-destructive font-mono text-sm">{error}</p>
-          ) : result && (
-            <div className="overflow-x-auto">
-              <MatrixDisplay m={result} />
-            </div>
+          ) : (
+            result && (
+              <div className="overflow-x-auto">
+                <MatrixDisplay m={result} />
+              </div>
+            )
           )}
         </section>
       </div>
@@ -63,16 +66,23 @@ function MatrixExponentialPage() {
         <h2 className="text-xl font-semibold">How matrix exponential works</h2>
         <p className="text-sm text-muted-foreground">
           The matrix exponential is defined by the infinite series
-          <span className="font-mono"> e^A = sum(k=0..inf) A^k / k!</span>. This page computes a numeric approximation
-          with the first 20 terms.
+          <span className="font-mono"> e^A = sum(k=0..inf) A^k / k!</span>. This page computes a
+          numeric approximation with the first 20 terms.
         </p>
         <p className="text-sm text-muted-foreground">
-          Matrix powers require square matrices, so A must be n x n. Inputs are numeric-only because the series is
-          evaluated numerically term-by-term.
+          Matrix powers require square matrices, so A must be n x n. Inputs are numeric-only because
+          the series is evaluated numerically term-by-term. If A = P D P^(-1), then
+          <span className="font-mono"> e^A = P e^D P^(-1)</span> with exponentials on diagonal
+          entries.
         </p>
         <p className="text-sm text-muted-foreground">
           The result appears in linear systems and differential equations, for example in
-          <span className="font-mono"> x(t) = e^(tA) x(0)</span>.
+          <span className="font-mono"> x(t) = e^(tA) x(0)</span>, and satisfies
+          <span className="font-mono"> d/dt e^(tA) = A e^(tA)</span>.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          Practical caveat: for large-norm or non-normal matrices, a fixed truncation can lose
+          accuracy; scaling-and-squaring or more terms improves convergence.
         </p>
       </section>
 

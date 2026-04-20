@@ -16,18 +16,23 @@ export const Route = createFileRoute("/spaces")({
           "Compute basis vectors for the null space and column space of a numeric matrix online.",
       },
       { property: "og:title", content: "Null Space & Column Space Basis Calculator" },
-      { property: "og:description", content: "Find null space and column space basis vectors online — free." },
+      {
+        property: "og:description",
+        content: "Find null space and column space basis vectors online — free.",
+      },
     ],
   }),
   component: SpacesPage,
 });
 
 function SpacesPage() {
-  const [a, setA] = useState<Matrix>(() => fromNumbers([
-    [1, 2, 3, 4],
-    [2, 4, 6, 8],
-    [0, 1, 1, 1],
-  ]));
+  const [a, setA] = useState<Matrix>(() =>
+    fromNumbers([
+      [1, 2.5, 3, 4.5],
+      [2, 5, 6, 9],
+      [0, 1, 1.5, 2],
+    ]),
+  );
 
   const nullBasis = useMemo(() => {
     try {
@@ -66,7 +71,9 @@ function SpacesPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-muted-foreground">Only the zero vector is in the null space (trivial null space).</p>
+              <p className="text-sm text-muted-foreground">
+                Only the zero vector is in the null space (trivial null space).
+              </p>
             )}
           </section>
 
@@ -88,18 +95,29 @@ function SpacesPage() {
       </div>
 
       <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
-        <h2 className="text-foreground text-xl font-semibold">How null space and column space basis works</h2>
+        <h2 className="text-foreground text-xl font-semibold">
+          How null space and column space basis works
+        </h2>
         <p>
-          The null space is N(A) = {"{"}x : Ax = 0{"}"}. A basis is built by row-reducing A to identify pivot and free
-          variables, then writing one basis vector for each free-variable direction.
+          The null space is N(A) = {"{"}x : Ax = 0{"}"}. A basis is built by row-reducing A to
+          identify pivot and free variables, then writing one basis vector for each free-variable
+          direction.
         </p>
         <p>
-          The column space Col(A) is the span of A&apos;s columns. Pivot columns found from row reduction mark which
-          original columns form a basis for Col(A).
+          The column space Col(A) is the span of A&apos;s columns. Pivot columns found from row
+          reduction mark which original columns form a basis for Col(A).
         </p>
         <p>
-          Rank-nullity links both outputs: rank(A) + nullity(A) = number of columns of A. If no free variables appear,
-          null space is trivial (only the zero vector).
+          Dimensions summarize the result: <span className="font-mono">dim Col(A)=rank(A)</span> and{" "}
+          <span className="font-mono">dim N(A)=nullity(A)</span>.
+        </p>
+        <p>
+          Rank-nullity links both outputs: rank(A) + nullity(A) = number of columns of A. If no free
+          variables appear, null space is trivial (only the zero vector).
+        </p>
+        <p>
+          Interpretation note: basis vectors are not unique. Different elimination paths can return
+          different bases that span the same space.
         </p>
       </section>
 

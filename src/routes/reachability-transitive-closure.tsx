@@ -100,13 +100,18 @@ function ReachabilityTransitiveClosurePage() {
           reaches k and k reaches j, then i reaches j.
         </p>
         <p>
-          This page uses Warshall-style boolean updates, repeatedly applying
-          <span className="font-mono"> t_ij = t_ij OR (t_ik AND t_kj)</span> for each intermediate
-          node k.
+          Warshall closure iterates intermediate nodes k and applies
+          <span className="font-mono"> t_ij^(k) = t_ij^(k-1) OR (t_ik^(k-1) AND t_kj^(k-1))</span>.
+          After k=1..n, t_ij is 1 iff any path from i to j exists.
         </p>
         <p>
-          The output is still 0/1 and answers reachability questions instantly, which is useful for
-          prerequisite graphs, dependency graphs, and state-transition analysis.
+          Complexity is O(n^3) time and O(n^2) memory in matrix form. Output stays binary and is
+          useful for dependency, prerequisite, and state-transition analysis.
+        </p>
+        <p>
+          Since diagonal entries are set to 1 in this view, every node is treated as reachable from
+          itself; if your task needs strict non-reflexive reachability, clear the diagonal after
+          computing closure.
         </p>
       </section>
 

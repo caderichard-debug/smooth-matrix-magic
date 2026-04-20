@@ -3,7 +3,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "@/components/PageLayout";
 import { MatrixInput } from "@/components/MatrixInput";
 import { AdSlot } from "@/components/AdSlot";
-import { characteristicPolynomial, eigenvaluesNumeric, formatNumber, fromNumbers, type Matrix } from "@/lib/matrix";
+import {
+  characteristicPolynomial,
+  eigenvaluesNumeric,
+  formatNumber,
+  fromNumbers,
+  type Matrix,
+} from "@/lib/matrix";
 
 export const Route = createFileRoute("/eigen-characteristic")({
   head: () => ({
@@ -15,18 +21,23 @@ export const Route = createFileRoute("/eigen-characteristic")({
           "Compute numeric eigenvalues (up to 3x3) and characteristic polynomial for square matrices online.",
       },
       { property: "og:title", content: "Eigenvalues & Characteristic Polynomial Calculator" },
-      { property: "og:description", content: "Find eigenvalues and characteristic polynomial online — free." },
+      {
+        property: "og:description",
+        content: "Find eigenvalues and characteristic polynomial online — free.",
+      },
     ],
   }),
   component: EigenCharacteristicPage,
 });
 
 function EigenCharacteristicPage() {
-  const [a, setA] = useState<Matrix>(() => fromNumbers([
-    [2, 1, 0],
-    [1, 2, 1],
-    [0, 1, 2],
-  ]));
+  const [a, setA] = useState<Matrix>(() =>
+    fromNumbers([
+      [2.2, 1, 0],
+      [1, 2.2, 1],
+      [0, 1, 2.2],
+    ]),
+  );
 
   const poly = useMemo(() => {
     try {
@@ -58,13 +69,17 @@ function EigenCharacteristicPage() {
             <h2 className="text-xl font-semibold mb-2">Characteristic Polynomial</h2>
             {poly.error ? (
               <p className="text-destructive font-mono text-sm">{poly.error}</p>
-            ) : poly.data && (
-              <div className="space-y-2">
-                <p className="font-mono text-primary break-all">p(lambda) = {poly.data.expression}</p>
-                <p className="text-sm text-muted-foreground">
-                  Coefficients: [{poly.data.coefficients.map((c) => formatNumber(c)).join(", ")}]
-                </p>
-              </div>
+            ) : (
+              poly.data && (
+                <div className="space-y-2">
+                  <p className="font-mono text-primary break-all">
+                    p(lambda) = {poly.data.expression}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Coefficients: [{poly.data.coefficients.map((c) => formatNumber(c)).join(", ")}]
+                  </p>
+                </div>
+              )
             )}
           </section>
 
@@ -72,30 +87,42 @@ function EigenCharacteristicPage() {
             <h2 className="text-xl font-semibold mb-2">Eigenvalues (numeric)</h2>
             {eigen.error ? (
               <p className="text-destructive font-mono text-sm">{eigen.error}</p>
-            ) : eigen.data && (
-              <ul className="font-mono text-primary space-y-1">
-                {eigen.data.map((value, idx) => (
-                  <li key={`${value}-${idx}`}>lambda{idx + 1} = {formatNumber(value)}</li>
-                ))}
-              </ul>
+            ) : (
+              eigen.data && (
+                <ul className="font-mono text-primary space-y-1">
+                  {eigen.data.map((value, idx) => (
+                    <li key={`${value}-${idx}`}>
+                      lambda{idx + 1} = {formatNumber(value)}
+                    </li>
+                  ))}
+                </ul>
+              )
             )}
           </section>
         </div>
       </div>
 
       <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
-        <h2 className="text-foreground text-xl font-semibold">How eigenvalues and characteristic polynomial works</h2>
+        <h2 className="text-foreground text-xl font-semibold">
+          How eigenvalues and characteristic polynomial works
+        </h2>
         <p>
-          For a square matrix A, the characteristic polynomial is p(lambda) = det(lambda I - A). Its roots are the
-          eigenvalues, meaning values lambda where A - lambda I is singular.
+          For a square matrix A, the characteristic polynomial is p(lambda) = det(lambda I - A). Its
+          roots are the eigenvalues, meaning values lambda where A - lambda I is singular.
         </p>
         <p>
-          If v is a nonzero vector and Av = lambda v, then lambda is an eigenvalue and v is an eigenvector.
-          Equivalent checks are det(A - lambda I) = 0 or p(lambda) = 0.
+          If v is a nonzero vector and Av = lambda v, then lambda is an eigenvalue and v is an
+          eigenvector. Equivalent checks are det(A - lambda I) = 0 or p(lambda) = 0, and
+          <span className="font-mono"> (A - lambda I)v = 0</span> identifies eigenspaces.
         </p>
         <p>
-          This page returns numeric eigenvalues for 1x1 to 3x3 matrices and a symbolic-form characteristic polynomial
-          up to 3x3. Complex roots are currently rejected, so some real matrices may report a limitation.
+          This page returns numeric eigenvalues for 1x1 to 3x3 matrices and a symbolic-form
+          characteristic polynomial up to 3x3. Complex roots are currently rejected, so some real
+          matrices may report a limitation even though the polynomial is valid.
+        </p>
+        <p>
+          Quick checks: eigenvalue sum matches trace(A), product matches det(A), and near-zero
+          p(lambda_i) values act as a numeric residual test.
         </p>
       </section>
 

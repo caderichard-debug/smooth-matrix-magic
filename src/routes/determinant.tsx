@@ -17,18 +17,23 @@ export const Route = createFileRoute("/determinant")({
           "Calculate the determinant of any square matrix online. Supports fractions, variables, and step-by-step cofactor expansion.",
       },
       { property: "og:title", content: "Matrix Determinant Calculator" },
-      { property: "og:description", content: "Compute the determinant of a square matrix online — symbolic and step-by-step." },
+      {
+        property: "og:description",
+        content: "Compute the determinant of a square matrix online — symbolic and step-by-step.",
+      },
     ],
   }),
   component: DeterminantPage,
 });
 
 function DeterminantPage() {
-  const [a, setA] = useState<Matrix>(() => fromNumbers([
-    [1, 2, 3],
-    [0, 1, 4],
-    [5, 6, 0],
-  ]));
+  const [a, setA] = useState<Matrix>(() =>
+    fromNumbers([
+      [1.2, -0.4, 2.1],
+      [0.5, 3.3, -1.6],
+      [2.4, 1.1, 0.8],
+    ]),
+  );
 
   const { value, error } = useMemo(() => {
     try {
@@ -67,14 +72,26 @@ function DeterminantPage() {
       <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
         <h2 className="text-xl font-semibold">How determinant works</h2>
         <p className="text-sm text-muted-foreground">
-          For a square matrix A, det(A) is the signed volume scaling factor of the linear map. A key test is
-          det(A) = 0: this means rows/columns are linearly dependent and A is singular (not invertible).
+          For a square matrix A, det(A) is the signed volume scaling factor of the linear map. A key
+          test is det(A) = 0: this means rows/columns are linearly dependent and A is singular (not
+          invertible).
         </p>
         <ul className="list-disc pl-6 space-y-1 text-sm text-muted-foreground">
           <li>2x2 shortcut: for A = [[a, b], [c, d]], det(A) = ad - bc.</li>
-          <li>Row operations: swapping rows flips the sign, scaling a row by k multiplies det by k.</li>
+          <li>
+            Row operations: swapping rows flips the sign, scaling a row by k multiplies det by k.
+          </li>
           <li>Triangular matrices: det(A) is the product of diagonal entries.</li>
+          <li>
+            Product identity: det(AB) = det(A)det(B), so det(A^-1) = 1/det(A) when invertible.
+          </li>
+          <li>Transpose identity: det(Aᵀ) = det(A).</li>
+          <li>Cofactor expansion works along any row or column and gives the same value.</li>
         </ul>
+        <p className="text-sm text-muted-foreground">
+          Practical check: a very small determinant (close to zero) signals near-singularity, so
+          solving systems with that matrix may be numerically unstable.
+        </p>
       </section>
 
       <AdSlot label="Ad space — below result" height="h-28" />

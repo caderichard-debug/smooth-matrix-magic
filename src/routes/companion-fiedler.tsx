@@ -133,11 +133,25 @@ function CompanionFiedlerPage() {
           <span className="font-mono">p(lambda)</span>.
         </p>
         <p className="text-sm text-muted-foreground">
+          This means polynomial roots are eigenvalues of the companion matrix, turning root finding
+          into an eigenvalue problem.
+        </p>
+        <p className="text-sm text-muted-foreground">
           Fiedler families are alternative linearizations that preserve eigenvalues while changing
           sparsity pattern. This page shows one practical Fiedler-like form for experimentation and
           structure comparison.
         </p>
+        <p className="text-sm text-muted-foreground">
+          Basic invariants help sanity-check construction:{" "}
+          <span className="font-mono">trace(C) = -a_(n-1)</span> and{" "}
+          <span className="font-mono">det(C) = (-1)^n a_0</span> for the monic form.
+        </p>
       </section>
+
+      <p className="text-sm text-muted-foreground">
+        Eigenvalues of either linearization approximate polynomial roots, so these matrices connect
+        root-finding with standard matrix eigensolvers.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

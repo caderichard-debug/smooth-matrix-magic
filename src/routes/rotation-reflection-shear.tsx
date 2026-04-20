@@ -201,11 +201,24 @@ function RotationReflectionShearPage() {
           <span className="font-mono"> R(theta)^T R(theta) = I</span>.
         </p>
         <p className="text-sm text-muted-foreground">
+          For rotation, <span className="font-mono">det(R)=1</span>, so orientation and area are
+          both preserved; the transform is a rigid motion about the origin.
+        </p>
+        <p className="text-sm text-muted-foreground">
           Reflections also preserve distances but reverse orientation (determinant{" "}
           <span className="font-mono">-1</span>). Shears keep area (
           <span className="font-mono">det = 1</span>) while changing angles.
         </p>
+        <p className="text-sm text-muted-foreground">
+          Shear matrices are triangular with ones on the diagonal, so they preserve area but can
+          strongly change shape when <span className="font-mono">|k|</span> is large.
+        </p>
       </section>
+
+      <p className="text-sm text-muted-foreground">
+        Combine these primitives by multiplying their matrices in order to model richer 2D pipelines
+        like rotate-then-shear or reflect-then-rotate.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

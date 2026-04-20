@@ -125,13 +125,20 @@ function SylvesterLyapunovPage() {
         <p className="text-sm text-muted-foreground">
           Sylvester equation AX + XB = C is vectorized as
           <span className="font-mono"> (I ⊗ A + B^T ⊗ I) vec(X) = vec(C)</span>. Solving this linear
-          system gives X directly.
+          system gives X directly. Uniqueness holds when no eigenvalue sum
+          <span className="font-mono"> lambda_i(A) + lambda_j(B)</span> is zero.
         </p>
         <p className="text-sm text-muted-foreground">
           Lyapunov equation A^T X + X A = -Q is a Sylvester special case with left matrix A^T, right
-          matrix A, and right-hand side -Q. This page uses the same Kronecker-based direct solve.
+          matrix A, and right-hand side -Q. In continuous-time stability settings (Hurwitz A and Q
+          &gt;= 0), the solution X is typically symmetric positive semidefinite.
         </p>
       </section>
+
+      <p className="text-sm text-muted-foreground">
+        Near-singular Kronecker systems can amplify rounding errors, so very small residuals are a
+        useful sanity check for the reported solution X in either mode.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

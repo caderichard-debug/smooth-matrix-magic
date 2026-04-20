@@ -82,15 +82,26 @@ function PivotFreeAnalyzerPage() {
       <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
         <h2 className="text-foreground text-xl font-semibold">How pivot-free analyzer works</h2>
         <p>
-          The analyzer performs elimination with partial pivoting to determine which columns obtain
-          pivots. Columns that never receive pivots are classified as free-variable columns.
+          The analyzer runs elimination with partial pivoting and marks a pivot in column j only if
+          max(i &gt;= k)|a_ij| &gt; tol at the current pivot row k. Columns without such a pivot are
+          free columns.
         </p>
         <p>
-          A zero-pivot warning means that in a given column, no candidate entry exceeded tolerance
-          after prior eliminations. That usually indicates dependent constraints, rank deficiency,
-          or missing conditioning.
+          Rank is the number of pivot columns. If pivots &lt; number of columns, nullity is n -
+          rank, so Ax = b is typically parametric (or inconsistent for some b). Zero-pivot warnings
+          can indicate true dependence or just scaling/tolerance sensitivity.
+        </p>
+        <p>
+          Important distinction: this page analyzes A only, so it cannot by itself prove
+          inconsistency for Ax=b (that needs augmented matrix [A|b]). It does report structural
+          signals that strongly affect uniqueness and free-variable count.
         </p>
       </section>
+
+      <p>
+        If free columns appear, columns of A are linearly dependent; that same signal explains why
+        unique solutions can fail for some right-hand sides.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

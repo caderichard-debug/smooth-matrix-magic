@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  makeMatrix, matrixToText, parseMatrixText, formatExpr, type Matrix,
+  makeMatrix, matrixToText, parseMatrixText, formatExpr, noteFractionInput, type Matrix,
 } from "@/lib/matrix";
 import { ZERO, parse as parseExprStr } from "@/lib/expr";
 import { Shuffle, Eraser } from "lucide-react";
@@ -65,6 +65,7 @@ export function MatrixInput({ title, value, onChange }: Props) {
 
   const commitCell = (i: number, j: number, raw: string) => {
     const trimmed = raw.trim();
+    noteFractionInput(trimmed);
     const next = cellText.map((row) => row.slice());
     next[i][j] = raw;
     setCellText(next);
@@ -136,6 +137,7 @@ export function MatrixInput({ title, value, onChange }: Props) {
 
   const applyText = () => {
     try {
+      noteFractionInput(text);
       const m = parseMatrixText(text);
       setTextError(null);
       onChange(m);
@@ -218,7 +220,7 @@ export function MatrixInput({ title, value, onChange }: Props) {
             )}
           </div>
           <p className="text-[11px] text-muted-foreground mt-2">
-            Supports fractions (<span className="font-mono text-primary">3/4</span>),
+            Supports decimals (<span className="font-mono text-primary">0.75</span>),
             variables (<span className="font-mono text-primary">x</span>,{" "}
             <span className="font-mono text-primary">alpha</span>), and expressions
             (<span className="font-mono text-primary">2x + 1</span>).

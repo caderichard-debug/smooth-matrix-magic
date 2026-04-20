@@ -91,9 +91,26 @@ function DiagonalizationPage() {
         <p className="text-sm text-muted-foreground">
           This calculator targets real 2x2 input with distinct real eigenvalues, which guarantees
           two independent eigenvectors. When that condition fails, the page shows a clear domain
-          limitation error.
+          limitation error. A numeric quality check is
+          <span className="font-mono"> ||A - P D P^(-1)||_F</span> near zero.
         </p>
+        <ul className="list-disc pl-6 space-y-1 text-sm text-muted-foreground">
+          <li>In this 2x2 scope: distinct real eigenvalues imply diagonalizable over the reals.</li>
+          <li>
+            A repeated eigenvalue can still be diagonalizable, but that needs eigenspace-dimension
+            checks not included in this panel.
+          </li>
+          <li>Quick verification: det(P) != 0 and ||A - P D P^(-1)||_F is close to 0.</li>
+          <li>Once diagonalized, powers are efficient via A^k = P D^k P^(-1).</li>
+        </ul>
       </section>
+
+      <p className="text-sm text-muted-foreground">
+        When diagonalization succeeds, powers and exponentials of A become much easier to compute by
+        applying the operation entrywise to diagonal matrix D:
+        <span className="font-mono"> A^k = P D^k P^(-1)</span> and
+        <span className="font-mono"> e^A = P e^D P^(-1)</span>.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

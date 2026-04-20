@@ -35,10 +35,10 @@ export const Route = createFileRoute("/mean-var-cov-corr")({
 function MeanVarCovCorrPage() {
   const [x, setX] = useState<Matrix>(() =>
     fromNumbers([
-      [170, 65, 30],
-      [175, 72, 35],
-      [168, 60, 28],
-      [180, 80, 40],
+      [170.5, 65.2, 30.1],
+      [175.2, 72.6, 35.4],
+      [168.4, 60.1, 28.3],
+      [180.1, 80.4, 40.2],
     ]),
   );
 
@@ -141,12 +141,26 @@ function MeanVarCovCorrPage() {
           that mean, using the sample denominator <span className="font-mono">n-1</span>.
         </p>
         <p>
+          With observations <span className="font-mono">x_1,...,x_n</span>, sample covariance is{" "}
+          <span className="font-mono">S = (1/(n-1)) sum_k (x_k-mu)(x_k-mu)^T</span>, so diagonal
+          entries are variances and off-diagonal entries capture pairwise co-movement.
+        </p>
+        <p>
           Covariance compares two features together: positive values mean they tend to increase
           together, negative values mean one tends to decrease when the other increases.
         </p>
         <p>
           Correlation rescales covariance into the range [-1, 1], making relationships comparable
           across features with different units.
+        </p>
+        <p>
+          Correlation uses <span className="font-mono">r_ij = cov(i,j)/(sigma_i sigma_j)</span>;
+          values near <span className="font-mono">+/-1</span> indicate strong linear association,
+          while values near 0 indicate weak linear relation.
+        </p>
+        <p>
+          Strong correlation does not imply causation; use it as a screening signal, then validate
+          with domain context, residual analysis, or controlled experiments.
         </p>
       </section>
 

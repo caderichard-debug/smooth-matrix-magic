@@ -27,15 +27,29 @@ export const Route = createFileRoute("/norms-metrics")({
           "Compute common matrix norms and metrics, including distance, relative error, rank/nullity, and 1-norm condition number.",
       },
       { property: "og:title", content: "Matrix Norms & Metrics Calculator" },
-      { property: "og:description", content: "Frobenius, L1, infinity norm, distance, relative error, nullity and condition number." },
+      {
+        property: "og:description",
+        content:
+          "Frobenius, L1, infinity norm, distance, relative error, nullity and condition number.",
+      },
     ],
   }),
   component: NormsMetricsPage,
 });
 
 function NormsMetricsPage() {
-  const [a, setA] = useState<Matrix>(() => fromNumbers([[2, 1], [1, 2]]));
-  const [b, setB] = useState<Matrix>(() => fromNumbers([[2, 1], [1, 3]]));
+  const [a, setA] = useState<Matrix>(() =>
+    fromNumbers([
+      [2, 1],
+      [1, 2],
+    ]),
+  );
+  const [b, setB] = useState<Matrix>(() =>
+    fromNumbers([
+      [2, 1],
+      [1, 3],
+    ]),
+  );
 
   const metrics = useMemo(() => {
     try {
@@ -95,18 +109,26 @@ function NormsMetricsPage() {
       </section>
 
       <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
-        <h2 className="text-foreground text-xl font-semibold">How matrix norms and metrics works</h2>
+        <h2 className="text-foreground text-xl font-semibold">
+          How matrix norms and metrics works
+        </h2>
         <p>
-          Frobenius norm uses all entries: ||A||F = sqrt(sum_i,j |a_ij|^2). The induced 1-norm is max_j sum_i |a_ij|,
-          and infinity norm is max_i sum_j |a_ij|.
+          Frobenius norm uses all entries: ||A||F = sqrt(sum_i,j |a_ij|^2). The induced 1-norm is
+          max_j sum_i |a_ij|, and infinity norm is max_i sum_j |a_ij|.
         </p>
         <p>
-          Distance here is ||A - B||F, and relative error is ||A - B||F / ||A||F. Rank is the number of pivots after
-          elimination, and nullity = n - rank for an m x n matrix.
+          Distance here is ||A - B||F, and relative error is ||A - B||F / ||A||F. Rank is the number
+          of pivots after elimination, and nullity = n - rank for an m x n matrix.
         </p>
         <p>
-          The 1-norm condition number is kappa_1(A) = ||A||_1 * ||A^(-1)||_1 (defined only when A is invertible).
-          Larger values indicate stronger sensitivity to perturbations in inputs or rounding.
+          The 1-norm condition number is kappa_1(A) = ||A||_1 * ||A^(-1)||_1 (defined only when A is
+          invertible). Larger values indicate stronger sensitivity to perturbations in inputs or
+          rounding.
+        </p>
+        <p>
+          Interpretation: roughly, relative solution error can be amplified by about{" "}
+          <span className="font-mono">kappa(A)</span> times relative data error in worst cases, so
+          very large condition numbers warn about numerical fragility.
         </p>
       </section>
 

@@ -16,21 +16,28 @@ export const Route = createFileRoute("/advanced-products")({
           "Compute matrix commutator [A,B], anticommutator {A,B}, and direct sum A (+) B online.",
       },
       { property: "og:title", content: "Advanced Matrix Products Calculator" },
-      { property: "og:description", content: "Find matrix commutator, anticommutator, and direct sum online." },
+      {
+        property: "og:description",
+        content: "Find matrix commutator, anticommutator, and direct sum online.",
+      },
     ],
   }),
   component: AdvancedProductsPage,
 });
 
 function AdvancedProductsPage() {
-  const [a, setA] = useState<Matrix>(() => fromNumbers([
-    [1, 2],
-    [0, 1],
-  ]));
-  const [b, setB] = useState<Matrix>(() => fromNumbers([
-    [2, 0],
-    [1, 3],
-  ]));
+  const [a, setA] = useState<Matrix>(() =>
+    fromNumbers([
+      [1.5, 2.0],
+      [0.0, 1.5],
+    ]),
+  );
+  const [b, setB] = useState<Matrix>(() =>
+    fromNumbers([
+      [2.5, 0.0],
+      [1.0, 3.5],
+    ]),
+  );
 
   const comm = useMemo(() => {
     try {
@@ -64,10 +71,12 @@ function AdvancedProductsPage() {
             <h2 className="text-xl font-semibold mb-3">Commutator [A,B]</h2>
             {comm.error ? (
               <p className="text-destructive font-mono text-sm">{comm.error}</p>
-            ) : comm.data && (
-              <div className="overflow-x-auto">
-                <MatrixDisplay m={comm.data} />
-              </div>
+            ) : (
+              comm.data && (
+                <div className="overflow-x-auto">
+                  <MatrixDisplay m={comm.data} />
+                </div>
+              )
             )}
           </section>
 
@@ -75,10 +84,12 @@ function AdvancedProductsPage() {
             <h2 className="text-xl font-semibold mb-3">Anticommutator {"{A,B}"}</h2>
             {anti.error ? (
               <p className="text-destructive font-mono text-sm">{anti.error}</p>
-            ) : anti.data && (
-              <div className="overflow-x-auto">
-                <MatrixDisplay m={anti.data} />
-              </div>
+            ) : (
+              anti.data && (
+                <div className="overflow-x-auto">
+                  <MatrixDisplay m={anti.data} />
+                </div>
+              )
             )}
           </section>
 
@@ -94,19 +105,38 @@ function AdvancedProductsPage() {
       <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
         <h2 className="text-xl font-semibold">How these advanced products work</h2>
         <p className="text-sm text-muted-foreground">
-          The commutator is <span className="font-mono">[A,B] = AB - BA</span> and the anticommutator is
-          <span className="font-mono"> {"{A,B} = AB + BA"}</span>. Since AB and BA must both exist and have the
-          same shape, this calculator requires A and B to be the same-size square matrices.
+          The commutator is <span className="font-mono">[A,B] = AB - BA</span> and the
+          anticommutator is
+          <span className="font-mono"> {"{A,B} = AB + BA"}</span>. Since AB and BA must both exist
+          and have the same shape, this calculator requires A and B to be the same-size square
+          matrices.
         </p>
         <p className="text-sm text-muted-foreground">
-          If <span className="font-mono">[A,B] = 0</span>, A and B commute. Nonzero output measures how far matrix
-          multiplication is from being order-independent.
+          If <span className="font-mono">[A,B] = 0</span>, A and B commute. Nonzero output measures
+          how far matrix multiplication is from being order-independent.
         </p>
         <p className="text-sm text-muted-foreground">
-          The direct sum <span className="font-mono">A (+) B</span> returns a block-diagonal matrix with A in the
-          top-left block and B in the bottom-right block; off-diagonal blocks are zeros. If A is m x n and B is p x q,
-          the result is (m+p) x (n+q).
+          Algebraically, <span className="font-mono">[A,B] = -[B,A]</span> and
+          <span className="font-mono"> tr([A,B]) = 0</span>. Also,
+          <span className="font-mono">
+            {" "}
+            {"{A,B}"} = {"{B,A}"}
+          </span>{" "}
+          and for square matrices
+          <span className="font-mono"> {"{A,A} = 2A^2"}</span>.
         </p>
+        <p className="text-sm text-muted-foreground">
+          The direct sum <span className="font-mono">A (+) B</span> returns a block-diagonal matrix
+          with A in the top-left block and B in the bottom-right block; off-diagonal blocks are
+          zeros. If A is m x n and B is p x q, the result is (m+p) x (n+q).
+        </p>
+        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+          <li>If A and B commute, then AB = BA and the commutator is the zero matrix.</li>
+          <li>
+            The anticommutator is symmetric in its arguments: {"{A,B}"} = {"{B,A}"}.
+          </li>
+          <li>Direct sum preserves each input block exactly and does not mix their entries.</li>
+        </ul>
       </section>
 
       <AdSlot label="Ad space — below result" height="h-28" />

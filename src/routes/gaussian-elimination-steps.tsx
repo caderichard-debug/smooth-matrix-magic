@@ -93,15 +93,27 @@ function GaussianEliminationStepsPage() {
           How gaussian elimination steps works
         </h2>
         <p>
-          Each pivot column chooses the largest available absolute pivot in that column, swaps the
-          pivot row into place, then eliminates entries below the pivot to build row echelon form
-          (REF).
+          At pivot column k, partial pivoting picks p = argmax(i &gt;= k)|a_ik|. If p is not k we swap
+          rows, then eliminate below with
+          <span className="font-mono"> R_i = R_i - (a_ik/a_kk)R_k </span>
+          so all entries under a_kk become 0.
         </p>
         <p>
-          Steps are shown as row operations such as swaps and subtraction updates. Inputs are
-          interpreted as numeric dense matrices; spaces, commas, or semicolons separate values.
+          This produces REF where pivot indices strictly move right as rows increase. If no
+          candidate exceeds tolerance, that column is skipped (a free/non-pivot column). The step
+          log prints every swap and multiplier.
+        </p>
+        <p>
+          This page outputs REF (not fully reduced RREF): pivots are below-eliminated but not
+          normalized to 1 or cleared above. In the step log, &quot;no pivot found&quot; usually means
+          near-zero column magnitude under the current tolerance.
         </p>
       </section>
+
+      <p>
+        Use augmented matrices to track linear-system solving directly, or plain coefficient
+        matrices to study rank and pivot structure in isolation.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

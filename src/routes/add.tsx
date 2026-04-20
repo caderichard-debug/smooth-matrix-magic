@@ -19,15 +19,28 @@ export const Route = createFileRoute("/add")({
           "Add or subtract two matrices online. Supports fractions, variables, and step-by-step solutions. Free up to 10×10.",
       },
       { property: "og:title", content: "Matrix Addition & Subtraction Calculator" },
-      { property: "og:description", content: "Add or subtract matrices online — symbolic and step-by-step." },
+      {
+        property: "og:description",
+        content: "Add or subtract matrices online — symbolic and step-by-step.",
+      },
     ],
   }),
   component: AddPage,
 });
 
 function AddPage() {
-  const [a, setA] = useState<Matrix>(() => fromNumbers([[1, 2], [3, 4]]));
-  const [b, setB] = useState<Matrix>(() => fromNumbers([[5, 6], [7, 8]]));
+  const [a, setA] = useState<Matrix>(() =>
+    fromNumbers([
+      [1.2, -0.8],
+      [3.5, 2.1],
+    ]),
+  );
+  const [b, setB] = useState<Matrix>(() =>
+    fromNumbers([
+      [0.4, 5.6],
+      [-1.3, 4.2],
+    ]),
+  );
   const [op, setOp] = useState<"add" | "sub">("add");
 
   const { result, error } = useMemo(() => {
@@ -41,7 +54,10 @@ function AddPage() {
     }
   }, [a, b, op]);
 
-  const steps = useMemo(() => (result ? addSteps(a, b, op === "add" ? "+" : "-") : []), [a, b, op, result]);
+  const steps = useMemo(
+    () => (result ? addSteps(a, b, op === "add" ? "+" : "-") : []),
+    [a, b, op, result],
+  );
 
   return (
     <PageLayout
@@ -64,9 +80,7 @@ function AddPage() {
       </div>
 
       <section className="rounded-lg border border-border bg-card/40 p-6">
-        <h2 className="text-xl font-semibold mb-4">
-          Result: {op === "add" ? "A + B" : "A − B"}
-        </h2>
+        <h2 className="text-xl font-semibold mb-4">Result: {op === "add" ? "A + B" : "A − B"}</h2>
         {error ? (
           <p className="text-destructive font-mono text-sm">{error}</p>
         ) : (
@@ -83,16 +97,25 @@ function AddPage() {
       <AdSlot label="Ad space — below result" height="h-28" />
 
       <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
-        <h2 className="text-foreground text-xl font-semibold">How matrix addition and subtraction works</h2>
+        <h2 className="text-foreground text-xl font-semibold">
+          How matrix addition and subtraction works
+        </h2>
         <p>
           Matrix addition and subtraction are entry-by-entry operations. For each position{" "}
           <span className="font-mono text-primary">(i, j)</span>, compute{" "}
           <span className="font-mono text-primary">(A ± B)ᵢⱼ = Aᵢⱼ ± Bᵢⱼ</span>.
         </p>
         <p>
-          Both matrices must have exactly the same dimensions (same number of rows and columns).
-          If sizes differ, the operation is undefined and the calculator shows an error.
+          Both matrices must have exactly the same dimensions (same number of rows and columns). If
+          sizes differ, the operation is undefined and the calculator shows an error.
         </p>
+        <ul className="list-disc pl-6 space-y-1 text-sm">
+          <li>Addition is commutative: A + B = B + A.</li>
+          <li>Addition is associative: (A + B) + C = A + (B + C).</li>
+          <li>Additive identity and inverse: A + 0 = A and A + (-A) = 0.</li>
+          <li>Subtraction is not commutative: A − B = -(B − A) in general.</li>
+          <li>Scalar distribution: k(A ± B) = kA ± kB.</li>
+        </ul>
       </section>
     </PageLayout>
   );

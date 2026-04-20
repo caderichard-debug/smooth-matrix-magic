@@ -20,22 +20,29 @@ export const Route = createFileRoute("/")({
           "Multiply two matrices instantly online. Supports fractions, variables, and step-by-step solutions. Free matrix multiplication calculator up to 10×10.",
       },
       { property: "og:title", content: "Matrix Multiplication Calculator" },
-      { property: "og:description", content: "Multiply matrices online — fractions, variables, step-by-step. Free, no signup." },
+      {
+        property: "og:description",
+        content: "Multiply matrices online — fractions, variables, step-by-step. Free, no signup.",
+      },
     ],
   }),
   component: MultiplyPage,
 });
 
 function MultiplyPage() {
-  const [a, setA] = useState<Matrix>(() => fromNumbers([
-    [1, 2, 3],
-    [4, 5, 6],
-  ]));
-  const [b, setB] = useState<Matrix>(() => fromNumbers([
-    [7, 8],
-    [9, 10],
-    [11, 12],
-  ]));
+  const [a, setA] = useState<Matrix>(() =>
+    fromNumbers([
+      [1.2, -0.5, 3.1],
+      [0.8, 2.4, -1.6],
+    ]),
+  );
+  const [b, setB] = useState<Matrix>(() =>
+    fromNumbers([
+      [2.5, -1.2],
+      [0.6, 3.3],
+      [-4.1, 1.8],
+    ]),
+  );
 
   const { result, error } = useMemo(() => {
     try {
@@ -63,12 +70,7 @@ function MultiplyPage() {
           <h2 className="text-xl font-semibold">Result: A × B</h2>
           <div className="flex items-center gap-3">
             {result && (
-              <Button
-                type="button"
-                variant="secondary"
-                size="sm"
-                onClick={() => setA(result)}
-              >
+              <Button type="button" variant="secondary" size="sm" onClick={() => setA(result)}>
                 <ArrowLeft className="size-4" /> Use answer as Matrix A
               </Button>
             )}
@@ -100,15 +102,28 @@ function MultiplyPage() {
           To multiply matrix <span className="text-primary font-mono">A</span> (size m×n) by matrix{" "}
           <span className="text-primary font-mono">B</span> (size n×p), the number of columns in A
           must equal the number of rows in B. Each entry of the resulting m×p matrix is the dot
-          product of the corresponding row of A and column of B.
+          product of the corresponding row of A and column of B:{" "}
+          <span className="font-mono text-primary">(AB)ᵢⱼ = Σₖ AᵢₖBₖⱼ</span>.
         </p>
         <p>
-          This calculator supports fractions like <span className="font-mono text-primary">3/4</span>,
-          variables like <span className="font-mono text-primary">x</span> or{" "}
+          This calculator supports decimals like{" "}
+          <span className="font-mono text-primary">0.75</span>, variables like{" "}
+          <span className="font-mono text-primary">x</span> or{" "}
           <span className="font-mono text-primary">alpha</span>, and full expressions like{" "}
           <span className="font-mono text-primary">2x + 1</span>. Everything runs in your browser —
           no data is uploaded.
         </p>
+        <ul className="list-disc pl-6 space-y-1 text-sm">
+          <li>
+            Order matters in general: A×B is usually different from B×A, and one may be undefined.
+          </li>
+          <li>Result shape is easy to predict before computing: (m×n)·(n×p) always returns m×p.</li>
+          <li>
+            Associative: (AB)C = A(BC), so chained products can be regrouped when dimensions match.
+          </li>
+          <li>Distributive: A(B + C) = AB + AC and (A + B)C = AC + BC.</li>
+          <li>Identity and zero rules: AI = IA = A, and A0 = 0, 0A = 0.</li>
+        </ul>
       </section>
     </PageLayout>
   );

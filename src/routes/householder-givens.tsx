@@ -176,12 +176,26 @@ function HouseholderGivensPage() {
           reflects x across a hyperplane and can zero all but one subvector entry in one step.
         </p>
         <p className="text-sm text-muted-foreground">
+          Householder matrices satisfy <span className="font-mono">H^T H = I</span> and{" "}
+          <span className="font-mono">H^(-1)=H</span>, giving numerically stable norm-preserving
+          transformations.
+        </p>
+        <p className="text-sm text-muted-foreground">
           Givens uses a 2x2 rotation block in coordinates p and q:
           <span className="font-mono"> [[c,-s],[s,c]] </span>
           with <span className="font-mono">c^2+s^2=1</span>. It zeros one chosen entry while
           changing only two coordinates.
         </p>
+        <p className="text-sm text-muted-foreground">
+          Because each Givens step is sparse and local, it is especially useful for sparse matrices
+          or streaming updates where full reflections would introduce excessive fill-in.
+        </p>
       </section>
+
+      <p className="text-sm text-muted-foreground">
+        QR implementations often mix both tools: Householder for dense bulk reduction and Givens for
+        sparse or incremental updates.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

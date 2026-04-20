@@ -36,8 +36,8 @@ export const Route = createFileRoute("/matrix-log-sqrt")({
 function MatrixLogSqrtPage() {
   const [a, setA] = useState<Matrix>(() =>
     fromNumbers([
-      [4, 1],
-      [1, 3],
+      [4, 1.2],
+      [1.2, 3.5],
     ]),
   );
 
@@ -88,12 +88,16 @@ function MatrixLogSqrtPage() {
         <p className="text-sm text-muted-foreground">
           For symmetric positive-definite A, spectral decomposition gives A = Q diag(lambda1,
           lambda2) Q^T with positive eigenvalues. Principal matrix functions are then applied
-          entrywise on this diagonal spectrum.
+          entrywise on this diagonal spectrum with orthogonal Q.
         </p>
         <p className="text-sm text-muted-foreground">
           Specifically, sqrt(A) = Q diag(sqrt(lambda1), sqrt(lambda2)) Q^T and log(A) = Q
           diag(log(lambda1), log(lambda2)) Q^T. Positivity is required so principal logarithm stays
-          real.
+          real, and sqrt(A) is the unique SPD square root.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          Interpretation note: these are principal branches, so exp(log(A)) = A and sqrt(A)^2 = A up
+          to rounding; non-principal branches are not represented here.
         </p>
       </section>
 

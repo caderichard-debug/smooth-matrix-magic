@@ -22,24 +22,32 @@ export const Route = createFileRoute("/decompositions")({
           "Compute LU decomposition, QR decomposition, and Gram-Schmidt orthogonalization for numeric matrices.",
       },
       { property: "og:title", content: "LU, QR, Gram-Schmidt Matrix Calculator" },
-      { property: "og:description", content: "Find LU/QR factors and orthonormalized vectors online — free." },
+      {
+        property: "og:description",
+        content: "Find LU/QR factors and orthonormalized vectors online — free.",
+      },
     ],
   }),
   component: DecompositionsPage,
 });
 
 function DecompositionsPage() {
-  const [a, setA] = useState<Matrix>(() => fromNumbers([
-    [1, 2, 1],
-    [2, 1, 0],
-    [0, 1, 1],
-  ]));
+  const [a, setA] = useState<Matrix>(() =>
+    fromNumbers([
+      [1.2, 2, 1],
+      [2, 1.1, 0.5],
+      [0, 1, 1.3],
+    ]),
+  );
 
   const lu = useMemo(() => {
     try {
       return { data: luDecomposition(a), error: null as string | null };
     } catch (e) {
-      return { data: null as { l: Matrix; u: Matrix } | null, error: e instanceof Error ? e.message : "Error" };
+      return {
+        data: null as { l: Matrix; u: Matrix } | null,
+        error: e instanceof Error ? e.message : "Error",
+      };
     }
   }, [a]);
 
@@ -47,7 +55,10 @@ function DecompositionsPage() {
     try {
       return { data: qrDecomposition(a), error: null as string | null };
     } catch (e) {
-      return { data: null as { q: Matrix; r: Matrix } | null, error: e instanceof Error ? e.message : "Error" };
+      return {
+        data: null as { q: Matrix; r: Matrix } | null,
+        error: e instanceof Error ? e.message : "Error",
+      };
     }
   }, [a]);
 
@@ -72,11 +83,13 @@ function DecompositionsPage() {
             <h2 className="text-xl font-semibold mb-3">LU Decomposition (A = LU)</h2>
             {lu.error ? (
               <p className="text-destructive font-mono text-sm">{lu.error}</p>
-            ) : lu.data && (
-              <div className="space-y-4 overflow-x-auto">
-                <MatrixDisplay m={lu.data.l} label="L" />
-                <MatrixDisplay m={lu.data.u} label="U" />
-              </div>
+            ) : (
+              lu.data && (
+                <div className="space-y-4 overflow-x-auto">
+                  <MatrixDisplay m={lu.data.l} label="L" />
+                  <MatrixDisplay m={lu.data.u} label="U" />
+                </div>
+              )
             )}
           </section>
 
@@ -84,11 +97,13 @@ function DecompositionsPage() {
             <h2 className="text-xl font-semibold mb-3">QR Decomposition (A = QR)</h2>
             {qr.error ? (
               <p className="text-destructive font-mono text-sm">{qr.error}</p>
-            ) : qr.data && (
-              <div className="space-y-4 overflow-x-auto">
-                <MatrixDisplay m={qr.data.q} label="Q" />
-                <MatrixDisplay m={qr.data.r} label="R" />
-              </div>
+            ) : (
+              qr.data && (
+                <div className="space-y-4 overflow-x-auto">
+                  <MatrixDisplay m={qr.data.q} label="Q" />
+                  <MatrixDisplay m={qr.data.r} label="R" />
+                </div>
+              )
             )}
           </section>
 
@@ -96,10 +111,12 @@ function DecompositionsPage() {
             <h2 className="text-xl font-semibold mb-3">Gram-Schmidt Orthonormal Columns</h2>
             {gs.error ? (
               <p className="text-destructive font-mono text-sm">{gs.error}</p>
-            ) : gs.data && (
-              <div className="overflow-x-auto">
-                <MatrixDisplay m={gs.data} />
-              </div>
+            ) : (
+              gs.data && (
+                <div className="overflow-x-auto">
+                  <MatrixDisplay m={gs.data} />
+                </div>
+              )
             )}
           </section>
         </div>
@@ -108,16 +125,25 @@ function DecompositionsPage() {
       <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
         <h2 className="text-xl font-semibold">How these decompositions work</h2>
         <p className="text-sm text-muted-foreground">
-          LU decomposition factors a square matrix as <span className="font-mono">A = LU</span>, where L is lower
-          triangular and U is upper triangular. This implementation is numeric and expects square input.
+          LU decomposition factors a square matrix as <span className="font-mono">A = LU</span>,
+          where L is lower triangular and U is upper triangular. A common validation is the residual
+          <span className="font-mono"> ||A - LU||</span>, which should be near zero.
         </p>
         <p className="text-sm text-muted-foreground">
-          QR decomposition writes <span className="font-mono">A = QR</span>, with Q having orthonormal columns and
-          R upper triangular. For A in R^(m x n), Q is m x n and R is n x n in reduced form.
+          QR decomposition writes <span className="font-mono">A = QR</span>, with Q having
+          orthonormal columns and R upper triangular. In reduced form for A in R^(m x n), Q is m x
+          n, R is n x n, and
+          <span className="font-mono"> Q^T Q = I</span>.
         </p>
         <p className="text-sm text-muted-foreground">
-          Gram-Schmidt orthonormalization transforms independent input columns into orthonormal columns spanning the
-          same subspace. The returned matrix contains those orthonormalized column vectors.
+          Gram-Schmidt orthonormalization transforms independent input columns into orthonormal
+          columns spanning the same subspace. The returned matrix has columns q_i with
+          <span className="font-mono"> q_i^T q_j = delta_ij</span>.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          Practical caveat: stable LU in practice is often
+          <span className="font-mono"> PA = LU</span> with pivoting, and classical Gram-Schmidt can
+          lose orthogonality for nearly dependent columns.
         </p>
       </section>
 

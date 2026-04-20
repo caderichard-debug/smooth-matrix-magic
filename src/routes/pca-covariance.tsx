@@ -35,16 +35,16 @@ export const Route = createFileRoute("/pca-covariance")({
 function PcaCovariancePage() {
   const [x, setX] = useState<Matrix>(() =>
     fromNumbers([
-      [2.5, 2.4],
-      [0.5, 0.7],
-      [2.2, 2.9],
-      [1.9, 2.2],
-      [3.1, 3.0],
-      [2.3, 2.7],
-      [2.0, 1.6],
-      [1.0, 1.1],
-      [1.5, 1.6],
-      [1.1, 0.9],
+      [2.55, 2.35],
+      [0.55, 0.75],
+      [2.25, 2.95],
+      [1.95, 2.25],
+      [3.15, 3.05],
+      [2.35, 2.75],
+      [2.05, 1.65],
+      [1.05, 1.15],
+      [1.55, 1.65],
+      [1.15, 0.95],
     ]),
   );
 
@@ -142,12 +142,25 @@ function PcaCovariancePage() {
           the covariance matrix to capture joint variation between features.
         </p>
         <p>
+          The covariance matrix is{" "}
+          <span className="font-mono">S = (1/(n-1)) X_centered^T X_centered</span>; it is symmetric
+          and positive semidefinite, so eigenvalues are non-negative up to numerical tolerance.
+        </p>
+        <p>
           Principal components are eigenvectors of the covariance matrix. The first principal
           component points in the direction of maximum variance in the data.
         </p>
         <p>
           The corresponding eigenvalue tells how much variance lies on that direction, and the
           explained variance ratio compares it to total variance.
+        </p>
+        <p>
+          For PC1, this ratio is <span className="font-mono">lambda_1 / trace(S)</span>; a larger
+          value means more total variance is captured by a single direction.
+        </p>
+        <p>
+          A high PC1 ratio suggests one dominant trend, but review later components before dropping
+          dimensions so you do not discard smaller yet decision-critical variation.
         </p>
       </section>
 

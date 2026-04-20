@@ -16,21 +16,28 @@ export const Route = createFileRoute("/matrix-products")({
           "Compute Hadamard (element-wise) and Kronecker (tensor) products of two matrices online.",
       },
       { property: "og:title", content: "Hadamard & Kronecker Product Calculator" },
-      { property: "og:description", content: "Find matrix Hadamard and Kronecker products online — free." },
+      {
+        property: "og:description",
+        content: "Find matrix Hadamard and Kronecker products online — free.",
+      },
     ],
   }),
   component: MatrixProductsPage,
 });
 
 function MatrixProductsPage() {
-  const [a, setA] = useState<Matrix>(() => fromNumbers([
-    [1, 2],
-    [3, 4],
-  ]));
-  const [b, setB] = useState<Matrix>(() => fromNumbers([
-    [0, 5],
-    [6, 7],
-  ]));
+  const [a, setA] = useState<Matrix>(() =>
+    fromNumbers([
+      [1.2, 2.4],
+      [3.6, 4.8],
+    ]),
+  );
+  const [b, setB] = useState<Matrix>(() =>
+    fromNumbers([
+      [0.5, 1.5],
+      [2.5, 3.5],
+    ]),
+  );
 
   const had = useMemo(() => {
     try {
@@ -62,10 +69,12 @@ function MatrixProductsPage() {
             <h2 className="text-xl font-semibold mb-3">Hadamard Product A .* B</h2>
             {had.error ? (
               <p className="text-destructive font-mono text-sm">{had.error}</p>
-            ) : had.data && (
-              <div className="overflow-x-auto">
-                <MatrixDisplay m={had.data} />
-              </div>
+            ) : (
+              had.data && (
+                <div className="overflow-x-auto">
+                  <MatrixDisplay m={had.data} />
+                </div>
+              )
             )}
           </section>
 
@@ -73,10 +82,12 @@ function MatrixProductsPage() {
             <h2 className="text-xl font-semibold mb-3">Kronecker Product A (x) B</h2>
             {kron.error ? (
               <p className="text-destructive font-mono text-sm">{kron.error}</p>
-            ) : kron.data && (
-              <div className="overflow-x-auto">
-                <MatrixDisplay m={kron.data} />
-              </div>
+            ) : (
+              kron.data && (
+                <div className="overflow-x-auto">
+                  <MatrixDisplay m={kron.data} />
+                </div>
+              )
             )}
           </section>
         </div>
@@ -85,18 +96,31 @@ function MatrixProductsPage() {
       <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
         <h2 className="text-xl font-semibold">How Hadamard and Kronecker products work</h2>
         <p className="text-sm text-muted-foreground">
-          The Hadamard product multiplies matching entries: <span className="font-mono">(A .* B)ij = Aij Bij</span>.
-          Dimensions must match exactly, so if A is m x n, B must also be m x n.
+          The Hadamard product multiplies matching entries:{" "}
+          <span className="font-mono">(A .* B)ij = Aij Bij</span>. Dimensions must match exactly, so
+          if A is m x n, B must also be m x n.
         </p>
         <p className="text-sm text-muted-foreground">
           The Kronecker product builds a larger block matrix:
-          <span className="font-mono"> A (x) B = [aij B]</span>. If A is m x n and B is p x q, the result is
-          (m*p) x (n*q), and no equal-size requirement is needed.
+          <span className="font-mono"> A (x) B = [aij B]</span>. If A is m x n and B is p x q, the
+          result is (m*p) x (n*q), and no equal-size requirement is needed.
         </p>
         <p className="text-sm text-muted-foreground">
-          Use Hadamard for entry-by-entry scaling/masking and Kronecker for tensor products, block construction,
-          and separable operators.
+          Useful identities: <span className="font-mono">(A (x) B)(C (x) D) = (AC) (x) (BD)</span>{" "}
+          when inner dimensions match, and{" "}
+          <span className="font-mono">det(A (x) B) = det(A)^p det(B)^m</span> for square A (m x m),
+          B (p x p). For same-size inputs, Hadamard obeys
+          <span className="font-mono"> sum_ij (A .* B)ij = tr(A^T B)</span>.
         </p>
+        <p className="text-sm text-muted-foreground">
+          Use Hadamard for entry-by-entry scaling/masking and Kronecker for tensor products, block
+          construction, and separable operators.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+          <li>Hadamard output always has the same shape as A and B.</li>
+          <li>Kronecker output expands to (rows(A)*rows(B)) x (cols(A)*cols(B)).</li>
+          <li>If one factor entry is 0 in A, its corresponding Kronecker block is all zeros.</li>
+        </ul>
       </section>
 
       <AdSlot label="Ad space — below result" height="h-28" />

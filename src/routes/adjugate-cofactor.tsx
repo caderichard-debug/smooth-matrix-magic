@@ -29,14 +29,23 @@ export const Route = createFileRoute("/adjugate-cofactor")({
           "Compute cofactor matrix and adjugate (classical adjoint), then verify A·adj(A) = det(A)·I for square matrices.",
       },
       { property: "og:title", content: "Adjugate & Cofactor Matrix Calculator" },
-      { property: "og:description", content: "Build cofactors, transpose to adjugate, and verify determinant identity." },
+      {
+        property: "og:description",
+        content: "Build cofactors, transpose to adjugate, and verify determinant identity.",
+      },
     ],
   }),
   component: AdjugateCofactorPage,
 });
 
 function AdjugateCofactorPage() {
-  const [a, setA] = useState<Matrix>(() => fromNumbers([[2, 1, 3], [0, -1, 4], [5, 2, 0]]));
+  const [a, setA] = useState<Matrix>(() =>
+    fromNumbers([
+      [2, 1, 3],
+      [0, -1, 4],
+      [5, 2, 0],
+    ]),
+  );
 
   const out = useMemo(() => {
     try {
@@ -48,9 +57,23 @@ function AdjugateCofactorPage() {
       const detA = determinant(a);
       const identityScaled = scalarMultiply(identity(rows), detA);
       const left = multiply(a, adjugate);
-      return { cofactor, adjugate, identityScaled, left, detText: formatExpr(detA), error: null as string | null };
+      return {
+        cofactor,
+        adjugate,
+        identityScaled,
+        left,
+        detText: formatExpr(detA),
+        error: null as string | null,
+      };
     } catch (e) {
-      return { cofactor: null, adjugate: null, identityScaled: null, left: null, detText: "", error: e instanceof Error ? e.message : "Error" };
+      return {
+        cofactor: null,
+        adjugate: null,
+        identityScaled: null,
+        left: null,
+        detText: "",
+        error: e instanceof Error ? e.message : "Error",
+      };
     }
   }, [a]);
 
@@ -70,10 +93,26 @@ function AdjugateCofactorPage() {
           <>
             <p className="text-sm text-muted-foreground font-mono">det(A) = {out.detText}</p>
             <div className="grid lg:grid-cols-2 gap-4">
-              {out.cofactor && <div className="overflow-x-auto"><MatrixDisplay m={out.cofactor} label="Cofactor matrix C" /></div>}
-              {out.adjugate && <div className="overflow-x-auto"><MatrixDisplay m={out.adjugate} label="adj(A) = C^T" /></div>}
-              {out.left && <div className="overflow-x-auto"><MatrixDisplay m={out.left} label="A · adj(A)" /></div>}
-              {out.identityScaled && <div className="overflow-x-auto"><MatrixDisplay m={out.identityScaled} label="det(A) · I" /></div>}
+              {out.cofactor && (
+                <div className="overflow-x-auto">
+                  <MatrixDisplay m={out.cofactor} label="Cofactor matrix C" />
+                </div>
+              )}
+              {out.adjugate && (
+                <div className="overflow-x-auto">
+                  <MatrixDisplay m={out.adjugate} label="adj(A) = C^T" />
+                </div>
+              )}
+              {out.left && (
+                <div className="overflow-x-auto">
+                  <MatrixDisplay m={out.left} label="A · adj(A)" />
+                </div>
+              )}
+              {out.identityScaled && (
+                <div className="overflow-x-auto">
+                  <MatrixDisplay m={out.identityScaled} label="det(A) · I" />
+                </div>
+              )}
             </div>
           </>
         )}
@@ -82,15 +121,28 @@ function AdjugateCofactorPage() {
       <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
         <h2 className="text-xl font-semibold">How adjugate and cofactor works</h2>
         <p className="text-sm text-muted-foreground">
-          The cofactor entry is <span className="font-mono">C_ij = (-1)^(i+j) det(M_ij)</span>, where
+          The cofactor entry is <span className="font-mono">C_ij = (-1)^(i+j) det(M_ij)</span>,
+          where
           <span className="font-mono"> M_ij</span> removes row i and column j.
         </p>
         <p className="text-sm text-muted-foreground">
           The adjugate is the transpose of the cofactor matrix. A key identity is
           <span className="font-mono"> A·adj(A) = det(A)·I</span>, which also yields
-          <span className="font-mono"> A^(-1) = adj(A)/det(A)</span> when <span className="font-mono">det(A) != 0</span>.
+          <span className="font-mono"> A^(-1) = adj(A)/det(A)</span> when{" "}
+          <span className="font-mono">det(A) != 0</span>.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          Equivalent right-multiplication also holds:
+          <span className="font-mono"> adj(A)·A = det(A)·I</span>. The map is multilinear in
+          rows/columns through minors, and signs follow the checkerboard pattern
+          <span className="font-mono"> (+,-,+;-,+,-;...)</span>.
         </p>
       </section>
+
+      <p className="text-sm text-muted-foreground">
+        While direct adjugate formulas are expensive for large n, they remain a valuable symbolic
+        tool and a compact proof technique in linear algebra.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>
@@ -102,9 +154,7 @@ function buildCofactorMatrix(a: Matrix): Matrix {
   if (rows === 1) return [[ONE]];
   return Array.from({ length: rows }, (_, i) =>
     Array.from({ length: rows }, (_, j) => {
-      const minor = a
-        .filter((_, rr) => rr !== i)
-        .map((row) => row.filter((_, cc) => cc !== j));
+      const minor = a.filter((_, rr) => rr !== i).map((row) => row.filter((_, cc) => cc !== j));
       const sign = (i + j) % 2 === 0 ? parseExpr("1") : parseExpr("-1");
       return eMul(sign, determinant(minor));
     }),

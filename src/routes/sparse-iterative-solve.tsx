@@ -32,8 +32,8 @@ export const Route = createFileRoute("/sparse-iterative-solve")({
 });
 
 function SparseIterativeSolvePage() {
-  const [matrixText, setMatrixText] = useState("4 -1 0\n-1 4 -1\n0 -1 3");
-  const [rhsText, setRhsText] = useState("15 10 10");
+  const [matrixText, setMatrixText] = useState("4.0 -1.0 0\n-1.0 4.2 -1.1\n0 -1.0 3.5");
+  const [rhsText, setRhsText] = useState("15.5 10.2 10.1");
   const [toleranceText, setToleranceText] = useState("1e-6");
   const [maxIterationsText, setMaxIterationsText] = useState("50");
 
@@ -136,14 +136,17 @@ function SparseIterativeSolvePage() {
       <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
         <h2 className="text-foreground text-xl font-semibold">How sparse iterative solve works</h2>
         <p>
-          Jacobi iteration updates each variable using the previous iterate: x^(k+1) = D^-1 (b -
-          (L+U)x^k). For stable convergence, diagonally dominant or well-conditioned sparse systems
-          are preferred.
+          Jacobi splits A = D + L + U and updates x^(k+1) = D^-1(b - (L+U)x^k), i.e. x_i^(k+1) =
+          (b_i - sum(j ne i)a_ij x_j^(k))/a_ii.
         </p>
         <p>
-          This page reports residual norm ||b-Ax||_2 at each iteration. If convergence stalls, try
-          scaling, row/column reordering, or switching to stronger methods such as Gauss-Seidel/CG
-          in production solvers.
+          A common convergence condition is rho(D^-1(L+U)) &lt; 1; strict diagonal dominance |a_ii|
+          &gt; sum(j ne i)|a_ij| is a practical sufficient check. Zero diagonal entries invalidate
+          Jacobi updates.
+        </p>
+        <p>
+          Residuals ||b-Ax^k||_2 are tracked per iteration. Use both residual and iterate-delta
+          stopping checks in practice to avoid false convergence on ill-conditioned systems.
         </p>
       </section>
 

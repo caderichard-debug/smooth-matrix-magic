@@ -5,6 +5,7 @@ import {
 } from "./expr";
 
 export type Matrix = Expr[][];
+let preferFractionOutput = false;
 
 export function makeMatrix(rows: number, cols: number, fill: Expr = ZERO): Matrix {
   return Array.from({ length: rows }, () => Array.from({ length: cols }, () => fill));
@@ -994,7 +995,17 @@ export function formatNumber(n: number): string {
 }
 
 export function formatExpr(e: Expr): string {
+  const n = asNumber(e);
+  if (n !== null && !preferFractionOutput) return formatNumber(n);
   return stringifyShort(e);
+}
+
+export function noteFractionInput(raw: string) {
+  if (raw.includes("/")) preferFractionOutput = true;
+}
+
+export function setPreferFractionOutput(prefer: boolean) {
+  preferFractionOutput = prefer;
 }
 
 // Re-export common Expr helpers so consumers don't need two imports.

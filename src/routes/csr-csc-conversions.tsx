@@ -26,7 +26,9 @@ export const Route = createFileRoute("/csr-csc-conversions")({
 });
 
 function CsrCscConversionsPage() {
-  const [matrixText, setMatrixText] = useState("10 0 0 2\n3 9 0 0\n0 7 8 7\n3 0 8 7");
+  const [matrixText, setMatrixText] = useState(
+    "10.5 0 0 2.25\n3.5 9.25 0 0\n0 7.75 8.5 7.25\n3.25 0 8.1 7.6",
+  );
 
   const conversion = useMemo(() => {
     try {
@@ -91,12 +93,16 @@ function CsrCscConversionsPage() {
       <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
         <h2 className="text-foreground text-xl font-semibold">How csr and csc conversions works</h2>
         <p>
-          Non-zero entries are extracted into coordinate form first: (row, col, value). CSR then
-          groups by row with row pointers, while CSC groups by column with column pointers.
+          Non-zeros are first listed as COO triplets (i, j, a_ij). CSR stores values/colIdx/rowPtr;
+          CSC stores values/rowIdx/colPtr.
         </p>
         <p>
-          This page assumes explicit dense input and treats values with tiny magnitude as zero.
-          Outputs are concise so they can be copied directly into numeric code.
+          CSR invariants: rowPtr[0]=0, rowPtr[m]=nnz, and rowPtr[r+1]-rowPtr[r] equals non-zeros in
+          row r. CSC mirrors this by columns with colPtr[0]=0 and colPtr[n]=nnz.
+        </p>
+        <p>
+          SpMV in CSR is y_i = sum(p=rowPtr[i]..rowPtr[i+1]-1) values[p] * x[colIdx[p]]. Use CSR for
+          row-wise kernels and CSC for column-oriented factorizations.
         </p>
       </section>
 

@@ -25,7 +25,12 @@ export const Route = createFileRoute("/transpose")({
 });
 
 function TransposePage() {
-  const [a, setA] = useState<Matrix>(() => fromNumbers([[1, 2, 3], [4, 5, 6]]));
+  const [a, setA] = useState<Matrix>(() =>
+    fromNumbers([
+      [1.1, -2.4, 3.6],
+      [0.5, 4.2, -1.3],
+    ]),
+  );
 
   const result = useMemo(() => transpose(a), [a]);
   const steps = useMemo(() => transposeSteps(a), [a]);
@@ -64,6 +69,17 @@ function TransposePage() {
           <span className="font-mono text-primary">n×m</span> after transposing. This operation is
           always valid for any matrix, including non-square ones.
         </p>
+        <p>
+          Useful identities: <span className="font-mono text-primary">(Aᵀ)ᵀ = A</span> and{" "}
+          <span className="font-mono text-primary">(AB)ᵀ = BᵀAᵀ</span>. The second one explains why
+          transpose is common when rewriting dot products and normal equations.
+        </p>
+        <ul className="list-disc pl-6 space-y-1 text-sm">
+          <li>Linearity: (A + B)ᵀ = Aᵀ + Bᵀ and (kA)ᵀ = kAᵀ.</li>
+          <li>Trace is unchanged: tr(Aᵀ) = tr(A).</li>
+          <li>Determinant is unchanged for square A: det(Aᵀ) = det(A).</li>
+          <li>Symmetry checks: A is symmetric if Aᵀ = A, skew-symmetric if Aᵀ = -A.</li>
+        </ul>
       </section>
     </PageLayout>
   );

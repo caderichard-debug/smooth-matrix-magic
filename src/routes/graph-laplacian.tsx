@@ -148,12 +148,26 @@ function GraphLaplacianPage() {
           undirected non-negative graphs.
         </p>
         <p className="text-sm text-muted-foreground">
+          PSD means <span className="font-mono">x^T L x &gt;= 0</span> for all x; equivalently{" "}
+          <span className="font-mono">x^T L x = (1/2) sum_(i,j) a_ij (x_i-x_j)^2</span>, so L
+          penalizes differences across connected nodes.
+        </p>
+        <p className="text-sm text-muted-foreground">
           The normalized Laplacian is{" "}
           <span className="font-mono">L_sym = I - D^(-1/2) A D^(-1/2)</span> on non-isolated nodes.
           The multiplicity of eigenvalue 0 equals the number of connected components in the
           undirected case.
         </p>
+        <p className="text-sm text-muted-foreground">
+          The second-smallest eigenvalue (algebraic connectivity) indicates how strongly connected
+          the graph is: values near 0 imply weakly connected structure or near-separation.
+        </p>
       </section>
+
+      <p className="text-sm text-muted-foreground">
+        In applications, Laplacians drive graph smoothing, clustering, and diffusion processes, so
+        these matrices are central beyond pure connectivity checks.
+      </p>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>
