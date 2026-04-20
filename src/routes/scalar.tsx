@@ -45,6 +45,7 @@ function ScalarPage() {
     <PageLayout
       title="Scalar × Matrix Calculator"
       tagline="Multiply every entry of a matrix by a scalar — number, fraction (3/4), or variable (k, alpha)."
+      showHowItWorks={false}
     >
       <div className="rounded-lg border border-border bg-card/40 p-5 max-w-sm space-y-2">
         <Label className="text-xs uppercase tracking-wider text-muted-foreground">Scalar k</Label>
@@ -75,6 +76,22 @@ function ScalarPage() {
       {result && <StepsPanel steps={steps} />}
 
       <AdSlot label="Ad space — below result" height="h-28" />
+
+      <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
+        <h2 className="text-foreground text-xl font-semibold">How scalar multiplication works</h2>
+        <p>
+          A scalar multiplication scales every entry of the matrix by the same value. If{" "}
+          <span className="font-mono text-primary">B = kA</span>, then{" "}
+          <span className="font-mono text-primary">Bᵢⱼ = k · Aᵢⱼ</span> for all positions{" "}
+          <span className="font-mono text-primary">(i, j)</span>.
+        </p>
+        <p>
+          The matrix shape does not change: an{" "}
+          <span className="font-mono text-primary">m×n</span> matrix stays{" "}
+          <span className="font-mono text-primary">m×n</span>. If{" "}
+          <span className="font-mono text-primary">k = 0</span>, every entry becomes zero.
+        </p>
+      </section>
     </PageLayout>
   );
 }

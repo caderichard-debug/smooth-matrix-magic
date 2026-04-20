@@ -40,6 +40,7 @@ function MatrixExponentialPage() {
     <PageLayout
       title="Matrix Exponential Calculator"
       tagline="Computes e^A using a 20-term numeric power series approximation; square numeric matrices only."
+      showHowItWorks={false}
     >
       <div className="grid lg:grid-cols-2 gap-6 items-start">
         <MatrixInput title="Matrix A (square, numeric)" value={a} onChange={setA} />
@@ -57,6 +58,23 @@ function MatrixExponentialPage() {
           )}
         </section>
       </div>
+
+      <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
+        <h2 className="text-xl font-semibold">How matrix exponential works</h2>
+        <p className="text-sm text-muted-foreground">
+          The matrix exponential is defined by the infinite series
+          <span className="font-mono"> e^A = sum(k=0..inf) A^k / k!</span>. This page computes a numeric approximation
+          with the first 20 terms.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          Matrix powers require square matrices, so A must be n x n. Inputs are numeric-only because the series is
+          evaluated numerically term-by-term.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          The result appears in linear systems and differential equations, for example in
+          <span className="font-mono"> x(t) = e^(tA) x(0)</span>.
+        </p>
+      </section>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

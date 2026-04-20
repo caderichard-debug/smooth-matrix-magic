@@ -44,6 +44,7 @@ function DeterminantPage() {
     <PageLayout
       title="Matrix Determinant Calculator"
       tagline="The determinant is a single value that tells you whether a matrix is invertible and how it scales space."
+      showHowItWorks={false}
     >
       <div className="grid lg:grid-cols-2 gap-6 items-start">
         <MatrixInput title="Matrix A" value={a} onChange={setA} />
@@ -62,6 +63,19 @@ function DeterminantPage() {
       </div>
 
       {value && <StepsPanel steps={steps} />}
+
+      <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
+        <h2 className="text-xl font-semibold">How determinant works</h2>
+        <p className="text-sm text-muted-foreground">
+          For a square matrix A, det(A) is the signed volume scaling factor of the linear map. A key test is
+          det(A) = 0: this means rows/columns are linearly dependent and A is singular (not invertible).
+        </p>
+        <ul className="list-disc pl-6 space-y-1 text-sm text-muted-foreground">
+          <li>2x2 shortcut: for A = [[a, b], [c, d]], det(A) = ad - bc.</li>
+          <li>Row operations: swapping rows flips the sign, scaling a row by k multiplies det by k.</li>
+          <li>Triangular matrices: det(A) is the product of diagonal entries.</li>
+        </ul>
+      </section>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

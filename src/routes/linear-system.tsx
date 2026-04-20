@@ -42,6 +42,7 @@ function LinearSystemPage() {
     <PageLayout
       title="Linear System Solver (Ax=b)"
       tagline="Enter matrix A and column vector b to classify whether a system has a unique solution, infinitely many, or none."
+      showHowItWorks={false}
     >
       <div className="grid lg:grid-cols-3 gap-6 items-start">
         <MatrixInput title="Matrix A (coefficients)" value={a} onChange={setA} />
@@ -83,6 +84,18 @@ function LinearSystemPage() {
           )}
         </section>
       </div>
+
+      <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
+        <h2 className="text-xl font-semibold">How linear system solving works</h2>
+        <ul className="list-disc pl-6 space-y-1 text-sm text-muted-foreground">
+          <li>Form the augmented matrix [A|b] and row-reduce to RREF.</li>
+          <li>No solution (inconsistent) appears if a row becomes [0 ... 0 | c] with c != 0.</li>
+          <li>Unique solution when every variable column has a pivot; otherwise free variables give infinitely many solutions.</li>
+        </ul>
+        <p className="text-sm text-muted-foreground">
+          Rank test: consistent systems satisfy rank(A) = rank([A|b]); uniqueness needs that common rank to equal the number of variables.
+        </p>
+      </section>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

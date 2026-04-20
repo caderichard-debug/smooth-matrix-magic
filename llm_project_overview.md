@@ -55,6 +55,15 @@ Smooth Matrix Magic is a web-based matrix manipulation toolset built for:
 - Shape and structural operations are grouped in `src/routes/structure-tools.tsx`.
 - Matrix creation utilities are grouped in `src/routes/generators.tsx`.
 - Norms and metrics are grouped in `src/routes/norms-metrics.tsx`.
+- Added route pages: `split-partition`, `stack-unstack-blocks`, `triangular-extraction`, `symmetrize-skew`,
+  `sparse-constructors`, `vandermonde-pascal-hilbert`, `block-matrix-builder`, `pseudoinverse`,
+  `adjugate-cofactor`, and `determinant-expansion`.
+- Boolean comparison/masking, boolean multiplication, reachability/transitive closure, and logical reduction tools are live as dedicated routes.
+- Descriptive-statistics and preprocessing tools are live: mean/variance/covariance/correlation, standardize/normalize, PCA-from-covariance, and Mahalanobis distance.
+- Additional sidebar pages now implemented as live tools: Gaussian elimination steps, pivot/free-variable analyzer, REF with partial pivoting, CSR/CSC conversions, sparse add/multiply, sparse bandwidth profile, and sparse iterative solve.
+- New transform and stochastic/graph pages are live: `transform-matrices-2d-3d`, `rotation-reflection-shear`,
+  `homogeneous-coordinates`, `compose-decompose-transforms`, `householder-givens`, `companion-fiedler`,
+  `markov-chain-tools`, and `graph-laplacian`.
 
 ## Architecture notes
 

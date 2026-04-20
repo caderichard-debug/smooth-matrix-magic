@@ -88,6 +88,7 @@ function StructureToolsPage() {
     <PageLayout
       title="Shape & Structural Matrix Tools"
       tagline="Compose and transform matrices with practical structural operations used in pipelines and data workflows."
+      showHowItWorks={false}
     >
       <div className="grid md:grid-cols-2 gap-4">
         <div className="rounded-lg border border-border bg-card/40 p-4 space-y-2">
@@ -129,6 +130,22 @@ function StructureToolsPage() {
           </section>
         </div>
       )}
+
+      <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
+        <h2 className="text-foreground text-xl font-semibold">How shape and structural matrix tools works</h2>
+        <p>
+          Conjugate transpose forms A^H by transposing and conjugating entries; for real matrices this is just A^T.
+          Flatten and reshape preserve entry order while changing dimensions, so total element count must stay constant.
+        </p>
+        <p>
+          Horizontal concatenation [A|B] requires matching row counts, while vertical concatenation [A;B] requires
+          matching column counts. Reversing rows or columns applies permutation matrices to reorder indices.
+        </p>
+        <p>
+          Diagonal extraction returns diag(A) = [a_11, a_22, ...], and diagonal creation places chosen values on the
+          main diagonal. Band extraction with lower and upper widths keeps entries near the diagonal and zeros others.
+        </p>
+      </section>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

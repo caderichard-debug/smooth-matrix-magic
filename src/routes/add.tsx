@@ -47,6 +47,7 @@ function AddPage() {
     <PageLayout
       title="Matrix Addition & Subtraction"
       tagline="Add or subtract two matrices of equal dimensions. Switch operations with a click."
+      showHowItWorks={false}
     >
       <div className="flex gap-2">
         <Button variant={op === "add" ? "default" : "secondary"} onClick={() => setOp("add")}>
@@ -80,6 +81,19 @@ function AddPage() {
       {result && <StepsPanel steps={steps} />}
 
       <AdSlot label="Ad space — below result" height="h-28" />
+
+      <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
+        <h2 className="text-foreground text-xl font-semibold">How matrix addition and subtraction works</h2>
+        <p>
+          Matrix addition and subtraction are entry-by-entry operations. For each position{" "}
+          <span className="font-mono text-primary">(i, j)</span>, compute{" "}
+          <span className="font-mono text-primary">(A ± B)ᵢⱼ = Aᵢⱼ ± Bᵢⱼ</span>.
+        </p>
+        <p>
+          Both matrices must have exactly the same dimensions (same number of rows and columns).
+          If sizes differ, the operation is undefined and the calculator shows an error.
+        </p>
+      </section>
     </PageLayout>
   );
 }

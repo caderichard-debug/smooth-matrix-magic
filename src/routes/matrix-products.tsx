@@ -52,6 +52,7 @@ function MatrixProductsPage() {
     <PageLayout
       title="Hadamard & Kronecker Product Calculator"
       tagline="Compare element-wise multiplication and tensor-style matrix expansion from the same two inputs."
+      showHowItWorks={false}
     >
       <div className="grid lg:grid-cols-3 gap-6 items-start">
         <MatrixInput title="Matrix A" value={a} onChange={setA} />
@@ -80,6 +81,23 @@ function MatrixProductsPage() {
           </section>
         </div>
       </div>
+
+      <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
+        <h2 className="text-xl font-semibold">How Hadamard and Kronecker products work</h2>
+        <p className="text-sm text-muted-foreground">
+          The Hadamard product multiplies matching entries: <span className="font-mono">(A .* B)ij = Aij Bij</span>.
+          Dimensions must match exactly, so if A is m x n, B must also be m x n.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          The Kronecker product builds a larger block matrix:
+          <span className="font-mono"> A (x) B = [aij B]</span>. If A is m x n and B is p x q, the result is
+          (m*p) x (n*q), and no equal-size requirement is needed.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          Use Hadamard for entry-by-entry scaling/masking and Kronecker for tensor products, block construction,
+          and separable operators.
+        </p>
+      </section>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

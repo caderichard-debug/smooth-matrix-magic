@@ -42,6 +42,7 @@ function PowerPage() {
     <PageLayout
       title="Matrix Power Calculator"
       tagline="Raise a square matrix to a non-negative integer power: A⁰ = I, A¹ = A, A² = A·A, and so on."
+      showHowItWorks={false}
     >
       <div className="rounded-lg border border-border bg-card/40 p-5 max-w-xs space-y-2">
         <Label className="text-xs uppercase tracking-wider text-muted-foreground">Exponent n</Label>
@@ -74,6 +75,23 @@ function PowerPage() {
       {result && <StepsPanel steps={powerSteps(n)} />}
 
       <AdSlot label="Ad space — below result" height="h-28" />
+
+      <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
+        <h2 className="text-foreground text-xl font-semibold">How matrix power works</h2>
+        <p>
+          Matrix powers are repeated matrix multiplication:{" "}
+          <span className="font-mono text-primary">A² = A·A</span>,{" "}
+          <span className="font-mono text-primary">A³ = A·A·A</span>, and in general{" "}
+          <span className="font-mono text-primary">Aⁿ</span> multiplies{" "}
+          <span className="font-mono text-primary">A</span> by itself{" "}
+          <span className="font-mono text-primary">n</span> times.
+        </p>
+        <p>
+          This is only defined for square matrices because each multiplication needs matching inner
+          dimensions. Special cases: <span className="font-mono text-primary">A⁰ = I</span>{" "}
+          (identity matrix of the same size) and <span className="font-mono text-primary">A¹ = A</span>.
+        </p>
+      </section>
     </PageLayout>
   );
 }

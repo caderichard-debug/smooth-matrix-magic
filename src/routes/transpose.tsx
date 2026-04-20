@@ -34,6 +34,7 @@ function TransposePage() {
     <PageLayout
       title="Matrix Transpose Calculator"
       tagline="The transpose flips a matrix over its diagonal — rows become columns and columns become rows."
+      showHowItWorks={false}
     >
       <div className="grid lg:grid-cols-2 gap-6 items-start">
         <MatrixInput title="Matrix A" value={a} onChange={setA} />
@@ -50,6 +51,20 @@ function TransposePage() {
       <StepsPanel steps={steps} />
 
       <AdSlot label="Ad space — below result" height="h-28" />
+
+      <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
+        <h2 className="text-foreground text-xl font-semibold">How matrix transpose works</h2>
+        <p>
+          The transpose swaps row and column indices. If{" "}
+          <span className="font-mono text-primary">B = Aᵀ</span>, then{" "}
+          <span className="font-mono text-primary">Bᵢⱼ = Aⱼᵢ</span>.
+        </p>
+        <p>
+          A matrix of size <span className="font-mono text-primary">m×n</span> becomes{" "}
+          <span className="font-mono text-primary">n×m</span> after transposing. This operation is
+          always valid for any matrix, including non-square ones.
+        </p>
+      </section>
     </PageLayout>
   );
 }

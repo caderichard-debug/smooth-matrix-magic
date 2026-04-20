@@ -72,6 +72,7 @@ function ElementwisePage() {
     <PageLayout
       title="Element-wise vs Matrix Algebra Operations"
       tagline="Avoid common confusion: element-wise operations act entry-by-entry, matrix algebra operations follow linear algebra rules."
+      showHowItWorks={false}
     >
       <div className="grid md:grid-cols-2 gap-4">
         <div className="rounded-lg border border-border bg-card/40 p-4 space-y-2">
@@ -124,6 +125,25 @@ function ElementwisePage() {
           )}
         </section>
       </div>
+
+      <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
+        <h2 className="text-xl font-semibold">How element-wise and matrix operations differ</h2>
+        <p className="text-sm text-muted-foreground">
+          Scalar division applies to every entry: <span className="font-mono">(A / k)ij = Aij / k</span>, so
+          k must be nonzero. Hadamard division is entry-by-entry:
+          <span className="font-mono"> (A ./ B)ij = Aij / Bij</span>, requiring A and B to have identical dimensions
+          and every Bij nonzero.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          Element-wise power <span className="font-mono">A.^p</span> means
+          <span className="font-mono"> (A.^p)ij = (Aij)^p</span>. Matrix power
+          <span className="font-mono"> A^p</span> means repeated matrix multiplication
+          <span className="font-mono"> A * A * ... * A</span> (p factors), so A must be square and p must be an integer.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          These two powers generally produce different results; they are only the same in special cases.
+        </p>
+      </section>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

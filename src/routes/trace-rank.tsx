@@ -42,6 +42,7 @@ function TraceRankPage() {
     <PageLayout
       title="Matrix Trace & Rank Calculator"
       tagline="Trace = sum of the diagonal entries. Rank = number of linearly independent rows (or columns)."
+      showHowItWorks={false}
     >
       <div className="grid lg:grid-cols-2 gap-6 items-start">
         <MatrixInput title="Matrix A" value={a} onChange={setA} />
@@ -64,6 +65,18 @@ function TraceRankPage() {
           </section>
         </div>
       </div>
+
+      <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
+        <h2 className="text-xl font-semibold">How trace and rank works</h2>
+        <ul className="list-disc pl-6 space-y-1 text-sm text-muted-foreground">
+          <li>Trace is defined only for square matrices: tr(A) = a11 + a22 + ... + ann.</li>
+          <li>Rank is the number of pivot rows in row-echelon form, so rank(A) &lt;= min(m, n).</li>
+          <li>For square A, det(A) != 0 implies full rank n; det(A) = 0 implies rank &lt; n.</li>
+        </ul>
+        <p className="text-sm text-muted-foreground">
+          Rank links directly to solvability: more independent pivots means fewer free variables in Ax = b.
+        </p>
+      </section>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

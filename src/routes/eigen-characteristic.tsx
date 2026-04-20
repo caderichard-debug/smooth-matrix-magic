@@ -48,6 +48,7 @@ function EigenCharacteristicPage() {
     <PageLayout
       title="Eigenvalues & Characteristic Polynomial"
       tagline="Numeric-only eigenvalue support is provided for 1x1 to 3x3 square matrices; characteristic polynomial currently supports up to 3x3."
+      showHowItWorks={false}
     >
       <div className="grid lg:grid-cols-2 gap-6 items-start">
         <MatrixInput title="Matrix A (square, numeric)" value={a} onChange={setA} />
@@ -81,6 +82,22 @@ function EigenCharacteristicPage() {
           </section>
         </div>
       </div>
+
+      <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
+        <h2 className="text-foreground text-xl font-semibold">How eigenvalues and characteristic polynomial works</h2>
+        <p>
+          For a square matrix A, the characteristic polynomial is p(lambda) = det(lambda I - A). Its roots are the
+          eigenvalues, meaning values lambda where A - lambda I is singular.
+        </p>
+        <p>
+          If v is a nonzero vector and Av = lambda v, then lambda is an eigenvalue and v is an eigenvector.
+          Equivalent checks are det(A - lambda I) = 0 or p(lambda) = 0.
+        </p>
+        <p>
+          This page returns numeric eigenvalues for 1x1 to 3x3 matrices and a symbolic-form characteristic polynomial
+          up to 3x3. Complex roots are currently rejected, so some real matrices may report a limitation.
+        </p>
+      </section>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

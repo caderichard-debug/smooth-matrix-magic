@@ -69,6 +69,7 @@ function NormsMetricsPage() {
     <PageLayout
       title="Matrix Norms & Metrics"
       tagline="Evaluate size, stability, and approximation quality with practical norms and error measures."
+      showHowItWorks={false}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <MatrixInput title="Matrix A (reference)" value={a} onChange={setA} />
@@ -91,6 +92,22 @@ function NormsMetricsPage() {
             <Metric label="Relative error ||A-B||F / ||A||F" value={formatNumber(metrics.rel!)} />
           </div>
         )}
+      </section>
+
+      <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
+        <h2 className="text-foreground text-xl font-semibold">How matrix norms and metrics works</h2>
+        <p>
+          Frobenius norm uses all entries: ||A||F = sqrt(sum_i,j |a_ij|^2). The induced 1-norm is max_j sum_i |a_ij|,
+          and infinity norm is max_i sum_j |a_ij|.
+        </p>
+        <p>
+          Distance here is ||A - B||F, and relative error is ||A - B||F / ||A||F. Rank is the number of pivots after
+          elimination, and nullity = n - rank for an m x n matrix.
+        </p>
+        <p>
+          The 1-norm condition number is kappa_1(A) = ||A||_1 * ||A^(-1)||_1 (defined only when A is invertible).
+          Larger values indicate stronger sensitivity to perturbations in inputs or rounding.
+        </p>
       </section>
 
       <AdSlot label="Ad space — below result" height="h-28" />

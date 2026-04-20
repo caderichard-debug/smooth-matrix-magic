@@ -76,6 +76,7 @@ function GeneratorsPage() {
     <PageLayout
       title="Matrix Creation Utilities"
       tagline="Generate baseline matrices quickly so users can move straight into computation."
+      showHowItWorks={false}
     >
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="rounded-lg border border-border bg-card/40 p-4 space-y-2">
@@ -128,6 +129,22 @@ function GeneratorsPage() {
           {generated.circulant && <MatrixDisplay m={generated.circulant} label="Circulant matrix" />}
         </div>
       )}
+
+      <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
+        <h2 className="text-foreground text-xl font-semibold">How matrix creation utilities works</h2>
+        <p>
+          Zero and ones matrices set every entry to 0 or 1. Identity I_n has ones on the main diagonal and zeros
+          elsewhere, so I_n x = x for any compatible vector x.
+        </p>
+        <p>
+          A diagonal matrix is diag(d_1, ..., d_n), where only a_ii = d_i may be nonzero. Toeplitz matrices satisfy
+          a_i,j = c_(i-j), so each descending diagonal is constant.
+        </p>
+        <p>
+          A circulant matrix is determined by its first row and each next row is a cyclic right shift. Random integer
+          matrices are sampled entrywise and are useful for quick tests, but results change on regeneration.
+        </p>
+      </section>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

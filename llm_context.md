@@ -28,6 +28,19 @@
 - Expanded operation coverage now includes decomposition and linear-systems tools, plus spectral/space/product pages.
 - Keep each page conversion-friendly (clear result, examples, educational copy).
 - Maintain speed and polish to differentiate from low-quality competitors.
+- New transform/probability/graph route cluster now includes:
+  - `transform-matrices-2d-3d` (T·x, determinant scaling, invertibility status)
+  - `rotation-reflection-shear` (parameterized 2D transform constructors)
+  - `homogeneous-coordinates` (3x3 affine composition and homogeneous/cartesian mapping)
+  - `compose-decompose-transforms` (affine composition + approximate TRSS decomposition)
+  - `householder-givens` (orthogonal reflection/rotation builders)
+  - `companion-fiedler` (companion and Fiedler-like polynomial linearizations)
+  - `markov-chain-tools` (row-stochastic validation, n-step evolution, stationary estimate)
+  - `graph-laplacian` (D, L, normalized Laplacian, undirected component count)
+- Shape and creation coverage now also includes dedicated pages for split/partition, stack/unstack, triangular extraction,
+  symmetrize/skew decomposition, sparse COO constructors, Vandermonde/Pascal/Hilbert generation, and block matrix building.
+- Linear algebra core coverage now also includes pseudoinverse (full-rank formulas), adjugate/cofactor matrices, and
+  determinant expansion by chosen row/column with explicit term output.
 
 ## Implemented numeric constraints
 
@@ -41,6 +54,20 @@
 - Shape utilities implemented: `reshapeMatrix`, `flattenMatrix`, `resizeMatrix`, concat/slice/permutation/reverse, diagonal and band extraction.
 - Generator utilities implemented: zero/ones/random/Toeplitz/circulant/diagonal.
 - Metrics implemented: Frobenius, L1, infinity norms, distance, relative error, nullity, and 1-norm condition number.
+- Eigen/space/norms/generators/structure pages now use custom operation-specific "How ... works" sections in-route and disable the generic `PageLayout` blurb via `showHowItWorks={false}`.
+- Added spectral/decomposition sidebar route pages:
+  - `src/routes/cholesky-svd-schur.tsx`: Cholesky (SPD), exact numeric 2x2 SVD, and QR-iteration Schur approximation.
+  - `src/routes/polar-decomposition.tsx`: right polar decomposition `A = U P` via Newton iteration (invertible square numeric matrices).
+  - `src/routes/jordan-form.tsx`: real 2x2 Jordan classification (distinct, repeated-defective, and real canonical complex block).
+  - `src/routes/diagonalization.tsx`: real 2x2 diagonalization `A = P D P^-1` for distinct real eigenvalues.
+  - `src/routes/spectral-radius.tsx`: `rho(A)` from numeric eigenvalues (current eigen backend limits apply).
+  - `src/routes/matrix-functions-spectrum.tsx`: spectral function reconstruction `f(A) = P f(D) P^-1` for diagonalizable real 2x2 matrices.
+  - `src/routes/matrix-log-sqrt.tsx`: principal `sqrt(A)` and `log(A)` for SPD 2x2 matrices.
+  - `src/routes/sylvester-lyapunov.tsx`: direct Kronecker-system solver for `AX + XB = C` and `A^T X + X A = -Q` on small numeric systems.
+- New analytics/sidebar routes now implemented: `boolean-comparisons-masking`, `boolean-matrix-multiply`, `reachability-transitive-closure`, `logical-reductions`, `mean-var-cov-corr`, `standardize-normalize`, `pca-covariance`, and `mahalanobis-distance`.
+- These new pages follow `PageLayout` + route-level custom "How ... works" sections + below-result `AdSlot`, with friendly numeric/shape validation and in-browser computation.
+- Newly added route tools: Gaussian elimination step logger, pivot/free-variable analyzer, REF with partial pivoting, CSR/CSC conversion, sparse add/multiply, sparse bandwidth profile, and sparse Jacobi iterative solve.
+- Sparse tooling now uses `src/lib/sparse.ts` for dense numeric parsing assumptions, sparse entry extraction, CSR/CSC conversion, bandwidth/profile metrics, and Jacobi residual-history reporting.
 
 ## Deployment (GitHub Pages)
 

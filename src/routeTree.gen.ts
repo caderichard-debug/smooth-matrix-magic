@@ -9,30 +9,87 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VandermondePascalHilbertRouteImport } from './routes/vandermonde-pascal-hilbert'
+import { Route as TriangularExtractionRouteImport } from './routes/triangular-extraction'
 import { Route as TransposeRouteImport } from './routes/transpose'
+import { Route as TransformMatrices2d3dRouteImport } from './routes/transform-matrices-2d-3d'
 import { Route as TraceRankRouteImport } from './routes/trace-rank'
+import { Route as SymmetrizeSkewRouteImport } from './routes/symmetrize-skew'
+import { Route as SylvesterLyapunovRouteImport } from './routes/sylvester-lyapunov'
 import { Route as StructureToolsRouteImport } from './routes/structure-tools'
+import { Route as StandardizeNormalizeRouteImport } from './routes/standardize-normalize'
+import { Route as StackUnstackBlocksRouteImport } from './routes/stack-unstack-blocks'
+import { Route as SplitPartitionRouteImport } from './routes/split-partition'
+import { Route as SpectralRadiusRouteImport } from './routes/spectral-radius'
+import { Route as SparseIterativeSolveRouteImport } from './routes/sparse-iterative-solve'
+import { Route as SparseConstructorsRouteImport } from './routes/sparse-constructors'
+import { Route as SparseBandwidthProfileRouteImport } from './routes/sparse-bandwidth-profile'
+import { Route as SparseAddMultiplyRouteImport } from './routes/sparse-add-multiply'
 import { Route as SpacesRouteImport } from './routes/spaces'
 import { Route as ScalarRouteImport } from './routes/scalar'
 import { Route as RrefRouteImport } from './routes/rref'
+import { Route as RotationReflectionShearRouteImport } from './routes/rotation-reflection-shear'
+import { Route as RefPartialPivotingRouteImport } from './routes/ref-partial-pivoting'
+import { Route as ReachabilityTransitiveClosureRouteImport } from './routes/reachability-transitive-closure'
+import { Route as PseudoinverseRouteImport } from './routes/pseudoinverse'
 import { Route as PowerRouteImport } from './routes/power'
+import { Route as PolarDecompositionRouteImport } from './routes/polar-decomposition'
+import { Route as PivotFreeAnalyzerRouteImport } from './routes/pivot-free-analyzer'
+import { Route as PcaCovarianceRouteImport } from './routes/pca-covariance'
 import { Route as NormsMetricsRouteImport } from './routes/norms-metrics'
+import { Route as MeanVarCovCorrRouteImport } from './routes/mean-var-cov-corr'
 import { Route as MatrixProductsRouteImport } from './routes/matrix-products'
+import { Route as MatrixLogSqrtRouteImport } from './routes/matrix-log-sqrt'
+import { Route as MatrixFunctionsSpectrumRouteImport } from './routes/matrix-functions-spectrum'
 import { Route as MatrixExponentialRouteImport } from './routes/matrix-exponential'
+import { Route as MarkovChainToolsRouteImport } from './routes/markov-chain-tools'
+import { Route as MahalanobisDistanceRouteImport } from './routes/mahalanobis-distance'
+import { Route as LogicalReductionsRouteImport } from './routes/logical-reductions'
 import { Route as LinearSystemRouteImport } from './routes/linear-system'
+import { Route as JordanFormRouteImport } from './routes/jordan-form'
 import { Route as InverseRouteImport } from './routes/inverse'
+import { Route as HouseholderGivensRouteImport } from './routes/householder-givens'
+import { Route as HomogeneousCoordinatesRouteImport } from './routes/homogeneous-coordinates'
+import { Route as GraphLaplacianRouteImport } from './routes/graph-laplacian'
 import { Route as GeneratorsRouteImport } from './routes/generators'
+import { Route as GaussianEliminationStepsRouteImport } from './routes/gaussian-elimination-steps'
 import { Route as ElementwiseRouteImport } from './routes/elementwise'
 import { Route as EigenCharacteristicRouteImport } from './routes/eigen-characteristic'
+import { Route as DiagonalizationRouteImport } from './routes/diagonalization'
+import { Route as DeterminantExpansionRouteImport } from './routes/determinant-expansion'
 import { Route as DeterminantRouteImport } from './routes/determinant'
 import { Route as DecompositionsRouteImport } from './routes/decompositions'
+import { Route as CsrCscConversionsRouteImport } from './routes/csr-csc-conversions'
+import { Route as ComposeDecomposeTransformsRouteImport } from './routes/compose-decompose-transforms'
+import { Route as CompanionFiedlerRouteImport } from './routes/companion-fiedler'
+import { Route as CholeskySvdSchurRouteImport } from './routes/cholesky-svd-schur'
+import { Route as BooleanMatrixMultiplyRouteImport } from './routes/boolean-matrix-multiply'
+import { Route as BooleanComparisonsMaskingRouteImport } from './routes/boolean-comparisons-masking'
+import { Route as BlockMatrixBuilderRouteImport } from './routes/block-matrix-builder'
 import { Route as AdvancedProductsRouteImport } from './routes/advanced-products'
+import { Route as AdjugateCofactorRouteImport } from './routes/adjugate-cofactor'
 import { Route as AddRouteImport } from './routes/add'
 import { Route as IndexRouteImport } from './routes/index'
 
+const VandermondePascalHilbertRoute =
+  VandermondePascalHilbertRouteImport.update({
+    id: '/vandermonde-pascal-hilbert',
+    path: '/vandermonde-pascal-hilbert',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TriangularExtractionRoute = TriangularExtractionRouteImport.update({
+  id: '/triangular-extraction',
+  path: '/triangular-extraction',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TransposeRoute = TransposeRouteImport.update({
   id: '/transpose',
   path: '/transpose',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransformMatrices2d3dRoute = TransformMatrices2d3dRouteImport.update({
+  id: '/transform-matrices-2d-3d',
+  path: '/transform-matrices-2d-3d',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TraceRankRoute = TraceRankRouteImport.update({
@@ -40,9 +97,59 @@ const TraceRankRoute = TraceRankRouteImport.update({
   path: '/trace-rank',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SymmetrizeSkewRoute = SymmetrizeSkewRouteImport.update({
+  id: '/symmetrize-skew',
+  path: '/symmetrize-skew',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SylvesterLyapunovRoute = SylvesterLyapunovRouteImport.update({
+  id: '/sylvester-lyapunov',
+  path: '/sylvester-lyapunov',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StructureToolsRoute = StructureToolsRouteImport.update({
   id: '/structure-tools',
   path: '/structure-tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StandardizeNormalizeRoute = StandardizeNormalizeRouteImport.update({
+  id: '/standardize-normalize',
+  path: '/standardize-normalize',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StackUnstackBlocksRoute = StackUnstackBlocksRouteImport.update({
+  id: '/stack-unstack-blocks',
+  path: '/stack-unstack-blocks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SplitPartitionRoute = SplitPartitionRouteImport.update({
+  id: '/split-partition',
+  path: '/split-partition',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SpectralRadiusRoute = SpectralRadiusRouteImport.update({
+  id: '/spectral-radius',
+  path: '/spectral-radius',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SparseIterativeSolveRoute = SparseIterativeSolveRouteImport.update({
+  id: '/sparse-iterative-solve',
+  path: '/sparse-iterative-solve',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SparseConstructorsRoute = SparseConstructorsRouteImport.update({
+  id: '/sparse-constructors',
+  path: '/sparse-constructors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SparseBandwidthProfileRoute = SparseBandwidthProfileRouteImport.update({
+  id: '/sparse-bandwidth-profile',
+  path: '/sparse-bandwidth-profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SparseAddMultiplyRoute = SparseAddMultiplyRouteImport.update({
+  id: '/sparse-add-multiply',
+  path: '/sparse-add-multiply',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SpacesRoute = SpacesRouteImport.update({
@@ -60,9 +167,45 @@ const RrefRoute = RrefRouteImport.update({
   path: '/rref',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RotationReflectionShearRoute = RotationReflectionShearRouteImport.update({
+  id: '/rotation-reflection-shear',
+  path: '/rotation-reflection-shear',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RefPartialPivotingRoute = RefPartialPivotingRouteImport.update({
+  id: '/ref-partial-pivoting',
+  path: '/ref-partial-pivoting',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReachabilityTransitiveClosureRoute =
+  ReachabilityTransitiveClosureRouteImport.update({
+    id: '/reachability-transitive-closure',
+    path: '/reachability-transitive-closure',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PseudoinverseRoute = PseudoinverseRouteImport.update({
+  id: '/pseudoinverse',
+  path: '/pseudoinverse',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PowerRoute = PowerRouteImport.update({
   id: '/power',
   path: '/power',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PolarDecompositionRoute = PolarDecompositionRouteImport.update({
+  id: '/polar-decomposition',
+  path: '/polar-decomposition',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PivotFreeAnalyzerRoute = PivotFreeAnalyzerRouteImport.update({
+  id: '/pivot-free-analyzer',
+  path: '/pivot-free-analyzer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PcaCovarianceRoute = PcaCovarianceRouteImport.update({
+  id: '/pca-covariance',
+  path: '/pca-covariance',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NormsMetricsRoute = NormsMetricsRouteImport.update({
@@ -70,9 +213,24 @@ const NormsMetricsRoute = NormsMetricsRouteImport.update({
   path: '/norms-metrics',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MeanVarCovCorrRoute = MeanVarCovCorrRouteImport.update({
+  id: '/mean-var-cov-corr',
+  path: '/mean-var-cov-corr',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MatrixProductsRoute = MatrixProductsRouteImport.update({
   id: '/matrix-products',
   path: '/matrix-products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MatrixLogSqrtRoute = MatrixLogSqrtRouteImport.update({
+  id: '/matrix-log-sqrt',
+  path: '/matrix-log-sqrt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MatrixFunctionsSpectrumRoute = MatrixFunctionsSpectrumRouteImport.update({
+  id: '/matrix-functions-spectrum',
+  path: '/matrix-functions-spectrum',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MatrixExponentialRoute = MatrixExponentialRouteImport.update({
@@ -80,9 +238,29 @@ const MatrixExponentialRoute = MatrixExponentialRouteImport.update({
   path: '/matrix-exponential',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MarkovChainToolsRoute = MarkovChainToolsRouteImport.update({
+  id: '/markov-chain-tools',
+  path: '/markov-chain-tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MahalanobisDistanceRoute = MahalanobisDistanceRouteImport.update({
+  id: '/mahalanobis-distance',
+  path: '/mahalanobis-distance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LogicalReductionsRoute = LogicalReductionsRouteImport.update({
+  id: '/logical-reductions',
+  path: '/logical-reductions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LinearSystemRoute = LinearSystemRouteImport.update({
   id: '/linear-system',
   path: '/linear-system',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JordanFormRoute = JordanFormRouteImport.update({
+  id: '/jordan-form',
+  path: '/jordan-form',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InverseRoute = InverseRouteImport.update({
@@ -90,11 +268,32 @@ const InverseRoute = InverseRouteImport.update({
   path: '/inverse',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HouseholderGivensRoute = HouseholderGivensRouteImport.update({
+  id: '/householder-givens',
+  path: '/householder-givens',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomogeneousCoordinatesRoute = HomogeneousCoordinatesRouteImport.update({
+  id: '/homogeneous-coordinates',
+  path: '/homogeneous-coordinates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GraphLaplacianRoute = GraphLaplacianRouteImport.update({
+  id: '/graph-laplacian',
+  path: '/graph-laplacian',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GeneratorsRoute = GeneratorsRouteImport.update({
   id: '/generators',
   path: '/generators',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GaussianEliminationStepsRoute =
+  GaussianEliminationStepsRouteImport.update({
+    id: '/gaussian-elimination-steps',
+    path: '/gaussian-elimination-steps',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ElementwiseRoute = ElementwiseRouteImport.update({
   id: '/elementwise',
   path: '/elementwise',
@@ -103,6 +302,16 @@ const ElementwiseRoute = ElementwiseRouteImport.update({
 const EigenCharacteristicRoute = EigenCharacteristicRouteImport.update({
   id: '/eigen-characteristic',
   path: '/eigen-characteristic',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiagonalizationRoute = DiagonalizationRouteImport.update({
+  id: '/diagonalization',
+  path: '/diagonalization',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeterminantExpansionRoute = DeterminantExpansionRouteImport.update({
+  id: '/determinant-expansion',
+  path: '/determinant-expansion',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DeterminantRoute = DeterminantRouteImport.update({
@@ -115,9 +324,51 @@ const DecompositionsRoute = DecompositionsRouteImport.update({
   path: '/decompositions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CsrCscConversionsRoute = CsrCscConversionsRouteImport.update({
+  id: '/csr-csc-conversions',
+  path: '/csr-csc-conversions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComposeDecomposeTransformsRoute =
+  ComposeDecomposeTransformsRouteImport.update({
+    id: '/compose-decompose-transforms',
+    path: '/compose-decompose-transforms',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CompanionFiedlerRoute = CompanionFiedlerRouteImport.update({
+  id: '/companion-fiedler',
+  path: '/companion-fiedler',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CholeskySvdSchurRoute = CholeskySvdSchurRouteImport.update({
+  id: '/cholesky-svd-schur',
+  path: '/cholesky-svd-schur',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BooleanMatrixMultiplyRoute = BooleanMatrixMultiplyRouteImport.update({
+  id: '/boolean-matrix-multiply',
+  path: '/boolean-matrix-multiply',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BooleanComparisonsMaskingRoute =
+  BooleanComparisonsMaskingRouteImport.update({
+    id: '/boolean-comparisons-masking',
+    path: '/boolean-comparisons-masking',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlockMatrixBuilderRoute = BlockMatrixBuilderRouteImport.update({
+  id: '/block-matrix-builder',
+  path: '/block-matrix-builder',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdvancedProductsRoute = AdvancedProductsRouteImport.update({
   id: '/advanced-products',
   path: '/advanced-products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdjugateCofactorRoute = AdjugateCofactorRouteImport.update({
+  id: '/adjugate-cofactor',
+  path: '/adjugate-cofactor',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AddRoute = AddRouteImport.update({
@@ -134,169 +385,477 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/add': typeof AddRoute
+  '/adjugate-cofactor': typeof AdjugateCofactorRoute
   '/advanced-products': typeof AdvancedProductsRoute
+  '/block-matrix-builder': typeof BlockMatrixBuilderRoute
+  '/boolean-comparisons-masking': typeof BooleanComparisonsMaskingRoute
+  '/boolean-matrix-multiply': typeof BooleanMatrixMultiplyRoute
+  '/cholesky-svd-schur': typeof CholeskySvdSchurRoute
+  '/companion-fiedler': typeof CompanionFiedlerRoute
+  '/compose-decompose-transforms': typeof ComposeDecomposeTransformsRoute
+  '/csr-csc-conversions': typeof CsrCscConversionsRoute
   '/decompositions': typeof DecompositionsRoute
   '/determinant': typeof DeterminantRoute
+  '/determinant-expansion': typeof DeterminantExpansionRoute
+  '/diagonalization': typeof DiagonalizationRoute
   '/eigen-characteristic': typeof EigenCharacteristicRoute
   '/elementwise': typeof ElementwiseRoute
+  '/gaussian-elimination-steps': typeof GaussianEliminationStepsRoute
   '/generators': typeof GeneratorsRoute
+  '/graph-laplacian': typeof GraphLaplacianRoute
+  '/homogeneous-coordinates': typeof HomogeneousCoordinatesRoute
+  '/householder-givens': typeof HouseholderGivensRoute
   '/inverse': typeof InverseRoute
+  '/jordan-form': typeof JordanFormRoute
   '/linear-system': typeof LinearSystemRoute
+  '/logical-reductions': typeof LogicalReductionsRoute
+  '/mahalanobis-distance': typeof MahalanobisDistanceRoute
+  '/markov-chain-tools': typeof MarkovChainToolsRoute
   '/matrix-exponential': typeof MatrixExponentialRoute
+  '/matrix-functions-spectrum': typeof MatrixFunctionsSpectrumRoute
+  '/matrix-log-sqrt': typeof MatrixLogSqrtRoute
   '/matrix-products': typeof MatrixProductsRoute
+  '/mean-var-cov-corr': typeof MeanVarCovCorrRoute
   '/norms-metrics': typeof NormsMetricsRoute
+  '/pca-covariance': typeof PcaCovarianceRoute
+  '/pivot-free-analyzer': typeof PivotFreeAnalyzerRoute
+  '/polar-decomposition': typeof PolarDecompositionRoute
   '/power': typeof PowerRoute
+  '/pseudoinverse': typeof PseudoinverseRoute
+  '/reachability-transitive-closure': typeof ReachabilityTransitiveClosureRoute
+  '/ref-partial-pivoting': typeof RefPartialPivotingRoute
+  '/rotation-reflection-shear': typeof RotationReflectionShearRoute
   '/rref': typeof RrefRoute
   '/scalar': typeof ScalarRoute
   '/spaces': typeof SpacesRoute
+  '/sparse-add-multiply': typeof SparseAddMultiplyRoute
+  '/sparse-bandwidth-profile': typeof SparseBandwidthProfileRoute
+  '/sparse-constructors': typeof SparseConstructorsRoute
+  '/sparse-iterative-solve': typeof SparseIterativeSolveRoute
+  '/spectral-radius': typeof SpectralRadiusRoute
+  '/split-partition': typeof SplitPartitionRoute
+  '/stack-unstack-blocks': typeof StackUnstackBlocksRoute
+  '/standardize-normalize': typeof StandardizeNormalizeRoute
   '/structure-tools': typeof StructureToolsRoute
+  '/sylvester-lyapunov': typeof SylvesterLyapunovRoute
+  '/symmetrize-skew': typeof SymmetrizeSkewRoute
   '/trace-rank': typeof TraceRankRoute
+  '/transform-matrices-2d-3d': typeof TransformMatrices2d3dRoute
   '/transpose': typeof TransposeRoute
+  '/triangular-extraction': typeof TriangularExtractionRoute
+  '/vandermonde-pascal-hilbert': typeof VandermondePascalHilbertRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/add': typeof AddRoute
+  '/adjugate-cofactor': typeof AdjugateCofactorRoute
   '/advanced-products': typeof AdvancedProductsRoute
+  '/block-matrix-builder': typeof BlockMatrixBuilderRoute
+  '/boolean-comparisons-masking': typeof BooleanComparisonsMaskingRoute
+  '/boolean-matrix-multiply': typeof BooleanMatrixMultiplyRoute
+  '/cholesky-svd-schur': typeof CholeskySvdSchurRoute
+  '/companion-fiedler': typeof CompanionFiedlerRoute
+  '/compose-decompose-transforms': typeof ComposeDecomposeTransformsRoute
+  '/csr-csc-conversions': typeof CsrCscConversionsRoute
   '/decompositions': typeof DecompositionsRoute
   '/determinant': typeof DeterminantRoute
+  '/determinant-expansion': typeof DeterminantExpansionRoute
+  '/diagonalization': typeof DiagonalizationRoute
   '/eigen-characteristic': typeof EigenCharacteristicRoute
   '/elementwise': typeof ElementwiseRoute
+  '/gaussian-elimination-steps': typeof GaussianEliminationStepsRoute
   '/generators': typeof GeneratorsRoute
+  '/graph-laplacian': typeof GraphLaplacianRoute
+  '/homogeneous-coordinates': typeof HomogeneousCoordinatesRoute
+  '/householder-givens': typeof HouseholderGivensRoute
   '/inverse': typeof InverseRoute
+  '/jordan-form': typeof JordanFormRoute
   '/linear-system': typeof LinearSystemRoute
+  '/logical-reductions': typeof LogicalReductionsRoute
+  '/mahalanobis-distance': typeof MahalanobisDistanceRoute
+  '/markov-chain-tools': typeof MarkovChainToolsRoute
   '/matrix-exponential': typeof MatrixExponentialRoute
+  '/matrix-functions-spectrum': typeof MatrixFunctionsSpectrumRoute
+  '/matrix-log-sqrt': typeof MatrixLogSqrtRoute
   '/matrix-products': typeof MatrixProductsRoute
+  '/mean-var-cov-corr': typeof MeanVarCovCorrRoute
   '/norms-metrics': typeof NormsMetricsRoute
+  '/pca-covariance': typeof PcaCovarianceRoute
+  '/pivot-free-analyzer': typeof PivotFreeAnalyzerRoute
+  '/polar-decomposition': typeof PolarDecompositionRoute
   '/power': typeof PowerRoute
+  '/pseudoinverse': typeof PseudoinverseRoute
+  '/reachability-transitive-closure': typeof ReachabilityTransitiveClosureRoute
+  '/ref-partial-pivoting': typeof RefPartialPivotingRoute
+  '/rotation-reflection-shear': typeof RotationReflectionShearRoute
   '/rref': typeof RrefRoute
   '/scalar': typeof ScalarRoute
   '/spaces': typeof SpacesRoute
+  '/sparse-add-multiply': typeof SparseAddMultiplyRoute
+  '/sparse-bandwidth-profile': typeof SparseBandwidthProfileRoute
+  '/sparse-constructors': typeof SparseConstructorsRoute
+  '/sparse-iterative-solve': typeof SparseIterativeSolveRoute
+  '/spectral-radius': typeof SpectralRadiusRoute
+  '/split-partition': typeof SplitPartitionRoute
+  '/stack-unstack-blocks': typeof StackUnstackBlocksRoute
+  '/standardize-normalize': typeof StandardizeNormalizeRoute
   '/structure-tools': typeof StructureToolsRoute
+  '/sylvester-lyapunov': typeof SylvesterLyapunovRoute
+  '/symmetrize-skew': typeof SymmetrizeSkewRoute
   '/trace-rank': typeof TraceRankRoute
+  '/transform-matrices-2d-3d': typeof TransformMatrices2d3dRoute
   '/transpose': typeof TransposeRoute
+  '/triangular-extraction': typeof TriangularExtractionRoute
+  '/vandermonde-pascal-hilbert': typeof VandermondePascalHilbertRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/add': typeof AddRoute
+  '/adjugate-cofactor': typeof AdjugateCofactorRoute
   '/advanced-products': typeof AdvancedProductsRoute
+  '/block-matrix-builder': typeof BlockMatrixBuilderRoute
+  '/boolean-comparisons-masking': typeof BooleanComparisonsMaskingRoute
+  '/boolean-matrix-multiply': typeof BooleanMatrixMultiplyRoute
+  '/cholesky-svd-schur': typeof CholeskySvdSchurRoute
+  '/companion-fiedler': typeof CompanionFiedlerRoute
+  '/compose-decompose-transforms': typeof ComposeDecomposeTransformsRoute
+  '/csr-csc-conversions': typeof CsrCscConversionsRoute
   '/decompositions': typeof DecompositionsRoute
   '/determinant': typeof DeterminantRoute
+  '/determinant-expansion': typeof DeterminantExpansionRoute
+  '/diagonalization': typeof DiagonalizationRoute
   '/eigen-characteristic': typeof EigenCharacteristicRoute
   '/elementwise': typeof ElementwiseRoute
+  '/gaussian-elimination-steps': typeof GaussianEliminationStepsRoute
   '/generators': typeof GeneratorsRoute
+  '/graph-laplacian': typeof GraphLaplacianRoute
+  '/homogeneous-coordinates': typeof HomogeneousCoordinatesRoute
+  '/householder-givens': typeof HouseholderGivensRoute
   '/inverse': typeof InverseRoute
+  '/jordan-form': typeof JordanFormRoute
   '/linear-system': typeof LinearSystemRoute
+  '/logical-reductions': typeof LogicalReductionsRoute
+  '/mahalanobis-distance': typeof MahalanobisDistanceRoute
+  '/markov-chain-tools': typeof MarkovChainToolsRoute
   '/matrix-exponential': typeof MatrixExponentialRoute
+  '/matrix-functions-spectrum': typeof MatrixFunctionsSpectrumRoute
+  '/matrix-log-sqrt': typeof MatrixLogSqrtRoute
   '/matrix-products': typeof MatrixProductsRoute
+  '/mean-var-cov-corr': typeof MeanVarCovCorrRoute
   '/norms-metrics': typeof NormsMetricsRoute
+  '/pca-covariance': typeof PcaCovarianceRoute
+  '/pivot-free-analyzer': typeof PivotFreeAnalyzerRoute
+  '/polar-decomposition': typeof PolarDecompositionRoute
   '/power': typeof PowerRoute
+  '/pseudoinverse': typeof PseudoinverseRoute
+  '/reachability-transitive-closure': typeof ReachabilityTransitiveClosureRoute
+  '/ref-partial-pivoting': typeof RefPartialPivotingRoute
+  '/rotation-reflection-shear': typeof RotationReflectionShearRoute
   '/rref': typeof RrefRoute
   '/scalar': typeof ScalarRoute
   '/spaces': typeof SpacesRoute
+  '/sparse-add-multiply': typeof SparseAddMultiplyRoute
+  '/sparse-bandwidth-profile': typeof SparseBandwidthProfileRoute
+  '/sparse-constructors': typeof SparseConstructorsRoute
+  '/sparse-iterative-solve': typeof SparseIterativeSolveRoute
+  '/spectral-radius': typeof SpectralRadiusRoute
+  '/split-partition': typeof SplitPartitionRoute
+  '/stack-unstack-blocks': typeof StackUnstackBlocksRoute
+  '/standardize-normalize': typeof StandardizeNormalizeRoute
   '/structure-tools': typeof StructureToolsRoute
+  '/sylvester-lyapunov': typeof SylvesterLyapunovRoute
+  '/symmetrize-skew': typeof SymmetrizeSkewRoute
   '/trace-rank': typeof TraceRankRoute
+  '/transform-matrices-2d-3d': typeof TransformMatrices2d3dRoute
   '/transpose': typeof TransposeRoute
+  '/triangular-extraction': typeof TriangularExtractionRoute
+  '/vandermonde-pascal-hilbert': typeof VandermondePascalHilbertRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/add'
+    | '/adjugate-cofactor'
     | '/advanced-products'
+    | '/block-matrix-builder'
+    | '/boolean-comparisons-masking'
+    | '/boolean-matrix-multiply'
+    | '/cholesky-svd-schur'
+    | '/companion-fiedler'
+    | '/compose-decompose-transforms'
+    | '/csr-csc-conversions'
     | '/decompositions'
     | '/determinant'
+    | '/determinant-expansion'
+    | '/diagonalization'
     | '/eigen-characteristic'
     | '/elementwise'
+    | '/gaussian-elimination-steps'
     | '/generators'
+    | '/graph-laplacian'
+    | '/homogeneous-coordinates'
+    | '/householder-givens'
     | '/inverse'
+    | '/jordan-form'
     | '/linear-system'
+    | '/logical-reductions'
+    | '/mahalanobis-distance'
+    | '/markov-chain-tools'
     | '/matrix-exponential'
+    | '/matrix-functions-spectrum'
+    | '/matrix-log-sqrt'
     | '/matrix-products'
+    | '/mean-var-cov-corr'
     | '/norms-metrics'
+    | '/pca-covariance'
+    | '/pivot-free-analyzer'
+    | '/polar-decomposition'
     | '/power'
+    | '/pseudoinverse'
+    | '/reachability-transitive-closure'
+    | '/ref-partial-pivoting'
+    | '/rotation-reflection-shear'
     | '/rref'
     | '/scalar'
     | '/spaces'
+    | '/sparse-add-multiply'
+    | '/sparse-bandwidth-profile'
+    | '/sparse-constructors'
+    | '/sparse-iterative-solve'
+    | '/spectral-radius'
+    | '/split-partition'
+    | '/stack-unstack-blocks'
+    | '/standardize-normalize'
     | '/structure-tools'
+    | '/sylvester-lyapunov'
+    | '/symmetrize-skew'
     | '/trace-rank'
+    | '/transform-matrices-2d-3d'
     | '/transpose'
+    | '/triangular-extraction'
+    | '/vandermonde-pascal-hilbert'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/add'
+    | '/adjugate-cofactor'
     | '/advanced-products'
+    | '/block-matrix-builder'
+    | '/boolean-comparisons-masking'
+    | '/boolean-matrix-multiply'
+    | '/cholesky-svd-schur'
+    | '/companion-fiedler'
+    | '/compose-decompose-transforms'
+    | '/csr-csc-conversions'
     | '/decompositions'
     | '/determinant'
+    | '/determinant-expansion'
+    | '/diagonalization'
     | '/eigen-characteristic'
     | '/elementwise'
+    | '/gaussian-elimination-steps'
     | '/generators'
+    | '/graph-laplacian'
+    | '/homogeneous-coordinates'
+    | '/householder-givens'
     | '/inverse'
+    | '/jordan-form'
     | '/linear-system'
+    | '/logical-reductions'
+    | '/mahalanobis-distance'
+    | '/markov-chain-tools'
     | '/matrix-exponential'
+    | '/matrix-functions-spectrum'
+    | '/matrix-log-sqrt'
     | '/matrix-products'
+    | '/mean-var-cov-corr'
     | '/norms-metrics'
+    | '/pca-covariance'
+    | '/pivot-free-analyzer'
+    | '/polar-decomposition'
     | '/power'
+    | '/pseudoinverse'
+    | '/reachability-transitive-closure'
+    | '/ref-partial-pivoting'
+    | '/rotation-reflection-shear'
     | '/rref'
     | '/scalar'
     | '/spaces'
+    | '/sparse-add-multiply'
+    | '/sparse-bandwidth-profile'
+    | '/sparse-constructors'
+    | '/sparse-iterative-solve'
+    | '/spectral-radius'
+    | '/split-partition'
+    | '/stack-unstack-blocks'
+    | '/standardize-normalize'
     | '/structure-tools'
+    | '/sylvester-lyapunov'
+    | '/symmetrize-skew'
     | '/trace-rank'
+    | '/transform-matrices-2d-3d'
     | '/transpose'
+    | '/triangular-extraction'
+    | '/vandermonde-pascal-hilbert'
   id:
     | '__root__'
     | '/'
     | '/add'
+    | '/adjugate-cofactor'
     | '/advanced-products'
+    | '/block-matrix-builder'
+    | '/boolean-comparisons-masking'
+    | '/boolean-matrix-multiply'
+    | '/cholesky-svd-schur'
+    | '/companion-fiedler'
+    | '/compose-decompose-transforms'
+    | '/csr-csc-conversions'
     | '/decompositions'
     | '/determinant'
+    | '/determinant-expansion'
+    | '/diagonalization'
     | '/eigen-characteristic'
     | '/elementwise'
+    | '/gaussian-elimination-steps'
     | '/generators'
+    | '/graph-laplacian'
+    | '/homogeneous-coordinates'
+    | '/householder-givens'
     | '/inverse'
+    | '/jordan-form'
     | '/linear-system'
+    | '/logical-reductions'
+    | '/mahalanobis-distance'
+    | '/markov-chain-tools'
     | '/matrix-exponential'
+    | '/matrix-functions-spectrum'
+    | '/matrix-log-sqrt'
     | '/matrix-products'
+    | '/mean-var-cov-corr'
     | '/norms-metrics'
+    | '/pca-covariance'
+    | '/pivot-free-analyzer'
+    | '/polar-decomposition'
     | '/power'
+    | '/pseudoinverse'
+    | '/reachability-transitive-closure'
+    | '/ref-partial-pivoting'
+    | '/rotation-reflection-shear'
     | '/rref'
     | '/scalar'
     | '/spaces'
+    | '/sparse-add-multiply'
+    | '/sparse-bandwidth-profile'
+    | '/sparse-constructors'
+    | '/sparse-iterative-solve'
+    | '/spectral-radius'
+    | '/split-partition'
+    | '/stack-unstack-blocks'
+    | '/standardize-normalize'
     | '/structure-tools'
+    | '/sylvester-lyapunov'
+    | '/symmetrize-skew'
     | '/trace-rank'
+    | '/transform-matrices-2d-3d'
     | '/transpose'
+    | '/triangular-extraction'
+    | '/vandermonde-pascal-hilbert'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AddRoute: typeof AddRoute
+  AdjugateCofactorRoute: typeof AdjugateCofactorRoute
   AdvancedProductsRoute: typeof AdvancedProductsRoute
+  BlockMatrixBuilderRoute: typeof BlockMatrixBuilderRoute
+  BooleanComparisonsMaskingRoute: typeof BooleanComparisonsMaskingRoute
+  BooleanMatrixMultiplyRoute: typeof BooleanMatrixMultiplyRoute
+  CholeskySvdSchurRoute: typeof CholeskySvdSchurRoute
+  CompanionFiedlerRoute: typeof CompanionFiedlerRoute
+  ComposeDecomposeTransformsRoute: typeof ComposeDecomposeTransformsRoute
+  CsrCscConversionsRoute: typeof CsrCscConversionsRoute
   DecompositionsRoute: typeof DecompositionsRoute
   DeterminantRoute: typeof DeterminantRoute
+  DeterminantExpansionRoute: typeof DeterminantExpansionRoute
+  DiagonalizationRoute: typeof DiagonalizationRoute
   EigenCharacteristicRoute: typeof EigenCharacteristicRoute
   ElementwiseRoute: typeof ElementwiseRoute
+  GaussianEliminationStepsRoute: typeof GaussianEliminationStepsRoute
   GeneratorsRoute: typeof GeneratorsRoute
+  GraphLaplacianRoute: typeof GraphLaplacianRoute
+  HomogeneousCoordinatesRoute: typeof HomogeneousCoordinatesRoute
+  HouseholderGivensRoute: typeof HouseholderGivensRoute
   InverseRoute: typeof InverseRoute
+  JordanFormRoute: typeof JordanFormRoute
   LinearSystemRoute: typeof LinearSystemRoute
+  LogicalReductionsRoute: typeof LogicalReductionsRoute
+  MahalanobisDistanceRoute: typeof MahalanobisDistanceRoute
+  MarkovChainToolsRoute: typeof MarkovChainToolsRoute
   MatrixExponentialRoute: typeof MatrixExponentialRoute
+  MatrixFunctionsSpectrumRoute: typeof MatrixFunctionsSpectrumRoute
+  MatrixLogSqrtRoute: typeof MatrixLogSqrtRoute
   MatrixProductsRoute: typeof MatrixProductsRoute
+  MeanVarCovCorrRoute: typeof MeanVarCovCorrRoute
   NormsMetricsRoute: typeof NormsMetricsRoute
+  PcaCovarianceRoute: typeof PcaCovarianceRoute
+  PivotFreeAnalyzerRoute: typeof PivotFreeAnalyzerRoute
+  PolarDecompositionRoute: typeof PolarDecompositionRoute
   PowerRoute: typeof PowerRoute
+  PseudoinverseRoute: typeof PseudoinverseRoute
+  ReachabilityTransitiveClosureRoute: typeof ReachabilityTransitiveClosureRoute
+  RefPartialPivotingRoute: typeof RefPartialPivotingRoute
+  RotationReflectionShearRoute: typeof RotationReflectionShearRoute
   RrefRoute: typeof RrefRoute
   ScalarRoute: typeof ScalarRoute
   SpacesRoute: typeof SpacesRoute
+  SparseAddMultiplyRoute: typeof SparseAddMultiplyRoute
+  SparseBandwidthProfileRoute: typeof SparseBandwidthProfileRoute
+  SparseConstructorsRoute: typeof SparseConstructorsRoute
+  SparseIterativeSolveRoute: typeof SparseIterativeSolveRoute
+  SpectralRadiusRoute: typeof SpectralRadiusRoute
+  SplitPartitionRoute: typeof SplitPartitionRoute
+  StackUnstackBlocksRoute: typeof StackUnstackBlocksRoute
+  StandardizeNormalizeRoute: typeof StandardizeNormalizeRoute
   StructureToolsRoute: typeof StructureToolsRoute
+  SylvesterLyapunovRoute: typeof SylvesterLyapunovRoute
+  SymmetrizeSkewRoute: typeof SymmetrizeSkewRoute
   TraceRankRoute: typeof TraceRankRoute
+  TransformMatrices2d3dRoute: typeof TransformMatrices2d3dRoute
   TransposeRoute: typeof TransposeRoute
+  TriangularExtractionRoute: typeof TriangularExtractionRoute
+  VandermondePascalHilbertRoute: typeof VandermondePascalHilbertRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vandermonde-pascal-hilbert': {
+      id: '/vandermonde-pascal-hilbert'
+      path: '/vandermonde-pascal-hilbert'
+      fullPath: '/vandermonde-pascal-hilbert'
+      preLoaderRoute: typeof VandermondePascalHilbertRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/triangular-extraction': {
+      id: '/triangular-extraction'
+      path: '/triangular-extraction'
+      fullPath: '/triangular-extraction'
+      preLoaderRoute: typeof TriangularExtractionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/transpose': {
       id: '/transpose'
       path: '/transpose'
       fullPath: '/transpose'
       preLoaderRoute: typeof TransposeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transform-matrices-2d-3d': {
+      id: '/transform-matrices-2d-3d'
+      path: '/transform-matrices-2d-3d'
+      fullPath: '/transform-matrices-2d-3d'
+      preLoaderRoute: typeof TransformMatrices2d3dRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/trace-rank': {
@@ -306,11 +865,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TraceRankRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/symmetrize-skew': {
+      id: '/symmetrize-skew'
+      path: '/symmetrize-skew'
+      fullPath: '/symmetrize-skew'
+      preLoaderRoute: typeof SymmetrizeSkewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sylvester-lyapunov': {
+      id: '/sylvester-lyapunov'
+      path: '/sylvester-lyapunov'
+      fullPath: '/sylvester-lyapunov'
+      preLoaderRoute: typeof SylvesterLyapunovRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/structure-tools': {
       id: '/structure-tools'
       path: '/structure-tools'
       fullPath: '/structure-tools'
       preLoaderRoute: typeof StructureToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/standardize-normalize': {
+      id: '/standardize-normalize'
+      path: '/standardize-normalize'
+      fullPath: '/standardize-normalize'
+      preLoaderRoute: typeof StandardizeNormalizeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stack-unstack-blocks': {
+      id: '/stack-unstack-blocks'
+      path: '/stack-unstack-blocks'
+      fullPath: '/stack-unstack-blocks'
+      preLoaderRoute: typeof StackUnstackBlocksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/split-partition': {
+      id: '/split-partition'
+      path: '/split-partition'
+      fullPath: '/split-partition'
+      preLoaderRoute: typeof SplitPartitionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/spectral-radius': {
+      id: '/spectral-radius'
+      path: '/spectral-radius'
+      fullPath: '/spectral-radius'
+      preLoaderRoute: typeof SpectralRadiusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sparse-iterative-solve': {
+      id: '/sparse-iterative-solve'
+      path: '/sparse-iterative-solve'
+      fullPath: '/sparse-iterative-solve'
+      preLoaderRoute: typeof SparseIterativeSolveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sparse-constructors': {
+      id: '/sparse-constructors'
+      path: '/sparse-constructors'
+      fullPath: '/sparse-constructors'
+      preLoaderRoute: typeof SparseConstructorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sparse-bandwidth-profile': {
+      id: '/sparse-bandwidth-profile'
+      path: '/sparse-bandwidth-profile'
+      fullPath: '/sparse-bandwidth-profile'
+      preLoaderRoute: typeof SparseBandwidthProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sparse-add-multiply': {
+      id: '/sparse-add-multiply'
+      path: '/sparse-add-multiply'
+      fullPath: '/sparse-add-multiply'
+      preLoaderRoute: typeof SparseAddMultiplyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/spaces': {
@@ -334,11 +963,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RrefRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/rotation-reflection-shear': {
+      id: '/rotation-reflection-shear'
+      path: '/rotation-reflection-shear'
+      fullPath: '/rotation-reflection-shear'
+      preLoaderRoute: typeof RotationReflectionShearRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ref-partial-pivoting': {
+      id: '/ref-partial-pivoting'
+      path: '/ref-partial-pivoting'
+      fullPath: '/ref-partial-pivoting'
+      preLoaderRoute: typeof RefPartialPivotingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reachability-transitive-closure': {
+      id: '/reachability-transitive-closure'
+      path: '/reachability-transitive-closure'
+      fullPath: '/reachability-transitive-closure'
+      preLoaderRoute: typeof ReachabilityTransitiveClosureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pseudoinverse': {
+      id: '/pseudoinverse'
+      path: '/pseudoinverse'
+      fullPath: '/pseudoinverse'
+      preLoaderRoute: typeof PseudoinverseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/power': {
       id: '/power'
       path: '/power'
       fullPath: '/power'
       preLoaderRoute: typeof PowerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/polar-decomposition': {
+      id: '/polar-decomposition'
+      path: '/polar-decomposition'
+      fullPath: '/polar-decomposition'
+      preLoaderRoute: typeof PolarDecompositionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pivot-free-analyzer': {
+      id: '/pivot-free-analyzer'
+      path: '/pivot-free-analyzer'
+      fullPath: '/pivot-free-analyzer'
+      preLoaderRoute: typeof PivotFreeAnalyzerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pca-covariance': {
+      id: '/pca-covariance'
+      path: '/pca-covariance'
+      fullPath: '/pca-covariance'
+      preLoaderRoute: typeof PcaCovarianceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/norms-metrics': {
@@ -348,11 +1026,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NormsMetricsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mean-var-cov-corr': {
+      id: '/mean-var-cov-corr'
+      path: '/mean-var-cov-corr'
+      fullPath: '/mean-var-cov-corr'
+      preLoaderRoute: typeof MeanVarCovCorrRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/matrix-products': {
       id: '/matrix-products'
       path: '/matrix-products'
       fullPath: '/matrix-products'
       preLoaderRoute: typeof MatrixProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/matrix-log-sqrt': {
+      id: '/matrix-log-sqrt'
+      path: '/matrix-log-sqrt'
+      fullPath: '/matrix-log-sqrt'
+      preLoaderRoute: typeof MatrixLogSqrtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/matrix-functions-spectrum': {
+      id: '/matrix-functions-spectrum'
+      path: '/matrix-functions-spectrum'
+      fullPath: '/matrix-functions-spectrum'
+      preLoaderRoute: typeof MatrixFunctionsSpectrumRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/matrix-exponential': {
@@ -362,11 +1061,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MatrixExponentialRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/markov-chain-tools': {
+      id: '/markov-chain-tools'
+      path: '/markov-chain-tools'
+      fullPath: '/markov-chain-tools'
+      preLoaderRoute: typeof MarkovChainToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mahalanobis-distance': {
+      id: '/mahalanobis-distance'
+      path: '/mahalanobis-distance'
+      fullPath: '/mahalanobis-distance'
+      preLoaderRoute: typeof MahalanobisDistanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/logical-reductions': {
+      id: '/logical-reductions'
+      path: '/logical-reductions'
+      fullPath: '/logical-reductions'
+      preLoaderRoute: typeof LogicalReductionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/linear-system': {
       id: '/linear-system'
       path: '/linear-system'
       fullPath: '/linear-system'
       preLoaderRoute: typeof LinearSystemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jordan-form': {
+      id: '/jordan-form'
+      path: '/jordan-form'
+      fullPath: '/jordan-form'
+      preLoaderRoute: typeof JordanFormRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/inverse': {
@@ -376,11 +1103,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InverseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/householder-givens': {
+      id: '/householder-givens'
+      path: '/householder-givens'
+      fullPath: '/householder-givens'
+      preLoaderRoute: typeof HouseholderGivensRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/homogeneous-coordinates': {
+      id: '/homogeneous-coordinates'
+      path: '/homogeneous-coordinates'
+      fullPath: '/homogeneous-coordinates'
+      preLoaderRoute: typeof HomogeneousCoordinatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/graph-laplacian': {
+      id: '/graph-laplacian'
+      path: '/graph-laplacian'
+      fullPath: '/graph-laplacian'
+      preLoaderRoute: typeof GraphLaplacianRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/generators': {
       id: '/generators'
       path: '/generators'
       fullPath: '/generators'
       preLoaderRoute: typeof GeneratorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gaussian-elimination-steps': {
+      id: '/gaussian-elimination-steps'
+      path: '/gaussian-elimination-steps'
+      fullPath: '/gaussian-elimination-steps'
+      preLoaderRoute: typeof GaussianEliminationStepsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/elementwise': {
@@ -397,6 +1152,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EigenCharacteristicRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/diagonalization': {
+      id: '/diagonalization'
+      path: '/diagonalization'
+      fullPath: '/diagonalization'
+      preLoaderRoute: typeof DiagonalizationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/determinant-expansion': {
+      id: '/determinant-expansion'
+      path: '/determinant-expansion'
+      fullPath: '/determinant-expansion'
+      preLoaderRoute: typeof DeterminantExpansionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/determinant': {
       id: '/determinant'
       path: '/determinant'
@@ -411,11 +1180,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DecompositionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/csr-csc-conversions': {
+      id: '/csr-csc-conversions'
+      path: '/csr-csc-conversions'
+      fullPath: '/csr-csc-conversions'
+      preLoaderRoute: typeof CsrCscConversionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compose-decompose-transforms': {
+      id: '/compose-decompose-transforms'
+      path: '/compose-decompose-transforms'
+      fullPath: '/compose-decompose-transforms'
+      preLoaderRoute: typeof ComposeDecomposeTransformsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/companion-fiedler': {
+      id: '/companion-fiedler'
+      path: '/companion-fiedler'
+      fullPath: '/companion-fiedler'
+      preLoaderRoute: typeof CompanionFiedlerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cholesky-svd-schur': {
+      id: '/cholesky-svd-schur'
+      path: '/cholesky-svd-schur'
+      fullPath: '/cholesky-svd-schur'
+      preLoaderRoute: typeof CholeskySvdSchurRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/boolean-matrix-multiply': {
+      id: '/boolean-matrix-multiply'
+      path: '/boolean-matrix-multiply'
+      fullPath: '/boolean-matrix-multiply'
+      preLoaderRoute: typeof BooleanMatrixMultiplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/boolean-comparisons-masking': {
+      id: '/boolean-comparisons-masking'
+      path: '/boolean-comparisons-masking'
+      fullPath: '/boolean-comparisons-masking'
+      preLoaderRoute: typeof BooleanComparisonsMaskingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/block-matrix-builder': {
+      id: '/block-matrix-builder'
+      path: '/block-matrix-builder'
+      fullPath: '/block-matrix-builder'
+      preLoaderRoute: typeof BlockMatrixBuilderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/advanced-products': {
       id: '/advanced-products'
       path: '/advanced-products'
       fullPath: '/advanced-products'
       preLoaderRoute: typeof AdvancedProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/adjugate-cofactor': {
+      id: '/adjugate-cofactor'
+      path: '/adjugate-cofactor'
+      fullPath: '/adjugate-cofactor'
+      preLoaderRoute: typeof AdjugateCofactorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/add': {
@@ -438,24 +1263,65 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AddRoute: AddRoute,
+  AdjugateCofactorRoute: AdjugateCofactorRoute,
   AdvancedProductsRoute: AdvancedProductsRoute,
+  BlockMatrixBuilderRoute: BlockMatrixBuilderRoute,
+  BooleanComparisonsMaskingRoute: BooleanComparisonsMaskingRoute,
+  BooleanMatrixMultiplyRoute: BooleanMatrixMultiplyRoute,
+  CholeskySvdSchurRoute: CholeskySvdSchurRoute,
+  CompanionFiedlerRoute: CompanionFiedlerRoute,
+  ComposeDecomposeTransformsRoute: ComposeDecomposeTransformsRoute,
+  CsrCscConversionsRoute: CsrCscConversionsRoute,
   DecompositionsRoute: DecompositionsRoute,
   DeterminantRoute: DeterminantRoute,
+  DeterminantExpansionRoute: DeterminantExpansionRoute,
+  DiagonalizationRoute: DiagonalizationRoute,
   EigenCharacteristicRoute: EigenCharacteristicRoute,
   ElementwiseRoute: ElementwiseRoute,
+  GaussianEliminationStepsRoute: GaussianEliminationStepsRoute,
   GeneratorsRoute: GeneratorsRoute,
+  GraphLaplacianRoute: GraphLaplacianRoute,
+  HomogeneousCoordinatesRoute: HomogeneousCoordinatesRoute,
+  HouseholderGivensRoute: HouseholderGivensRoute,
   InverseRoute: InverseRoute,
+  JordanFormRoute: JordanFormRoute,
   LinearSystemRoute: LinearSystemRoute,
+  LogicalReductionsRoute: LogicalReductionsRoute,
+  MahalanobisDistanceRoute: MahalanobisDistanceRoute,
+  MarkovChainToolsRoute: MarkovChainToolsRoute,
   MatrixExponentialRoute: MatrixExponentialRoute,
+  MatrixFunctionsSpectrumRoute: MatrixFunctionsSpectrumRoute,
+  MatrixLogSqrtRoute: MatrixLogSqrtRoute,
   MatrixProductsRoute: MatrixProductsRoute,
+  MeanVarCovCorrRoute: MeanVarCovCorrRoute,
   NormsMetricsRoute: NormsMetricsRoute,
+  PcaCovarianceRoute: PcaCovarianceRoute,
+  PivotFreeAnalyzerRoute: PivotFreeAnalyzerRoute,
+  PolarDecompositionRoute: PolarDecompositionRoute,
   PowerRoute: PowerRoute,
+  PseudoinverseRoute: PseudoinverseRoute,
+  ReachabilityTransitiveClosureRoute: ReachabilityTransitiveClosureRoute,
+  RefPartialPivotingRoute: RefPartialPivotingRoute,
+  RotationReflectionShearRoute: RotationReflectionShearRoute,
   RrefRoute: RrefRoute,
   ScalarRoute: ScalarRoute,
   SpacesRoute: SpacesRoute,
+  SparseAddMultiplyRoute: SparseAddMultiplyRoute,
+  SparseBandwidthProfileRoute: SparseBandwidthProfileRoute,
+  SparseConstructorsRoute: SparseConstructorsRoute,
+  SparseIterativeSolveRoute: SparseIterativeSolveRoute,
+  SpectralRadiusRoute: SpectralRadiusRoute,
+  SplitPartitionRoute: SplitPartitionRoute,
+  StackUnstackBlocksRoute: StackUnstackBlocksRoute,
+  StandardizeNormalizeRoute: StandardizeNormalizeRoute,
   StructureToolsRoute: StructureToolsRoute,
+  SylvesterLyapunovRoute: SylvesterLyapunovRoute,
+  SymmetrizeSkewRoute: SymmetrizeSkewRoute,
   TraceRankRoute: TraceRankRoute,
+  TransformMatrices2d3dRoute: TransformMatrices2d3dRoute,
   TransposeRoute: TransposeRoute,
+  TriangularExtractionRoute: TriangularExtractionRoute,
+  VandermondePascalHilbertRoute: VandermondePascalHilbertRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

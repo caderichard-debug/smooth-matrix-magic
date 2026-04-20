@@ -49,6 +49,7 @@ function SpacesPage() {
     <PageLayout
       title="Null Space & Column Space Basis"
       tagline="Find basis vectors of kernel(A) and Col(A) from one numeric matrix input."
+      showHowItWorks={false}
     >
       <div className="grid lg:grid-cols-2 gap-6 items-start">
         <MatrixInput title="Matrix A (numeric)" value={a} onChange={setA} />
@@ -85,6 +86,22 @@ function SpacesPage() {
           </section>
         </div>
       </div>
+
+      <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
+        <h2 className="text-foreground text-xl font-semibold">How null space and column space basis works</h2>
+        <p>
+          The null space is N(A) = {"{"}x : Ax = 0{"}"}. A basis is built by row-reducing A to identify pivot and free
+          variables, then writing one basis vector for each free-variable direction.
+        </p>
+        <p>
+          The column space Col(A) is the span of A&apos;s columns. Pivot columns found from row reduction mark which
+          original columns form a basis for Col(A).
+        </p>
+        <p>
+          Rank-nullity links both outputs: rank(A) + nullity(A) = number of columns of A. If no free variables appear,
+          null space is trivial (only the zero vector).
+        </p>
+      </section>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>

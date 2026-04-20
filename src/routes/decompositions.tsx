@@ -63,6 +63,7 @@ function DecompositionsPage() {
     <PageLayout
       title="LU, QR & Gram-Schmidt Calculator"
       tagline="Use one numeric matrix input to compute triangular and orthogonal factorizations side by side."
+      showHowItWorks={false}
     >
       <div className="grid lg:grid-cols-2 gap-6 items-start">
         <MatrixInput title="Matrix A (numeric)" value={a} onChange={setA} />
@@ -103,6 +104,22 @@ function DecompositionsPage() {
           </section>
         </div>
       </div>
+
+      <section className="rounded-lg border border-border bg-card/40 p-6 space-y-3">
+        <h2 className="text-xl font-semibold">How these decompositions work</h2>
+        <p className="text-sm text-muted-foreground">
+          LU decomposition factors a square matrix as <span className="font-mono">A = LU</span>, where L is lower
+          triangular and U is upper triangular. This implementation is numeric and expects square input.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          QR decomposition writes <span className="font-mono">A = QR</span>, with Q having orthonormal columns and
+          R upper triangular. For A in R^(m x n), Q is m x n and R is n x n in reduced form.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          Gram-Schmidt orthonormalization transforms independent input columns into orthonormal columns spanning the
+          same subspace. The returned matrix contains those orthonormalized column vectors.
+        </p>
+      </section>
 
       <AdSlot label="Ad space — below result" height="h-28" />
     </PageLayout>
