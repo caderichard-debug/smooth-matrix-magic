@@ -13,6 +13,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const pagesPrefix = "/";
 const outDir = join(root, "gh-pages");
 const clientAssets = join(root, "dist/client/assets");
+const publicDir = join(root, "public");
 const serverEntry = join(root, "dist/server/server.js");
 const routeTreePath = join(root, "src/routeTree.gen.ts");
 const siteUrl = "https://matrixdojo.app";
@@ -28,6 +29,7 @@ if (build.status !== 0) process.exit(build.status ?? 1);
 
 await rm(outDir, { recursive: true, force: true });
 await mkdir(outDir, { recursive: true });
+await cp(publicDir, outDir, { recursive: true });
 await cp(clientAssets, join(outDir, "assets"), { recursive: true });
 
 const { default: server } = await import(serverEntry);
