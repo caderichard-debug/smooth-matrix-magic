@@ -49,7 +49,8 @@
 
 - Classic static hosting cannot run the Nitro server; **`.github/workflows/deploy-pages.yml`** runs `VERCEL=1 npm run build`, then **`scripts/prerender-github-pages.mjs`** (invokes the Vercel fallback handler for `/`) and uploads **`gh-pages/`** (includes `CNAME` for `matrixdojo.app`, `.nojekyll`, `404.html` copy of home for SPA-ish refresh).
 - Local preview of the Pages bundle: `npm run build:github-pages` then serve the `gh-pages` folder (not committed; listed in `.gitignore`).
-- In the repo **Settings → Pages**, set **Source** to **GitHub Actions** if it is not already.
+- In the repo **Settings → Pages**, set **Build and deployment → Source** to **GitHub Actions** (not “Deploy from a branch”). Until this is set, `*.github.io/...` can 404 even if the workflow file exists.
+- After the first run, check **Actions → Deploy GitHub Pages** for failures; if the **`github-pages` environment** waits for approval, approve it once under the run’s “Review deployments” prompt.
 
 ## Testing conventions
 
