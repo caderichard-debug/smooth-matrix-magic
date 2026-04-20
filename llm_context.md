@@ -79,7 +79,7 @@
 
 - **One command:** `npm run build:github-pages` runs **`scripts/github-pages-build.mjs`** (client-only `vite build` with `GITHUB_PAGES=1`, then emits **`gh-pages/`** from `dist/client/assets` plus a static shell `index.html`).
 - SEO hardening (Apr 2026): root route now emits canonical URLs, normalized MatrixDojo Open Graph/Twitter defaults, and site-level JSON-LD (`WebSite` + `WebApplication`) in `src/routes/__root.tsx`.
-- SEO structured-data follow-up (Apr 2026): root shell now emits route-aware JSON-LD per pathname in `src/routes/__root.tsx` (`WebPage`, `SoftwareApplication`, and `FAQPage`) with operation-name derivation from route slug.
+- SEO structured-data follow-up (Apr 2026): root shell now emits route-aware JSON-LD per pathname in `src/routes/__root.tsx` (`WebPage` and `FAQPage`) with operation-name derivation from route slug; `SoftwareApplication` schema was removed to avoid Rich Results `aggregateRating` warnings.
 - SEO hardening (Apr 2026): GitHub Pages build now auto-generates `gh-pages/sitemap.xml` from `src/routeTree.gen.ts` routes and writes `gh-pages/robots.txt` with sitemap reference.
 - SEO assets added under `public/`: `robots.txt`, `site.webmanifest`, `favicon.svg`, and `social-preview.svg`.
 - No backend/server runtime is used for GitHub Pages deployment; rendering and calculations run in the browser.

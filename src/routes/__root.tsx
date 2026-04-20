@@ -22,21 +22,6 @@ const websiteJsonLd = {
   },
 };
 
-const webAppJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  name: SITE_NAME,
-  url: SITE_URL,
-  applicationCategory: "UtilitiesApplication",
-  operatingSystem: "Any",
-  browserRequirements: "Requires JavaScript",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-  },
-};
-
 function toOperationName(pathname: string) {
   if (pathname === "/") return "Matrix Multiplication";
   return pathname
@@ -65,26 +50,6 @@ function getRouteStructuredData(pathname: string) {
     },
   };
 
-  const softwareAppJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: pageTitle,
-    url: canonicalUrl,
-    applicationCategory: "UtilitiesApplication",
-    operatingSystem: "Any",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: SITE_NAME,
-      url: SITE_URL,
-    },
-    description: pageDescription,
-  };
-
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -108,7 +73,7 @@ function getRouteStructuredData(pathname: string) {
     ],
   };
 
-  return [webPageJsonLd, softwareAppJsonLd, faqJsonLd];
+  return [webPageJsonLd, faqJsonLd];
 }
 
 function NotFoundComponent() {
@@ -186,7 +151,6 @@ function RootShell({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
         <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(webAppJsonLd)}</script>
         {routeStructuredData.map((schema) => (
           <script key={schema["@type"]} type="application/ld+json">
             {JSON.stringify(schema)}
