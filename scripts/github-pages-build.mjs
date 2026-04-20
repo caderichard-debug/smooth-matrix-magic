@@ -5,7 +5,7 @@
  * - Publish static assets + prerendered shell
  */
 import { spawnSync } from "node:child_process";
-import { cp, mkdir, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -14,6 +14,8 @@ const pagesPrefix = "/";
 const outDir = join(root, "gh-pages");
 const clientAssets = join(root, "dist/client/assets");
 const serverEntry = join(root, "dist/server/server.js");
+const routeTreePath = join(root, "src/routeTree.gen.ts");
+const siteUrl = "https://matrixdojo.app";
 
 const env = {
   ...process.env,
@@ -50,6 +52,48 @@ if (entryMatch?.[1] && !html.includes(`src="${entryMatch[1]}"`)) {
 
 await writeFile(join(outDir, "index.html"), html, "utf8");
 await writeFile(join(outDir, "404.html"), html, "utf8");
+
+const routeTree = await readFile(routeTreePath, "utf8");
+const fullPathsMatch = routeTree.match(/fullPaths:[\s\S]*?fileRoutesByTo:/);
+const discoveredPaths = new Set(["/"]);
+
+if (fullPathsMatch) {
+  const pathMatches = fullPathsMatch[0].match(/'\/[^']*'/g) ?? [];
+  for (const rawPath of pathMatches) {
+    discoveredPaths.add(rawPath.slice(1, -1));
+  }
+}
+
+const nowIso = new Date().toISOString();
+const sitemapEntries = [...discoveredPaths]
+  .sort((a, b) => a.localeCompare(b))
+  .map((path) => {
+    const escapedPath = path === "/" ? "" : path;
+    return [
+      "  <url>",
+      `    <loc>${siteUrl}${escapedPath}</loc>`,
+      `    <lastmod>${nowIso}</lastmod>`,
+      "    <changefreq>weekly</changefreq>",
+      "    <priority>0.8</priority>",
+      "  </url>",
+    ].join("\n");
+  })
+  .join("\n");
+
+const sitemapXml = [
+  '<?xml version="1.0" encoding="UTF-8"?>',
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+  sitemapEntries,
+  "</urlset>",
+  "",
+].join("\n");
+
+await writeFile(join(outDir, "sitemap.xml"), sitemapXml, "utf8");
+await writeFile(
+  join(outDir, "robots.txt"),
+  "User-agent: *\nAllow: /\n\nSitemap: https://matrixdojo.app/sitemap.xml\n",
+  "utf8",
+);
 await writeFile(join(outDir, "CNAME"), "matrixdojo.app\n", "utf8");
 await writeFile(join(outDir, ".nojekyll"), "", "utf8");
-console.log("Done: gh-pages/ (index.html, 404.html, CNAME, .nojekyll, assets/)");
+console.log("Done: gh-pages/ (index.html, 404.html, sitemap.xml, robots.txt, CNAME, .nojekyll, assets/)");

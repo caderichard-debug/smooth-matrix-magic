@@ -78,6 +78,10 @@
 ## Deployment (GitHub Pages)
 
 - **One command:** `npm run build:github-pages` runs **`scripts/github-pages-build.mjs`** (client-only `vite build` with `GITHUB_PAGES=1`, then emits **`gh-pages/`** from `dist/client/assets` plus a static shell `index.html`).
+- SEO hardening (Apr 2026): root route now emits canonical URLs, normalized MatrixDojo Open Graph/Twitter defaults, and site-level JSON-LD (`WebSite` + `WebApplication`) in `src/routes/__root.tsx`.
+- SEO structured-data follow-up (Apr 2026): root shell now emits route-aware JSON-LD per pathname in `src/routes/__root.tsx` (`WebPage`, `SoftwareApplication`, and `FAQPage`) with operation-name derivation from route slug.
+- SEO hardening (Apr 2026): GitHub Pages build now auto-generates `gh-pages/sitemap.xml` from `src/routeTree.gen.ts` routes and writes `gh-pages/robots.txt` with sitemap reference.
+- SEO assets added under `public/`: `robots.txt`, `site.webmanifest`, `favicon.svg`, and `social-preview.svg`.
 - No backend/server runtime is used for GitHub Pages deployment; rendering and calculations run in the browser.
 - Default **`npm run build`** (no env) keeps the standard local output under `dist/`.
 - **Settings → Pages → Source:** **GitHub Actions** (required before `deploy-pages` can run). If the deploy step fails with **HttpError: Not Found** / “Creating Pages deployment failed”, Pages is not enabled or source is still “Deploy from a branch”—open **Settings → Pages**, set source to **GitHub Actions**, save, then **re-run failed jobs** on the workflow.

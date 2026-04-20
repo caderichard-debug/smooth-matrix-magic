@@ -74,6 +74,9 @@ Smooth Matrix Magic is a web-based matrix manipulation toolset built for:
 - Route pages in `src/routes` are thin UI wrappers around math functions.
 - `PageLayout` centralizes shared shell (header, hero, ad slot, footer).
 - `SiteHeader` is the source of truth for top-level operation navigation.
+- SEO baseline now includes root-level canonical/OG/Twitter metadata defaults and site JSON-LD in `src/routes/__root.tsx`.
+- SEO structured data is now route-aware in `src/routes/__root.tsx`, adding per-path `WebPage`, `SoftwareApplication`, and `FAQPage` JSON-LD payloads derived from route slugs.
+- GitHub Pages output now includes generated `sitemap.xml` and `robots.txt` via `scripts/github-pages-build.mjs`.
 
 ## Product priorities
 
