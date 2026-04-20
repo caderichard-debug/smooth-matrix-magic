@@ -50,5 +50,6 @@ if (entryMatch?.[1] && !html.includes(`src="${entryMatch[1]}"`)) {
 
 await writeFile(join(outDir, "index.html"), html, "utf8");
 await writeFile(join(outDir, "404.html"), html, "utf8");
+await writeFile(join(outDir, "CNAME"), "matrixdojo.app\n", "utf8");
 await writeFile(join(outDir, ".nojekyll"), "", "utf8");
-console.log("Done: gh-pages/ (index.html, 404.html, .nojekyll, assets/)");
+console.log("Done: gh-pages/ (index.html, 404.html, CNAME, .nojekyll, assets/)");
