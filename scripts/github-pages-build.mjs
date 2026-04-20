@@ -13,6 +13,7 @@ const env = {
   ...process.env,
   GITHUB_PAGES: "1",
   NITRO_PRESET: "vercel",
+  VITE_ROUTER_BASEPATH: "/smooth-matrix-magic",
 };
 
 const r = spawnSync("npm", ["run", "build"], { cwd: root, env, stdio: "inherit" });
@@ -31,24 +32,35 @@ if (!handler?.fetch) {
   throw new Error("Nitro handler missing .fetch — build may have failed or used the wrong preset");
 }
 
-const req = new Request("https://matrixdojo.app/", {
+const req = new Request("https://example.com/", {
   headers: { "user-agent": "github-pages-prerender" },
 });
-const res = await handler.fetch(req, {});
+let res = await handler.fetch(req, {});
+if (res.status >= 300 && res.status < 400) {
+  const location = res.headers.get("location");
+  if (!location) {
+    throw new Error(`SSR redirect missing location header: ${res.status}`);
+  }
+  const redirected = new URL(location, req.url).toString();
+  res = await handler.fetch(
+    new Request(redirected, { headers: { "user-agent": "github-pages-prerender" } }),
+    {},
+  );
+}
 if (!res.ok) {
   throw new Error(`SSR failed: ${res.status} ${res.statusText}`);
 }
 let html = await res.text();
+const pagesPrefix = "/smooth-matrix-magic";
 
-// GitHub project pages are served from /<repo>/, so absolute /assets URLs 404.
-html = html.replaceAll(/([("'`])\/assets\//g, "$1./assets/");
+// SSR output is rooted at "/" by default; rewrite root-relative URLs for project pages.
+html = html.replaceAll(/([("'`])\/(?!\/)/g, `$1${pagesPrefix}/`);
 
 // Copy Nitro static output directly into gh-pages root.
 // staticSrc already contains an `assets/` directory.
 await cp(staticSrc, outDir, { recursive: true });
 await writeFile(join(outDir, "index.html"), html, "utf8");
 await writeFile(join(outDir, "404.html"), html, "utf8");
-await writeFile(join(outDir, "CNAME"), "matrixdojo.app\n", "utf8");
 await writeFile(join(outDir, ".nojekyll"), "", "utf8");
 
-console.log("Done: gh-pages/ (index.html, 404.html, CNAME, .nojekyll, assets/)");
+console.log("Done: gh-pages/ (index.html, 404.html, .nojekyll, assets/)");

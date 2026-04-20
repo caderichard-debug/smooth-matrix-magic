@@ -55,10 +55,7 @@ function DefaultErrorComponent({ error, reset }: { error: Error; reset: () => vo
 }
 
 export const getRouter = () => {
-  const basepath =
-    typeof window !== "undefined" && window.location.hostname.endsWith("github.io")
-      ? "/smooth-matrix-magic"
-      : "/";
+  const basepath = import.meta.env.VITE_ROUTER_BASEPATH || "/";
 
   const router = createRouter({
     routeTree,
