@@ -10,9 +10,12 @@
 ## UI conventions
 
 - Use `PageLayout` and keep title/tagline concise.
+- `PageLayout` now appends a default "How <operation> works" blurb to each page unless `showHowItWorks={false}` is passed.
 - Use matrix cards with existing visual classes for consistency.
+- Sidebar nav now supports a global `Expand all` / `Collapse all` toggle for accordion sections.
 - Include a below-result `AdSlot` for operation pages (currently globally hidden by `ADS_ENABLED = false` in `AdSlot`).
 - Keep results readable on narrow screens (`overflow-x-auto` where needed).
+- Brand copy uses `MatrixDojo` (replace legacy lowercase-dot brand references when touched).
 
 ## SEO conventions
 

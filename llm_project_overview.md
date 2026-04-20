@@ -8,6 +8,7 @@ Smooth Matrix Magic is a web-based matrix manipulation toolset built for:
 - clean modern UI/UX
 - SEO-friendly operation pages
 - AdSense-based monetization
+- User-facing brand name: `MatrixDojo`
 
 ## Core stack
 

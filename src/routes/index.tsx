@@ -51,6 +51,7 @@ function MultiplyPage() {
     <PageLayout
       title="Matrix Multiplication Calculator"
       tagline="Enter two matrices and get the product instantly. Supports fractions, variables, and shows the full working."
+      showHowItWorks={false}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <MatrixInput title="Matrix A" value={a} onChange={setA} />

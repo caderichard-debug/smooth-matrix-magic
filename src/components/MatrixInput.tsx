@@ -89,7 +89,6 @@ export function MatrixInput({ title, value, onChange }: Props) {
   };
 
   const onCellKeyDown = (i: number, j: number, e: KeyboardEvent<HTMLInputElement>) => {
-    const ctrl = e.ctrlKey || e.metaKey;
     const input = e.currentTarget;
     const atStart = (input.selectionStart ?? 0) === 0 && (input.selectionEnd ?? 0) === 0;
     const atEnd =
@@ -99,10 +98,6 @@ export function MatrixInput({ title, value, onChange }: Props) {
       (input.selectionStart ?? 0) === 0 &&
       (input.selectionEnd ?? 0) === input.value.length;
 
-    if (ctrl && e.key === "ArrowRight") { e.preventDefault(); e.stopPropagation(); focusCell(i, cols - 1); return; }
-    if (ctrl && e.key === "ArrowLeft")  { e.preventDefault(); e.stopPropagation(); focusCell(i, 0); return; }
-    if (ctrl && e.key === "ArrowDown")  { e.preventDefault(); e.stopPropagation(); focusCell(rows - 1, j); return; }
-    if (ctrl && e.key === "ArrowUp")    { e.preventDefault(); e.stopPropagation(); focusCell(0, j); return; }
     if (e.key === "ArrowRight" && (atEnd || allSelected)) {
       e.preventDefault(); focusCell(i, j + 1); return;
     }
@@ -226,7 +221,7 @@ export function MatrixInput({ title, value, onChange }: Props) {
             Supports fractions (<span className="font-mono text-primary">3/4</span>),
             variables (<span className="font-mono text-primary">x</span>,{" "}
             <span className="font-mono text-primary">alpha</span>), and expressions
-            (<span className="font-mono text-primary">2x + 1</span>). Use Ctrl+Arrow to jump to row/column edges.
+            (<span className="font-mono text-primary">2x + 1</span>).
           </p>
         </TabsContent>
         <TabsContent value="paste" className="mt-3 space-y-2">

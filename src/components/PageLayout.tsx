@@ -7,9 +7,15 @@ type Props = {
   title: string;
   tagline: string;
   children: ReactNode;
+  showHowItWorks?: boolean;
 };
 
-export function PageLayout({ title, tagline, children }: Props) {
+function getHowHeading(title: string) {
+  const normalized = title.replace(/\s+calculator$/i, "").trim();
+  return `How ${normalized} works`;
+}
+
+export function PageLayout({ title, tagline, children, showHowItWorks = true }: Props) {
   return (
     <div className="min-h-screen bg-background bg-grid md:flex">
       <SiteHeader />
@@ -21,6 +27,19 @@ export function PageLayout({ title, tagline, children }: Props) {
             <p className="text-muted-foreground max-w-2xl">{tagline}</p>
           </header>
           {children}
+          {showHowItWorks && (
+            <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
+              <h2 className="text-foreground text-xl font-semibold">{getHowHeading(title)}</h2>
+              <p>
+                This page lets you enter your matrix values, run the selected operation instantly,
+                and review the result in a clear format.
+              </p>
+              <p>
+                {tagline} All calculations run in your browser, so input updates are immediate and
+                nothing is uploaded.
+              </p>
+            </section>
+          )}
         </main>
         <SiteFooter />
       </div>
