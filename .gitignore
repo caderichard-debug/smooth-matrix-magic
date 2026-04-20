@@ -17,6 +17,9 @@ dist-ssr
 .vercel
 *.local
 
+# GitHub Pages prerender output (generated in CI / locally)
+gh-pages
+
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
