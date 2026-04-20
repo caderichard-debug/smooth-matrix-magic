@@ -40,7 +40,9 @@ if (!res.ok) {
 }
 const html = await res.text();
 
-await cp(staticSrc, join(outDir, "assets"), { recursive: true });
+// Copy Nitro static output directly into gh-pages root.
+// staticSrc already contains an `assets/` directory.
+await cp(staticSrc, outDir, { recursive: true });
 await writeFile(join(outDir, "index.html"), html, "utf8");
 await writeFile(join(outDir, "404.html"), html, "utf8");
 await writeFile(join(outDir, "CNAME"), "matrixdojo.app\n", "utf8");
