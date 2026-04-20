@@ -38,7 +38,16 @@ const res = await server.fetch(new Request(`https://example.com${routePath}`));
 if (!res.ok) {
   throw new Error(`SSR shell fetch failed: ${res.status} ${res.statusText}`);
 }
-const html = await res.text();
+let html = await res.text();
+
+// Ensure client boot always happens via an external module script.
+// Some environments can block inline module scripts, which leaves a static (non-interactive) page.
+const entryMatch = html.match(/import\("([^"]*\/assets\/index-[^"]+\.js)"\)/);
+if (entryMatch?.[1] && !html.includes(`src="${entryMatch[1]}"`)) {
+  const bootTag = `<script type="module" src="${entryMatch[1]}"></script>`;
+  html = html.replace("</body></html>", `${bootTag}</body></html>`);
+}
+
 await writeFile(join(outDir, "index.html"), html, "utf8");
 await writeFile(join(outDir, "404.html"), html, "utf8");
 await writeFile(join(outDir, ".nojekyll"), "", "utf8");
