@@ -42,7 +42,7 @@
 ## Deployment (GitHub Pages)
 
 - **One command:** `npm run build:github-pages` runs **`scripts/github-pages-build.mjs`** (build with `GITHUB_PAGES=1`, run local `.output/server/index.mjs`, fetch prerendered HTML, then emit **`gh-pages/`**).
-- Default **`npm run build`** (no env) keeps the standard Cloudflare-worker-oriented output under `dist/`.
+- Default **`npm run build`** (no env) keeps the standard local output under `dist/`.
 - **Settings → Pages → Source:** **GitHub Actions** (required before `deploy-pages` can run). If the deploy step fails with **HttpError: Not Found** / “Creating Pages deployment failed”, Pages is not enabled or source is still “Deploy from a branch”—open **Settings → Pages**, set source to **GitHub Actions**, save, then **re-run failed jobs** on the workflow.
 - First deploy may ask to approve the **`github-pages`** environment once.
 
