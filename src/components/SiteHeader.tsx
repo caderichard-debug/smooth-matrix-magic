@@ -1,7 +1,11 @@
 import { useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Sigma } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 type NavEntry = { label: string; to?: string; comingSoon?: boolean };
 type NavSection = { id: string; label: string; items: NavEntry[] };
@@ -76,9 +80,7 @@ const sections: NavSection[] = [
   {
     id: "norms-metrics",
     label: "7) Norms & Metrics",
-    items: [
-      { label: "Norms & Distances", to: "/norms-metrics" },
-    ],
+    items: [{ label: "Norms & Distances", to: "/norms-metrics" }],
   },
   {
     id: "advanced-algebra",
@@ -152,6 +154,28 @@ const sections: NavSection[] = [
       { label: "Graph Laplacian Utilities", to: "/graph-laplacian" },
     ],
   },
+  {
+    id: "ml-operations",
+    label: "15) ML / Neural Ops",
+    items: [
+      { label: "2D Convolution", to: "/ml-convolution" },
+      { label: "Convolution Extras", to: "/ml-convolution-extras" },
+      { label: "2D Cross-Correlation", to: "/ml-cross-correlation" },
+      { label: "Max / Avg Pooling", to: "/ml-pooling" },
+      { label: "Softmax (rows)", to: "/ml-softmax" },
+      { label: "Scaled Dot-Product Attention", to: "/ml-attention" },
+      { label: "Multi-Head Attention Walkthrough", to: "/ml-multihead-attention" },
+      { label: "Sequence Ops (Positional + Causal Mask)", to: "/ml-sequence-ops" },
+      { label: "Optimizer Steps (SGD / Momentum / Adam)", to: "/ml-optimizer-steps" },
+      { label: "Adam Optimizer Step", to: "/ml-adam-step" },
+      { label: "Linear Layer (Forward & Backward)", to: "/ml-linear-layer" },
+      { label: "Loss + Gradient Basics", to: "/ml-loss-gradients" },
+      { label: "Similarity / Distances", to: "/ml-similarity-distance" },
+      { label: "BatchNorm / LayerNorm / RMSNorm", to: "/ml-normalization" },
+      { label: "Regularization (L2 + Dropout)", to: "/ml-regularization" },
+      { label: "SVD PCA / Low-Rank Approximation", to: "/ml-svd-pca-low-rank" },
+    ],
+  },
 ];
 
 export function SiteHeader() {
@@ -163,9 +187,7 @@ export function SiteHeader() {
     <aside className="w-full md:w-72 md:sticky md:top-0 md:h-screen border-b md:border-b-0 md:border-r border-border bg-background/90 backdrop-blur-md">
       <div className="px-4 py-4 md:py-6 md:px-5 h-full flex flex-col gap-4">
         <Link to="/" className="flex items-center gap-2 font-semibold text-foreground shrink-0">
-          <span className="grid place-items-center size-7 rounded-md bg-primary text-primary-foreground">
-            <Sigma className="size-4" />
-          </span>
+          <img src="/favicon.svg" alt="MatrixDojo logo" className="size-7 rounded-md" />
           <span className="tracking-tight">MatrixDojo</span>
         </Link>
 
@@ -179,14 +201,19 @@ export function SiteHeader() {
               {allExpanded ? "Collapse all" : "Expand all"}
             </button>
           </div>
-          <Accordion type="multiple" className="w-full" value={expandedSections} onValueChange={setExpandedSections}>
+          <Accordion
+            type="multiple"
+            className="w-full"
+            value={expandedSections}
+            onValueChange={setExpandedSections}
+          >
             {sections.map((section) => (
               <AccordionItem value={section.id} key={section.id} className="border-border/70">
                 <AccordionTrigger className="py-2 text-xs uppercase tracking-[0.12em] text-muted-foreground hover:no-underline">
                   {section.label}
                 </AccordionTrigger>
                 <AccordionContent className="space-y-1">
-                  {section.items.map((item) => (
+                  {section.items.map((item) =>
                     item.to ? (
                       <Link
                         key={`${section.id}-${item.label}`}
@@ -205,8 +232,8 @@ export function SiteHeader() {
                       >
                         {item.label} {item.comingSoon ? "(soon)" : ""}
                       </div>
-                    )
-                  ))}
+                    ),
+                  )}
                 </AccordionContent>
               </AccordionItem>
             ))}

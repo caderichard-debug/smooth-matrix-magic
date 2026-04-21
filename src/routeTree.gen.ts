@@ -37,6 +37,22 @@ import { Route as PolarDecompositionRouteImport } from './routes/polar-decomposi
 import { Route as PivotFreeAnalyzerRouteImport } from './routes/pivot-free-analyzer'
 import { Route as PcaCovarianceRouteImport } from './routes/pca-covariance'
 import { Route as NormsMetricsRouteImport } from './routes/norms-metrics'
+import { Route as MlSvdPcaLowRankRouteImport } from './routes/ml-svd-pca-low-rank'
+import { Route as MlSoftmaxRouteImport } from './routes/ml-softmax'
+import { Route as MlSimilarityDistanceRouteImport } from './routes/ml-similarity-distance'
+import { Route as MlSequenceOpsRouteImport } from './routes/ml-sequence-ops'
+import { Route as MlRegularizationRouteImport } from './routes/ml-regularization'
+import { Route as MlPoolingRouteImport } from './routes/ml-pooling'
+import { Route as MlOptimizerStepsRouteImport } from './routes/ml-optimizer-steps'
+import { Route as MlNormalizationRouteImport } from './routes/ml-normalization'
+import { Route as MlMultiheadAttentionRouteImport } from './routes/ml-multihead-attention'
+import { Route as MlLossGradientsRouteImport } from './routes/ml-loss-gradients'
+import { Route as MlLinearLayerRouteImport } from './routes/ml-linear-layer'
+import { Route as MlCrossCorrelationRouteImport } from './routes/ml-cross-correlation'
+import { Route as MlConvolutionExtrasRouteImport } from './routes/ml-convolution-extras'
+import { Route as MlConvolutionRouteImport } from './routes/ml-convolution'
+import { Route as MlAttentionRouteImport } from './routes/ml-attention'
+import { Route as MlAdamStepRouteImport } from './routes/ml-adam-step'
 import { Route as MeanVarCovCorrRouteImport } from './routes/mean-var-cov-corr'
 import { Route as MatrixProductsRouteImport } from './routes/matrix-products'
 import { Route as MatrixLogSqrtRouteImport } from './routes/matrix-log-sqrt'
@@ -211,6 +227,86 @@ const PcaCovarianceRoute = PcaCovarianceRouteImport.update({
 const NormsMetricsRoute = NormsMetricsRouteImport.update({
   id: '/norms-metrics',
   path: '/norms-metrics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlSvdPcaLowRankRoute = MlSvdPcaLowRankRouteImport.update({
+  id: '/ml-svd-pca-low-rank',
+  path: '/ml-svd-pca-low-rank',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlSoftmaxRoute = MlSoftmaxRouteImport.update({
+  id: '/ml-softmax',
+  path: '/ml-softmax',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlSimilarityDistanceRoute = MlSimilarityDistanceRouteImport.update({
+  id: '/ml-similarity-distance',
+  path: '/ml-similarity-distance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlSequenceOpsRoute = MlSequenceOpsRouteImport.update({
+  id: '/ml-sequence-ops',
+  path: '/ml-sequence-ops',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlRegularizationRoute = MlRegularizationRouteImport.update({
+  id: '/ml-regularization',
+  path: '/ml-regularization',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlPoolingRoute = MlPoolingRouteImport.update({
+  id: '/ml-pooling',
+  path: '/ml-pooling',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlOptimizerStepsRoute = MlOptimizerStepsRouteImport.update({
+  id: '/ml-optimizer-steps',
+  path: '/ml-optimizer-steps',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlNormalizationRoute = MlNormalizationRouteImport.update({
+  id: '/ml-normalization',
+  path: '/ml-normalization',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlMultiheadAttentionRoute = MlMultiheadAttentionRouteImport.update({
+  id: '/ml-multihead-attention',
+  path: '/ml-multihead-attention',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlLossGradientsRoute = MlLossGradientsRouteImport.update({
+  id: '/ml-loss-gradients',
+  path: '/ml-loss-gradients',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlLinearLayerRoute = MlLinearLayerRouteImport.update({
+  id: '/ml-linear-layer',
+  path: '/ml-linear-layer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlCrossCorrelationRoute = MlCrossCorrelationRouteImport.update({
+  id: '/ml-cross-correlation',
+  path: '/ml-cross-correlation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlConvolutionExtrasRoute = MlConvolutionExtrasRouteImport.update({
+  id: '/ml-convolution-extras',
+  path: '/ml-convolution-extras',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlConvolutionRoute = MlConvolutionRouteImport.update({
+  id: '/ml-convolution',
+  path: '/ml-convolution',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlAttentionRoute = MlAttentionRouteImport.update({
+  id: '/ml-attention',
+  path: '/ml-attention',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlAdamStepRoute = MlAdamStepRouteImport.update({
+  id: '/ml-adam-step',
+  path: '/ml-adam-step',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MeanVarCovCorrRoute = MeanVarCovCorrRouteImport.update({
@@ -416,6 +512,22 @@ export interface FileRoutesByFullPath {
   '/matrix-log-sqrt': typeof MatrixLogSqrtRoute
   '/matrix-products': typeof MatrixProductsRoute
   '/mean-var-cov-corr': typeof MeanVarCovCorrRoute
+  '/ml-adam-step': typeof MlAdamStepRoute
+  '/ml-attention': typeof MlAttentionRoute
+  '/ml-convolution': typeof MlConvolutionRoute
+  '/ml-convolution-extras': typeof MlConvolutionExtrasRoute
+  '/ml-cross-correlation': typeof MlCrossCorrelationRoute
+  '/ml-linear-layer': typeof MlLinearLayerRoute
+  '/ml-loss-gradients': typeof MlLossGradientsRoute
+  '/ml-multihead-attention': typeof MlMultiheadAttentionRoute
+  '/ml-normalization': typeof MlNormalizationRoute
+  '/ml-optimizer-steps': typeof MlOptimizerStepsRoute
+  '/ml-pooling': typeof MlPoolingRoute
+  '/ml-regularization': typeof MlRegularizationRoute
+  '/ml-sequence-ops': typeof MlSequenceOpsRoute
+  '/ml-similarity-distance': typeof MlSimilarityDistanceRoute
+  '/ml-softmax': typeof MlSoftmaxRoute
+  '/ml-svd-pca-low-rank': typeof MlSvdPcaLowRankRoute
   '/norms-metrics': typeof NormsMetricsRoute
   '/pca-covariance': typeof PcaCovarianceRoute
   '/pivot-free-analyzer': typeof PivotFreeAnalyzerRoute
@@ -479,6 +591,22 @@ export interface FileRoutesByTo {
   '/matrix-log-sqrt': typeof MatrixLogSqrtRoute
   '/matrix-products': typeof MatrixProductsRoute
   '/mean-var-cov-corr': typeof MeanVarCovCorrRoute
+  '/ml-adam-step': typeof MlAdamStepRoute
+  '/ml-attention': typeof MlAttentionRoute
+  '/ml-convolution': typeof MlConvolutionRoute
+  '/ml-convolution-extras': typeof MlConvolutionExtrasRoute
+  '/ml-cross-correlation': typeof MlCrossCorrelationRoute
+  '/ml-linear-layer': typeof MlLinearLayerRoute
+  '/ml-loss-gradients': typeof MlLossGradientsRoute
+  '/ml-multihead-attention': typeof MlMultiheadAttentionRoute
+  '/ml-normalization': typeof MlNormalizationRoute
+  '/ml-optimizer-steps': typeof MlOptimizerStepsRoute
+  '/ml-pooling': typeof MlPoolingRoute
+  '/ml-regularization': typeof MlRegularizationRoute
+  '/ml-sequence-ops': typeof MlSequenceOpsRoute
+  '/ml-similarity-distance': typeof MlSimilarityDistanceRoute
+  '/ml-softmax': typeof MlSoftmaxRoute
+  '/ml-svd-pca-low-rank': typeof MlSvdPcaLowRankRoute
   '/norms-metrics': typeof NormsMetricsRoute
   '/pca-covariance': typeof PcaCovarianceRoute
   '/pivot-free-analyzer': typeof PivotFreeAnalyzerRoute
@@ -543,6 +671,22 @@ export interface FileRoutesById {
   '/matrix-log-sqrt': typeof MatrixLogSqrtRoute
   '/matrix-products': typeof MatrixProductsRoute
   '/mean-var-cov-corr': typeof MeanVarCovCorrRoute
+  '/ml-adam-step': typeof MlAdamStepRoute
+  '/ml-attention': typeof MlAttentionRoute
+  '/ml-convolution': typeof MlConvolutionRoute
+  '/ml-convolution-extras': typeof MlConvolutionExtrasRoute
+  '/ml-cross-correlation': typeof MlCrossCorrelationRoute
+  '/ml-linear-layer': typeof MlLinearLayerRoute
+  '/ml-loss-gradients': typeof MlLossGradientsRoute
+  '/ml-multihead-attention': typeof MlMultiheadAttentionRoute
+  '/ml-normalization': typeof MlNormalizationRoute
+  '/ml-optimizer-steps': typeof MlOptimizerStepsRoute
+  '/ml-pooling': typeof MlPoolingRoute
+  '/ml-regularization': typeof MlRegularizationRoute
+  '/ml-sequence-ops': typeof MlSequenceOpsRoute
+  '/ml-similarity-distance': typeof MlSimilarityDistanceRoute
+  '/ml-softmax': typeof MlSoftmaxRoute
+  '/ml-svd-pca-low-rank': typeof MlSvdPcaLowRankRoute
   '/norms-metrics': typeof NormsMetricsRoute
   '/pca-covariance': typeof PcaCovarianceRoute
   '/pivot-free-analyzer': typeof PivotFreeAnalyzerRoute
@@ -608,6 +752,22 @@ export interface FileRouteTypes {
     | '/matrix-log-sqrt'
     | '/matrix-products'
     | '/mean-var-cov-corr'
+    | '/ml-adam-step'
+    | '/ml-attention'
+    | '/ml-convolution'
+    | '/ml-convolution-extras'
+    | '/ml-cross-correlation'
+    | '/ml-linear-layer'
+    | '/ml-loss-gradients'
+    | '/ml-multihead-attention'
+    | '/ml-normalization'
+    | '/ml-optimizer-steps'
+    | '/ml-pooling'
+    | '/ml-regularization'
+    | '/ml-sequence-ops'
+    | '/ml-similarity-distance'
+    | '/ml-softmax'
+    | '/ml-svd-pca-low-rank'
     | '/norms-metrics'
     | '/pca-covariance'
     | '/pivot-free-analyzer'
@@ -671,6 +831,22 @@ export interface FileRouteTypes {
     | '/matrix-log-sqrt'
     | '/matrix-products'
     | '/mean-var-cov-corr'
+    | '/ml-adam-step'
+    | '/ml-attention'
+    | '/ml-convolution'
+    | '/ml-convolution-extras'
+    | '/ml-cross-correlation'
+    | '/ml-linear-layer'
+    | '/ml-loss-gradients'
+    | '/ml-multihead-attention'
+    | '/ml-normalization'
+    | '/ml-optimizer-steps'
+    | '/ml-pooling'
+    | '/ml-regularization'
+    | '/ml-sequence-ops'
+    | '/ml-similarity-distance'
+    | '/ml-softmax'
+    | '/ml-svd-pca-low-rank'
     | '/norms-metrics'
     | '/pca-covariance'
     | '/pivot-free-analyzer'
@@ -734,6 +910,22 @@ export interface FileRouteTypes {
     | '/matrix-log-sqrt'
     | '/matrix-products'
     | '/mean-var-cov-corr'
+    | '/ml-adam-step'
+    | '/ml-attention'
+    | '/ml-convolution'
+    | '/ml-convolution-extras'
+    | '/ml-cross-correlation'
+    | '/ml-linear-layer'
+    | '/ml-loss-gradients'
+    | '/ml-multihead-attention'
+    | '/ml-normalization'
+    | '/ml-optimizer-steps'
+    | '/ml-pooling'
+    | '/ml-regularization'
+    | '/ml-sequence-ops'
+    | '/ml-similarity-distance'
+    | '/ml-softmax'
+    | '/ml-svd-pca-low-rank'
     | '/norms-metrics'
     | '/pca-covariance'
     | '/pivot-free-analyzer'
@@ -798,6 +990,22 @@ export interface RootRouteChildren {
   MatrixLogSqrtRoute: typeof MatrixLogSqrtRoute
   MatrixProductsRoute: typeof MatrixProductsRoute
   MeanVarCovCorrRoute: typeof MeanVarCovCorrRoute
+  MlAdamStepRoute: typeof MlAdamStepRoute
+  MlAttentionRoute: typeof MlAttentionRoute
+  MlConvolutionRoute: typeof MlConvolutionRoute
+  MlConvolutionExtrasRoute: typeof MlConvolutionExtrasRoute
+  MlCrossCorrelationRoute: typeof MlCrossCorrelationRoute
+  MlLinearLayerRoute: typeof MlLinearLayerRoute
+  MlLossGradientsRoute: typeof MlLossGradientsRoute
+  MlMultiheadAttentionRoute: typeof MlMultiheadAttentionRoute
+  MlNormalizationRoute: typeof MlNormalizationRoute
+  MlOptimizerStepsRoute: typeof MlOptimizerStepsRoute
+  MlPoolingRoute: typeof MlPoolingRoute
+  MlRegularizationRoute: typeof MlRegularizationRoute
+  MlSequenceOpsRoute: typeof MlSequenceOpsRoute
+  MlSimilarityDistanceRoute: typeof MlSimilarityDistanceRoute
+  MlSoftmaxRoute: typeof MlSoftmaxRoute
+  MlSvdPcaLowRankRoute: typeof MlSvdPcaLowRankRoute
   NormsMetricsRoute: typeof NormsMetricsRoute
   PcaCovarianceRoute: typeof PcaCovarianceRoute
   PivotFreeAnalyzerRoute: typeof PivotFreeAnalyzerRoute
@@ -1024,6 +1232,118 @@ declare module '@tanstack/react-router' {
       path: '/norms-metrics'
       fullPath: '/norms-metrics'
       preLoaderRoute: typeof NormsMetricsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-svd-pca-low-rank': {
+      id: '/ml-svd-pca-low-rank'
+      path: '/ml-svd-pca-low-rank'
+      fullPath: '/ml-svd-pca-low-rank'
+      preLoaderRoute: typeof MlSvdPcaLowRankRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-softmax': {
+      id: '/ml-softmax'
+      path: '/ml-softmax'
+      fullPath: '/ml-softmax'
+      preLoaderRoute: typeof MlSoftmaxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-similarity-distance': {
+      id: '/ml-similarity-distance'
+      path: '/ml-similarity-distance'
+      fullPath: '/ml-similarity-distance'
+      preLoaderRoute: typeof MlSimilarityDistanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-sequence-ops': {
+      id: '/ml-sequence-ops'
+      path: '/ml-sequence-ops'
+      fullPath: '/ml-sequence-ops'
+      preLoaderRoute: typeof MlSequenceOpsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-regularization': {
+      id: '/ml-regularization'
+      path: '/ml-regularization'
+      fullPath: '/ml-regularization'
+      preLoaderRoute: typeof MlRegularizationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-pooling': {
+      id: '/ml-pooling'
+      path: '/ml-pooling'
+      fullPath: '/ml-pooling'
+      preLoaderRoute: typeof MlPoolingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-optimizer-steps': {
+      id: '/ml-optimizer-steps'
+      path: '/ml-optimizer-steps'
+      fullPath: '/ml-optimizer-steps'
+      preLoaderRoute: typeof MlOptimizerStepsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-normalization': {
+      id: '/ml-normalization'
+      path: '/ml-normalization'
+      fullPath: '/ml-normalization'
+      preLoaderRoute: typeof MlNormalizationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-multihead-attention': {
+      id: '/ml-multihead-attention'
+      path: '/ml-multihead-attention'
+      fullPath: '/ml-multihead-attention'
+      preLoaderRoute: typeof MlMultiheadAttentionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-loss-gradients': {
+      id: '/ml-loss-gradients'
+      path: '/ml-loss-gradients'
+      fullPath: '/ml-loss-gradients'
+      preLoaderRoute: typeof MlLossGradientsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-linear-layer': {
+      id: '/ml-linear-layer'
+      path: '/ml-linear-layer'
+      fullPath: '/ml-linear-layer'
+      preLoaderRoute: typeof MlLinearLayerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-cross-correlation': {
+      id: '/ml-cross-correlation'
+      path: '/ml-cross-correlation'
+      fullPath: '/ml-cross-correlation'
+      preLoaderRoute: typeof MlCrossCorrelationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-convolution-extras': {
+      id: '/ml-convolution-extras'
+      path: '/ml-convolution-extras'
+      fullPath: '/ml-convolution-extras'
+      preLoaderRoute: typeof MlConvolutionExtrasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-convolution': {
+      id: '/ml-convolution'
+      path: '/ml-convolution'
+      fullPath: '/ml-convolution'
+      preLoaderRoute: typeof MlConvolutionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-attention': {
+      id: '/ml-attention'
+      path: '/ml-attention'
+      fullPath: '/ml-attention'
+      preLoaderRoute: typeof MlAttentionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-adam-step': {
+      id: '/ml-adam-step'
+      path: '/ml-adam-step'
+      fullPath: '/ml-adam-step'
+      preLoaderRoute: typeof MlAdamStepRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mean-var-cov-corr': {
@@ -1294,6 +1614,22 @@ const rootRouteChildren: RootRouteChildren = {
   MatrixLogSqrtRoute: MatrixLogSqrtRoute,
   MatrixProductsRoute: MatrixProductsRoute,
   MeanVarCovCorrRoute: MeanVarCovCorrRoute,
+  MlAdamStepRoute: MlAdamStepRoute,
+  MlAttentionRoute: MlAttentionRoute,
+  MlConvolutionRoute: MlConvolutionRoute,
+  MlConvolutionExtrasRoute: MlConvolutionExtrasRoute,
+  MlCrossCorrelationRoute: MlCrossCorrelationRoute,
+  MlLinearLayerRoute: MlLinearLayerRoute,
+  MlLossGradientsRoute: MlLossGradientsRoute,
+  MlMultiheadAttentionRoute: MlMultiheadAttentionRoute,
+  MlNormalizationRoute: MlNormalizationRoute,
+  MlOptimizerStepsRoute: MlOptimizerStepsRoute,
+  MlPoolingRoute: MlPoolingRoute,
+  MlRegularizationRoute: MlRegularizationRoute,
+  MlSequenceOpsRoute: MlSequenceOpsRoute,
+  MlSimilarityDistanceRoute: MlSimilarityDistanceRoute,
+  MlSoftmaxRoute: MlSoftmaxRoute,
+  MlSvdPcaLowRankRoute: MlSvdPcaLowRankRoute,
   NormsMetricsRoute: NormsMetricsRoute,
   PcaCovarianceRoute: PcaCovarianceRoute,
   PivotFreeAnalyzerRoute: PivotFreeAnalyzerRoute,
