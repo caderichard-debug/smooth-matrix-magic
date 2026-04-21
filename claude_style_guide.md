@@ -19,7 +19,11 @@ This project is an SEO-focused matrix calculator suite designed to feel faster a
 
 ## Navigation and IA
 
-- Every new operation page should be added to `SiteHeader` nav.
+- Every new operation page should be added to `SiteHeader` nav (including section `15) ML / Neural Ops` for CNN-style grid tools when relevant).
+- ML vector-comparison tools (cosine similarity and pairwise distances) also live under section `15) ML / Neural Ops` and follow the same numeric-validation + matrix-output conventions as other ML pages.
+- ML regularization tools (for example L2 weight decay updates and dropout mask demos) also live under section `15) ML / Neural Ops` and should expose explicit equations plus deterministic testable inputs where randomness is involved.
+- ML dimensionality-reduction education pages (for example truncated SVD, rank-k approximation, and PCA-via-SVD) also live under section `15) ML / Neural Ops` with numeric-only shape validation and explicit matrix-factor outputs.
+- Sequence-model helper pages (for example positional encodings and causal masks) live under section `15) ML / Neural Ops` and should present both core equations and matrix outputs.
 - Keep labels short and scannable (`RREF`, `LU`, `Eigenvalues`).
 - New routes should use file-based TanStack route conventions in `src/routes`.
 - Ensure route generation is refreshed when adding new route files.
@@ -40,7 +44,9 @@ This project is an SEO-focused matrix calculator suite designed to feel faster a
 
 ## Math and implementation rules
 
-- Put reusable math logic in `src/lib/matrix.ts` (not inside route files).
+- Put reusable math logic in `src/lib/matrix.ts` (not inside route files). Bounded ML grid helpers (2D conv/cross-correlation, pooling, row softmax) live in `src/lib/mlOps.ts`.
+- ML optimizer demonstration helpers (for example `adamStep`) also belong in `src/lib/mlOps.ts` when they operate on numeric matrix-shaped tensors.
+- Optimizer comparison pages should reuse shared matrix update helpers (`sgdStep`, `momentumStep`, `adamStep`) from `src/lib/mlOps.ts` instead of embedding update math in route components.
 - Keep parsing and expression behavior aligned with existing `Expr` helpers.
 - Throw specific, user-readable errors for dimension or domain issues.
 - For numeric-only algorithms, gate with `isFullyNumeric` and explain why in error text.

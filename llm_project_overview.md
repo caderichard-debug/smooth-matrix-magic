@@ -41,6 +41,8 @@ Smooth Matrix Magic is a web-based matrix manipulation toolset built for:
 - Null space / column space basis
 - Trace/rank
 - RREF
+- ML / neural ops: 2D convolution, 2D cross-correlation, max/avg pooling, row-wise softmax
+- Optimizer math op: Adam one-step update (`/ml-adam-step`) with moment and bias-correction outputs
 
 ## Backlog implementation status (Apr 2026)
 
@@ -67,6 +69,33 @@ Smooth Matrix Magic is a web-based matrix manipulation toolset built for:
 - The advanced route cluster (decomposition, transforms, spectral, block/structured tools) received a concise explanatory-copy refresh while preserving lean UI and decimal-first defaults.
 - Follow-up copy pass enriched "How ... works" blurbs on decomposition/spectral routes with compact mathematical properties, constraints, and diagnostic interpretation notes, preserving existing runtime behavior.
 - Follow-up explanatory-copy refresh expanded "How ... works" sections on product/structure/classical-identity pages with concise equations and dimension constraints (`matrix-products`, `advanced-products`, `elementwise`, `structure-tools`, `split-partition`, `stack-unstack-blocks`, `triangular-extraction`, `symmetrize-skew`, `block-matrix-builder`, `adjugate-cofactor`, `determinant-expansion`, `vandermonde-pascal-hilbert`).
+- ML / neural-style grid ops (sidebar section 15): `ml-convolution` (true 2D conv with flip), `ml-cross-correlation` (sliding dot product as in many CNNs), `ml-pooling` (max/avg), `ml-softmax` (row-wise). Shared numerics live in `src/lib/mlOps.ts`.
+- ML attention tool added: `ml-attention` now visualizes scaled dot-product attention internals (`scores`, `softmax weights`, `output`) with optional additive masking, backed by reusable `scaledDotProductAttention` in `src/lib/mlOps.ts`.
+- Multi-head attention walkthrough added: `ml-multihead-attention` now demonstrates `X -> Q/K/V projections -> split heads -> masked per-head attention -> concat -> W_O projection` with optional additive and causal masking toggles.
+- `src/lib/mlOps.ts` now includes reusable attention-shape helpers `splitHeads`, `concatHeads`, and `causalMask` for educational routes and tests.
+- Added `ml-sequence-ops` route for sequence-model matrix primitives: sinusoidal positional-encoding matrix generation and causal-mask construction.
+- `src/lib/mlOps.ts` now includes reusable `sinusoidalPositionalEncoding(seqLen, dModel, base?)` alongside exported `causalMask(...)` for transformer-style sequence walkthroughs.
+- Added optimizer-step page `ml-adam-step` in section 15 with reusable `adamStep(...)` logic in `src/lib/mlOps.ts` and tests in `src/lib/mlOps.test.ts`.
+- Added optimizer-comparison page `ml-optimizer-steps` in section 15 to show one-step matrix updates side-by-side for SGD, Momentum, and Adam.
+- `src/lib/mlOps.ts` now includes reusable `sgdStep(params, grads, lr)` and `momentumStep(params, grads, velocity, lr, momentum)` helpers in addition to `adamStep`.
+- ML linear utilities are now live in `src/lib/mlOps.ts`: `linearForward(X, W, b?)` and `linearBackward(X, W, dY)` with numeric/shape validation and a dedicated route `ml-linear-layer` for forward/backward gradient intuition.
+- Added loss-gradient fundamentals route `ml-loss-gradients` covering MSE loss/gradient, cross-entropy from logits with row-mean loss, per-row softmax Jacobian, and linear-backward recap. Shared helpers now include `mseLoss`, `mseGrad`, `crossEntropyFromLogits`, `crossEntropyGradFromLogits`, and `softmaxJacobianRow` in `src/lib/mlOps.ts`.
+- ML vector similarity/distance page is live: `ml-similarity-distance` (row-vector cosine similarity and pairwise Euclidean/Manhattan distances, with optional A-vs-B mode) backed by `cosineSimilarityMatrix` and `pairwiseDistanceMatrix` in `src/lib/mlOps.ts`.
+- Added `ml-normalization` route for BatchNorm inference and row-wise LayerNorm, backed by reusable `batchNormInference` and `layerNorm` helpers in `src/lib/mlOps.ts`.
+- `ml-normalization` now also includes row-wise RMSNorm output/explanation, backed by reusable `rmsNorm(X, gamma, eps)` in `src/lib/mlOps.ts` (gamma scale only, no beta).
+- ML normalization test coverage in `src/lib/mlOps.test.ts` now exercises extra BatchNorm/LayerNorm/RMSNorm edge paths (finite vectors, epsilon checks, cap-limit validation) and constant/zero-row behavior.
+- Added `ml-regularization` route for regularization fundamentals: an L2 weight-decay parameter step demo and inverted-dropout mask application demo.
+- `src/lib/mlOps.ts` now includes reusable `l2WeightDecayStep(params, grads, lr, weightDecay)` and `applyDropout(input, keepProb, mask?)` helpers, including deterministic optional mask support for reproducible dropout walkthroughs.
+- Added `ml-svd-pca-low-rank` educational route for truncated SVD decomposition, rank-k reconstruction, and PCA via SVD projection in one workflow.
+- `src/lib/mlOps.ts` now includes reusable SVD/PCA helpers for small dense numeric matrices: `truncatedSvd`, `reconstructFromTruncatedSvd`, `lowRankApproximation`, and `pcaFromSvd`.
+- `src/lib/mlOps.test.ts` dimensionality-reduction coverage now includes edge-path tests for rank-deficient default `truncatedSvd` behavior, `reconstructFromTruncatedSvd` singular-value validation (`NaN`/negative rejection), and documented `pcaFromSvd` zero-variance failure behavior.
+- Added `ml-convolution-extras` route under section `15) ML / Neural Ops` with interactive walkthroughs for dilated convolution, depthwise+pointwise separable convolution, and transposed-convolution output sizing.
+- `src/lib/mlOps.ts` now includes reusable convolution-extras helpers: `dilatedConvolve2d`, `separableConvolve2d`, `transposedConv1dOutputSize`, and `transposedConv2dOutputShape`.
+- `src/lib/mlOps.test.ts` now covers convolution-extras numerics and validation for dilation, separable pointwise parameters, and transposed-convolution output-padding constraints.
+- Convolution-extras tests were expanded with additional behavior locks: `dilation=1` parity against `convolve2d`, separable-convolution stride/pad/dilation passthrough checks, full `transposedConv1dOutputSize` field assertions, independent-axis 2D sizing checks, and extra validation for non-positive transposed output size / non-integer stride.
+- Added `ml-sequence-ops` route with interactive sequence-model matrix primitives: sinusoidal positional encoding matrix generation and causal attention-mask construction, including equation-level explanation.
+- `src/lib/mlOps.ts` now includes reusable `sinusoidalPositionalEncoding(seqLen, dModel, base?)` alongside existing exported `causalMask(...)`.
+- `src/lib/mlOps.test.ts` now includes sequence-op coverage for positional-encoding numerics (default/custom base) plus validation-path tests for positional encoding constraints.
 
 ## Architecture notes
 
