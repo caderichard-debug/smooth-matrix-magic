@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MatrixDojo">
-  <rect width="64" height="64" rx="14" fill="#2563eb" />
-  <g transform="translate(8 8) scale(2)">
-    <path
-      d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"
-      fill="none"
-      stroke="#ffffff"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" width="32" height="32"><metadata><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"><rdf:Description><dc:creator>RealFaviconGenerator</dc:creator><dc:source>https://realfavicongenerator.net</dc:source></rdf:Description></rdf:RDF></metadata><circle cx="16" cy="16" r="16" fill="oklch(0.16 0.012 250)"></circle><defs><filter id="glow"><feGaussianBlur stdDeviation="1" result="coloredBlur"></feGaussianBlur><feMerge><feMergeNode in="coloredBlur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter></defs><path d="M 8 8 L 6 8 L 6 24 L 8 24" stroke="oklch(0.86 0.19 145)" stroke-width="1.5" fill="none" stroke-linecap="round" filter="url(#glow)"></path><path d="M 24 8 L 26 8 L 26 24 L 24 24" stroke="oklch(0.86 0.19 145)" stroke-width="1.5" fill="none" stroke-linecap="round" filter="url(#glow)"></path><circle cx="11" cy="11" r="1.2" fill="oklch(0.30 0.04 200)" filter="url(#glow)"></circle><circle cx="16" cy="11" r="1.2" fill="oklch(0.86 0.19 145)" filter="url(#glow)"></circle><circle cx="21" cy="11" r="1.2" fill="oklch(0.30 0.04 200)" filter="url(#glow)"></circle><circle cx="11" cy="16" r="1.2" fill="oklch(0.86 0.19 145)" filter="url(#glow)"></circle><circle cx="16" cy="16" r="1.4" fill="oklch(0.86 0.19 145)" filter="url(#glow)"></circle><circle cx="21" cy="16" r="1.2" fill="oklch(0.86 0.19 145)" filter="url(#glow)"></circle><circle cx="11" cy="21" r="1.2" fill="oklch(0.30 0.04 200)" filter="url(#glow)"></circle><circle cx="16" cy="21" r="1.2" fill="oklch(0.86 0.19 145)" filter="url(#glow)"></circle><circle cx="21" cy="21" r="1.2" fill="oklch(0.30 0.04 200)" filter="url(#glow)"></circle><path d="M 15 6 L 17 6" stroke="oklch(0.86 0.19 145)" stroke-width="1.2" stroke-linecap="round" filter="url(#glow)"></path><path d="M 16 5 L 16 7" stroke="oklch(0.86 0.19 145)" stroke-width="1.2" stroke-linecap="round" filter="url(#glow)"></path></svg>
