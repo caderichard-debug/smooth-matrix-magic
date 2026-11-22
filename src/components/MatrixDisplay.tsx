@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Copy, Check, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,11 +27,7 @@ function serialize(m: Matrix, fmt: Format): string {
     case "csv":
       // Quote any cell containing comma, quote, or newline.
       return cells
-        .map((r) =>
-          r
-            .map((c) => (/[",\n]/.test(c) ? `"${c.replace(/"/g, '""')}"` : c))
-            .join(","),
-        )
+        .map((r) => r.map((c) => (/[",\n]/.test(c) ? `"${c.replace(/"/g, '""')}"` : c)).join(","))
         .join("\n");
     case "latex":
       return `\\begin{bmatrix}\n${cells.map((r) => "  " + r.join(" & ")).join(" \\\\\n")}\n\\end{bmatrix}`;
@@ -55,6 +51,32 @@ export function MatrixDisplay({ m, label, showCopy = true }: Props) {
   const cols = m[0]?.length ?? 0;
   const [copied, setCopied] = useState<Format | null>(null);
 
+  // Track whether the matrix is wider than its box (phones) and whether more columns remain
+  // to the right, so we can show a fade + swipe hint instead of an unexplained cut-off.
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [overflow, setOverflow] = useState<{ any: boolean; more: boolean }>({
+    any: false,
+    more: false,
+  });
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const update = () => {
+      const any = el.scrollWidth > el.clientWidth + 1;
+      const more = any && el.scrollLeft + el.clientWidth < el.scrollWidth - 1;
+      setOverflow((prev) => (prev.any === any && prev.more === more ? prev : { any, more }));
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    if (el.firstElementChild) ro.observe(el.firstElementChild);
+    el.addEventListener("scroll", update, { passive: true });
+    return () => {
+      ro.disconnect();
+      el.removeEventListener("scroll", update);
+    };
+  }, []);
+
   const copy = async (fmt: Format) => {
     try {
       await navigator.clipboard.writeText(serialize(m, fmt));
@@ -66,27 +88,37 @@ export function MatrixDisplay({ m, label, showCopy = true }: Props) {
   };
 
   return (
-    <div className="inline-flex flex-col gap-2">
+    <div className="inline-flex max-w-full flex-col gap-2">
       {label && (
         <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{label}</div>
       )}
-      <div className="relative px-4 py-3 rounded-md bg-card/60">
+      <div className="relative max-w-full px-4 py-3 rounded-md bg-card/60">
         <span className="absolute left-0 top-0 bottom-0 w-2 border-l-2 border-t-2 border-b-2 border-primary rounded-l-sm" />
         <span className="absolute right-0 top-0 bottom-0 w-2 border-r-2 border-t-2 border-b-2 border-primary rounded-r-sm" />
+        {/* Columns never shrink below their content; wide matrices scroll inside the brackets
+            instead of squeezing cells into each other on narrow screens. */}
         <div
-          className="grid gap-x-4 gap-y-1 font-mono text-foreground"
-          style={{ gridTemplateColumns: `repeat(${cols}, minmax(2rem, max-content))` }}
+          ref={scrollRef}
+          className={`overflow-x-auto ${overflow.more ? "matrix-scroll-fade" : ""}`}
         >
-          {m.flatMap((row, i) =>
-            row.map((v, j) => (
-              <div key={`${i}-${j}`} className="text-right tabular-nums">
-                {formatExpr(v)}
-              </div>
-            )),
-          )}
+          <div
+            className="grid w-max gap-x-4 gap-y-1 font-mono text-foreground"
+            style={{ gridTemplateColumns: `repeat(${cols}, minmax(2rem, max-content))` }}
+          >
+            {m.flatMap((row, i) =>
+              row.map((v, j) => (
+                <div key={`${i}-${j}`} className="whitespace-nowrap text-right tabular-nums">
+                  {formatExpr(v)}
+                </div>
+              )),
+            )}
+          </div>
         </div>
         <div className="flex items-center justify-between mt-2 gap-3">
-          <div className="text-[10px] text-muted-foreground">{rows} × {cols}</div>
+          <div className="text-[10px] text-muted-foreground">
+            {rows} × {cols}
+            {overflow.any && <span className="ml-1 whitespace-nowrap">· swipe for more →</span>}
+          </div>
           {showCopy && (
             <div className="flex items-center gap-1">
               <Button

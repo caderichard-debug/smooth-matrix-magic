@@ -112,6 +112,17 @@
     display: none !important;
   }
 
+  /* Layout grid columns default to min-width:auto, so one wide result matrix would stretch the
+     column (and the page) past the screen on phones. Let columns shrink so wide content scrolls
+     inside its own container instead. The matrix display's own cell grid (.w-max) is exempt. */
+  main .grid:not(.w-max) > * {
+    min-width: 0;
+  }
+
+  .matrix-scroll-fade {
+    mask-image: linear-gradient(to right, black calc(100% - 2rem), transparent);
+  }
+
   .sidebar-scroll {
     scrollbar-width: thin;
     scrollbar-color: var(--color-border) transparent;
