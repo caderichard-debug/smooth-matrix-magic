@@ -1,6 +1,7 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts, useRouterState } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { getPageGuide } from "@/content/pageGuides";
 import { ADS_ENABLED, ADSENSE_CLIENT, ADSENSE_SCRIPT_SRC } from "@/lib/ads";
 
 const SITE_NAME = "MatrixDojo";
@@ -16,11 +17,6 @@ const websiteJsonLd = {
   name: SITE_NAME,
   url: SITE_URL,
   description: DEFAULT_DESCRIPTION,
-  potentialAction: {
-    "@type": "SearchAction",
-    target: `${SITE_URL}/?q={search_term_string}`,
-    "query-input": "required name=search_term_string",
-  },
 };
 
 function toOperationName(pathname: string) {
@@ -51,27 +47,18 @@ function getRouteStructuredData(pathname: string) {
     },
   };
 
+  // FAQ schema must mirror FAQs visible on the page, so only emit it where a guide exists.
+  const guide = getPageGuide(pathname);
+  if (!guide) return [webPageJsonLd];
+
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: `What does the ${operationName} calculator do?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `It computes ${operationName.toLowerCase()} directly in your browser and shows results immediately.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Is MatrixDojo free to use?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes. MatrixDojo is free to use for matrix calculations with no signup required.",
-        },
-      },
-    ],
+    mainEntity: guide.faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
   };
 
   return [webPageJsonLd, faqJsonLd];
@@ -100,8 +87,9 @@ function NotFoundComponent() {
 }
 
 export const Route = createRootRoute({
-  head: ({ location }) => {
-    const pathname = location?.pathname ?? "/";
+  head: ({ matches }) => {
+    // The deepest match carries the full pathname of the page being rendered.
+    const pathname = matches[matches.length - 1]?.pathname ?? "/";
     const canonicalUrl = new URL(pathname, SITE_URL).toString();
 
     return {

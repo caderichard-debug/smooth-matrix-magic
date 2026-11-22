@@ -158,6 +158,7 @@ const sections: NavSection[] = [
     id: "ml-operations",
     label: "15) ML / Neural Ops",
     items: [
+      { label: "All ML Tools", to: "/ml-tools" },
       { label: "2D Convolution", to: "/ml-convolution" },
       { label: "Convolution Extras", to: "/ml-convolution-extras" },
       { label: "2D Cross-Correlation", to: "/ml-cross-correlation" },

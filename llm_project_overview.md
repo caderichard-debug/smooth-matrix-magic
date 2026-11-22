@@ -106,6 +106,11 @@ Smooth Matrix Magic is a web-based matrix manipulation toolset built for:
 - SEO baseline now includes root-level canonical/OG/Twitter metadata defaults and site JSON-LD in `src/routes/__root.tsx`.
 - SEO structured data is now route-aware in `src/routes/__root.tsx`, adding per-path `WebPage`, `SoftwareApplication`, and `FAQPage` JSON-LD payloads derived from route slugs.
 - GitHub Pages output now includes generated `sitemap.xml` and `robots.txt` via `scripts/github-pages-build.mjs`.
+- The Pages build prerenders every route to its own `<route>.html` (GitHub Pages serves `/transpose` from `transpose.html` with a 200), so crawlers get per-page titles, descriptions, canonicals, and content. `404.html` is the app's not-found page with `noindex`.
+- Root `head` derives the canonical/OG URL from the deepest route match (`matches[matches.length - 1].pathname`).
+- Page guides (worked example, common mistakes, FAQs) live in `src/content/pageGuides.ts`, keyed by pathname, and are rendered by `PageGuide` via `PageLayout`. FAQPage JSON-LD is emitted only for pages with a guide, using the same visible FAQs.
+- Shareable links: each `MatrixInput` registers with `src/lib/shareLink.ts` under a key derived from its title (`"Matrix A (numeric)"` → `a`). `ShareButton` (in `PageLayout`) copies `?a=1,2;3,4&b=...`, and inputs restore those values on load. Only matrix inputs are captured, not scalar fields or toggles.
+- `/ml-tools` is the ML hub page linking all section-15 tools. Launch post drafts live in `marketing/ml-launch-posts.md`.
 
 ## Product priorities
 

@@ -37,24 +37,6 @@ if (!server?.fetch) {
   throw new Error("dist/server/server.js does not export a fetch handler");
 }
 
-const routePath = pagesPrefix === "/" ? "/" : `${pagesPrefix}/`;
-const res = await server.fetch(new Request(`https://example.com${routePath}`));
-if (!res.ok) {
-  throw new Error(`SSR shell fetch failed: ${res.status} ${res.statusText}`);
-}
-let html = await res.text();
-
-// Ensure client boot always happens via an external module script.
-// Some environments can block inline module scripts, which leaves a static (non-interactive) page.
-const entryMatch = html.match(/import\("([^"]*\/assets\/index-[^"]+\.js)"\)/);
-if (entryMatch?.[1] && !html.includes(`src="${entryMatch[1]}"`)) {
-  const bootTag = `<script type="module" src="${entryMatch[1]}"></script>`;
-  html = html.replace("</body></html>", `${bootTag}</body></html>`);
-}
-
-await writeFile(join(outDir, "index.html"), html, "utf8");
-await writeFile(join(outDir, "404.html"), html, "utf8");
-
 const routeTree = await readFile(routeTreePath, "utf8");
 const fullPathsMatch = routeTree.match(/fullPaths:[\s\S]*?fileRoutesByTo:/);
 const discoveredPaths = new Set(["/"]);
@@ -65,6 +47,40 @@ if (fullPathsMatch) {
     discoveredPaths.add(rawPath.slice(1, -1));
   }
 }
+
+async function renderPath(path, { allowNotFound = false } = {}) {
+  const res = await server.fetch(new Request(`https://example.com${path}`));
+  if (!res.ok && !(allowNotFound && res.status === 404)) {
+    throw new Error(`SSR render of ${path} failed: ${res.status} ${res.statusText}`);
+  }
+  let html = await res.text();
+
+  // Ensure client boot always happens via an external module script.
+  // Some environments can block inline module scripts, which leaves a static (non-interactive) page.
+  const entryMatch = html.match(/import\("([^"]*\/assets\/index-[^"]+\.js)"\)/);
+  if (entryMatch?.[1] && !html.includes(`src="${entryMatch[1]}"`)) {
+    const bootTag = `<script type="module" src="${entryMatch[1]}"></script>`;
+    html = html.replace("</body></html>", `${bootTag}</body></html>`);
+  }
+  return html;
+}
+
+// Prerender every route to its own HTML file so crawlers get a 200 response with that page's
+// title, description, canonical URL, and content. GitHub Pages serves `/transpose` from
+// `transpose.html` without a redirect, which keeps URLs identical to the sitemap/canonicals.
+for (const path of discoveredPaths) {
+  const html = await renderPath(path);
+  const file = path === "/" ? "index.html" : `${path.replace(/^\/+/, "")}.html`;
+  await mkdir(dirname(join(outDir, file)), { recursive: true });
+  await writeFile(join(outDir, file), html, "utf8");
+}
+
+// Unknown URLs: serve the app's not-found page (GitHub Pages returns it with a 404 status).
+const notFoundHtml = (await renderPath("/__not-found__", { allowNotFound: true }))
+  .replace(/<link rel="canonical"[^>]*>/, "")
+  .replace(/<meta name="robots" content="[^"]*"\/?>/, '<meta name="robots" content="noindex"/>');
+await writeFile(join(outDir, "404.html"), notFoundHtml, "utf8");
+console.log(`Prerendered ${discoveredPaths.size} routes.`);
 
 const nowIso = new Date().toISOString();
 const sitemapEntries = [...discoveredPaths]

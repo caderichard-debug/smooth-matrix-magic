@@ -38,6 +38,7 @@ import { Route as PolarDecompositionRouteImport } from './routes/polar-decomposi
 import { Route as PivotFreeAnalyzerRouteImport } from './routes/pivot-free-analyzer'
 import { Route as PcaCovarianceRouteImport } from './routes/pca-covariance'
 import { Route as NormsMetricsRouteImport } from './routes/norms-metrics'
+import { Route as MlToolsRouteImport } from './routes/ml-tools'
 import { Route as MlSvdPcaLowRankRouteImport } from './routes/ml-svd-pca-low-rank'
 import { Route as MlSoftmaxRouteImport } from './routes/ml-softmax'
 import { Route as MlSimilarityDistanceRouteImport } from './routes/ml-similarity-distance'
@@ -233,6 +234,11 @@ const PcaCovarianceRoute = PcaCovarianceRouteImport.update({
 const NormsMetricsRoute = NormsMetricsRouteImport.update({
   id: '/norms-metrics',
   path: '/norms-metrics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MlToolsRoute = MlToolsRouteImport.update({
+  id: '/ml-tools',
+  path: '/ml-tools',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MlSvdPcaLowRankRoute = MlSvdPcaLowRankRouteImport.update({
@@ -534,6 +540,7 @@ export interface FileRoutesByFullPath {
   '/ml-similarity-distance': typeof MlSimilarityDistanceRoute
   '/ml-softmax': typeof MlSoftmaxRoute
   '/ml-svd-pca-low-rank': typeof MlSvdPcaLowRankRoute
+  '/ml-tools': typeof MlToolsRoute
   '/norms-metrics': typeof NormsMetricsRoute
   '/pca-covariance': typeof PcaCovarianceRoute
   '/pivot-free-analyzer': typeof PivotFreeAnalyzerRoute
@@ -614,6 +621,7 @@ export interface FileRoutesByTo {
   '/ml-similarity-distance': typeof MlSimilarityDistanceRoute
   '/ml-softmax': typeof MlSoftmaxRoute
   '/ml-svd-pca-low-rank': typeof MlSvdPcaLowRankRoute
+  '/ml-tools': typeof MlToolsRoute
   '/norms-metrics': typeof NormsMetricsRoute
   '/pca-covariance': typeof PcaCovarianceRoute
   '/pivot-free-analyzer': typeof PivotFreeAnalyzerRoute
@@ -695,6 +703,7 @@ export interface FileRoutesById {
   '/ml-similarity-distance': typeof MlSimilarityDistanceRoute
   '/ml-softmax': typeof MlSoftmaxRoute
   '/ml-svd-pca-low-rank': typeof MlSvdPcaLowRankRoute
+  '/ml-tools': typeof MlToolsRoute
   '/norms-metrics': typeof NormsMetricsRoute
   '/pca-covariance': typeof PcaCovarianceRoute
   '/pivot-free-analyzer': typeof PivotFreeAnalyzerRoute
@@ -777,6 +786,7 @@ export interface FileRouteTypes {
     | '/ml-similarity-distance'
     | '/ml-softmax'
     | '/ml-svd-pca-low-rank'
+    | '/ml-tools'
     | '/norms-metrics'
     | '/pca-covariance'
     | '/pivot-free-analyzer'
@@ -857,6 +867,7 @@ export interface FileRouteTypes {
     | '/ml-similarity-distance'
     | '/ml-softmax'
     | '/ml-svd-pca-low-rank'
+    | '/ml-tools'
     | '/norms-metrics'
     | '/pca-covariance'
     | '/pivot-free-analyzer'
@@ -937,6 +948,7 @@ export interface FileRouteTypes {
     | '/ml-similarity-distance'
     | '/ml-softmax'
     | '/ml-svd-pca-low-rank'
+    | '/ml-tools'
     | '/norms-metrics'
     | '/pca-covariance'
     | '/pivot-free-analyzer'
@@ -1018,6 +1030,7 @@ export interface RootRouteChildren {
   MlSimilarityDistanceRoute: typeof MlSimilarityDistanceRoute
   MlSoftmaxRoute: typeof MlSoftmaxRoute
   MlSvdPcaLowRankRoute: typeof MlSvdPcaLowRankRoute
+  MlToolsRoute: typeof MlToolsRoute
   NormsMetricsRoute: typeof NormsMetricsRoute
   PcaCovarianceRoute: typeof PcaCovarianceRoute
   PivotFreeAnalyzerRoute: typeof PivotFreeAnalyzerRoute
@@ -1252,6 +1265,13 @@ declare module '@tanstack/react-router' {
       path: '/norms-metrics'
       fullPath: '/norms-metrics'
       preLoaderRoute: typeof NormsMetricsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ml-tools': {
+      id: '/ml-tools'
+      path: '/ml-tools'
+      fullPath: '/ml-tools'
+      preLoaderRoute: typeof MlToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ml-svd-pca-low-rank': {
@@ -1650,6 +1670,7 @@ const rootRouteChildren: RootRouteChildren = {
   MlSimilarityDistanceRoute: MlSimilarityDistanceRoute,
   MlSoftmaxRoute: MlSoftmaxRoute,
   MlSvdPcaLowRankRoute: MlSvdPcaLowRankRoute,
+  MlToolsRoute: MlToolsRoute,
   NormsMetricsRoute: NormsMetricsRoute,
   PcaCovarianceRoute: PcaCovarianceRoute,
   PivotFreeAnalyzerRoute: PivotFreeAnalyzerRoute,

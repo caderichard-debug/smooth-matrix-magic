@@ -14,6 +14,7 @@ export function SiteFooter() {
           <Link to="/determinant" className="hover:text-foreground">Determinant</Link>
           <Link to="/inverse" className="hover:text-foreground">Inverse</Link>
           <Link to="/trace-rank" className="hover:text-foreground">Trace / Rank</Link>
+          <Link to="/ml-tools" className="hover:text-foreground">ML Tools</Link>
           <Link to="/privacy" className="hover:text-foreground">Privacy</Link>
         </nav>
       </div>

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, KeyboardEvent, ClipboardEvent } from "react";
+import { inputKey, readSharedParam, registerShareInput } from "@/lib/shareLink";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -41,6 +42,22 @@ export function MatrixInput({ title, value, onChange }: Props) {
     setText(sig);
     setCellError({});
   }, [value]);
+
+  // Shareable links: register for "Copy link" and restore a shared value on first load.
+  const valueRef = useRef(value);
+  valueRef.current = value;
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
+  const restoredShared = useRef(false);
+  useEffect(() => {
+    const { key, unregister } = registerShareInput(inputKey(title), () => valueRef.current);
+    if (!restoredShared.current) {
+      restoredShared.current = true;
+      const shared = readSharedParam(key);
+      if (shared) onChangeRef.current(shared);
+    }
+    return unregister;
+  }, [title]);
 
   const cellRefs = useRef<(HTMLInputElement | null)[][]>([]);
   const setRef = (i: number, j: number) => (el: HTMLInputElement | null) => {

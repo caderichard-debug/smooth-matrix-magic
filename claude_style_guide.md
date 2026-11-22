@@ -40,7 +40,8 @@ This project is an SEO-focused matrix calculator suite designed to feel faster a
 5. Render output in a card using `MatrixDisplay` or scalar text.
 6. Add `StepsPanel` when explanatory steps are practical.
 7. Add `<AdSlot placement="belowResult" />` below results.
-8. Add route to header nav.
+8. For high-intent pages, add a worked example, common mistakes, and FAQs in `src/content/pageGuides.ts` (verify every number). Keep MatrixInput titles distinct per page, since they become share-link keys.
+9. Add route to header nav (and to `/ml-tools` for section-15 tools).
 
 ## Math and implementation rules
 
