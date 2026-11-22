@@ -170,7 +170,7 @@ function ComposeDecomposeTransformsPage() {
         practical local description rather than a universal canonical form.
       </p>
 
-      <AdSlot label="Ad space — below result" height="h-28" />
+      <AdSlot placement="belowResult" />
     </PageLayout>
   );
 }

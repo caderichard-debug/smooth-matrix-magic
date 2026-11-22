@@ -96,6 +96,20 @@ await writeFile(
   "User-agent: *\nAllow: /\n\nSitemap: https://matrixdojo.app/sitemap.xml\n",
   "utf8",
 );
+// ads.txt authorizes Google to sell ad inventory for this domain (required for full AdSense fill).
+const adsenseClient = (process.env.VITE_ADSENSE_CLIENT ?? "").trim();
+const adsensePub = /^ca-pub-\d{10,20}$/.test(adsenseClient)
+  ? adsenseClient.replace(/^ca-/, "")
+  : "";
+if (adsensePub) {
+  await writeFile(
+    join(outDir, "ads.txt"),
+    `google.com, ${adsensePub}, DIRECT, f08c47fec0942fa0\n`,
+    "utf8",
+  );
+}
 await writeFile(join(outDir, "CNAME"), "matrixdojo.app\n", "utf8");
 await writeFile(join(outDir, ".nojekyll"), "", "utf8");
-console.log("Done: gh-pages/ (index.html, 404.html, sitemap.xml, robots.txt, CNAME, .nojekyll, assets/)");
+console.log(
+  `Done: gh-pages/ (index.html, 404.html, sitemap.xml, robots.txt, ${adsensePub ? "ads.txt, " : ""}CNAME, .nojekyll, assets/)`,
+);

@@ -39,7 +39,7 @@ This project is an SEO-focused matrix calculator suite designed to feel faster a
 4. Compute result in `useMemo` with try/catch and friendly error handling.
 5. Render output in a card using `MatrixDisplay` or scalar text.
 6. Add `StepsPanel` when explanatory steps are practical.
-7. Add `AdSlot` below results.
+7. Add `<AdSlot placement="belowResult" />` below results.
 8. Add route to header nav.
 
 ## Math and implementation rules

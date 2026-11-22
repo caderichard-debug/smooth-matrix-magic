@@ -180,7 +180,7 @@ function DeterminantExpansionPage() {
         validate sign handling and minor construction logic.
       </p>
 
-      <AdSlot label="Ad space — below result" height="h-28" />
+      <AdSlot placement="belowResult" />
     </PageLayout>
   );
 }

@@ -103,7 +103,7 @@ function PivotFreeAnalyzerPage() {
         unique solutions can fail for some right-hand sides.
       </p>
 
-      <AdSlot label="Ad space — below result" height="h-28" />
+      <AdSlot placement="belowResult" />
     </PageLayout>
   );
 }

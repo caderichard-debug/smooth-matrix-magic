@@ -81,7 +81,7 @@ function PowerPage() {
 
       {result && <StepsPanel steps={powerSteps(n)} />}
 
-      <AdSlot label="Ad space — below result" height="h-28" />
+      <AdSlot placement="belowResult" />
 
       <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
         <h2 className="text-foreground text-xl font-semibold">How matrix power works</h2>

@@ -102,7 +102,7 @@ function JordanFormPage() {
         where defective blocks lead to polynomial factors (e.g., k*lambda^(k-1)) in matrix powers.
       </p>
 
-      <AdSlot label="Ad space — below result" height="h-28" />
+      <AdSlot placement="belowResult" />
     </PageLayout>
   );
 }

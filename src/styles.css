@@ -103,15 +103,13 @@
   }
 
   .ad-slot {
-    border: 1px dashed var(--color-border);
-    background:
-      repeating-linear-gradient(
-        45deg,
-        transparent 0 10px,
-        oklch(0.95 0.01 240 / 0.02) 10px 20px
-      );
-    color: var(--color-muted-foreground);
+    /* Real ad units: reserve space to limit layout shift; keep visually quiet. */
+    display: block;
     border-radius: var(--radius);
+  }
+
+  .ad-slot ins.adsbygoogle[data-ad-status="unfilled"] {
+    display: none !important;
   }
 
   .sidebar-scroll {

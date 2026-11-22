@@ -220,7 +220,7 @@ function RotationReflectionShearPage() {
         like rotate-then-shear or reflect-then-rotate.
       </p>
 
-      <AdSlot label="Ad space — below result" height="h-28" />
+      <AdSlot placement="belowResult" />
     </PageLayout>
   );
 }

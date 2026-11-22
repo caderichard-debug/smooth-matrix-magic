@@ -94,7 +94,7 @@ function MultiplyPage() {
 
       {result && <StepsPanel steps={steps} />}
 
-      <AdSlot label="Ad space — below result (responsive)" height="h-28" />
+      <AdSlot placement="belowResult" />
 
       <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
         <h2 className="text-foreground text-xl font-semibold">How matrix multiplication works</h2>

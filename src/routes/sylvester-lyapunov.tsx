@@ -140,7 +140,7 @@ function SylvesterLyapunovPage() {
         useful sanity check for the reported solution X in either mode.
       </p>
 
-      <AdSlot label="Ad space — below result" height="h-28" />
+      <AdSlot placement="belowResult" />
     </PageLayout>
   );
 }

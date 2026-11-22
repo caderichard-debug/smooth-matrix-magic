@@ -112,7 +112,7 @@ function DiagonalizationPage() {
         <span className="font-mono"> e^A = P e^D P^(-1)</span>.
       </p>
 
-      <AdSlot label="Ad space — below result" height="h-28" />
+      <AdSlot placement="belowResult" />
     </PageLayout>
   );
 }

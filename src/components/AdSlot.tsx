@@ -1,19 +1,55 @@
+import { useEffect, useRef } from "react";
+import { ADS_ENABLED, ADSENSE_CLIENT, ADSENSE_SLOTS, type AdPlacement } from "@/lib/ads";
+
 type Props = {
-  label?: string;
+  placement: AdPlacement;
   className?: string;
-  height?: string;
 };
 
-const ADS_ENABLED = false;
+declare global {
+  interface Window {
+    adsbygoogle?: unknown[];
+  }
+}
 
-export function AdSlot({ label = "Advertisement", className = "", height = "h-24" }: Props) {
-  if (!ADS_ENABLED) return null;
+function AdUnit({ slot }: { slot: string }) {
+  const ref = useRef<HTMLModElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    // Guard against double-push (React strict mode / re-mounts) which AdSense rejects.
+    if (!el || el.getAttribute("data-adsbygoogle-status")) return;
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch {
+      // Ad blockers or not-yet-approved accounts: fail silently, never break the calculator.
+    }
+  }, []);
+
   return (
-    <div
-      className={`ad-slot flex items-center justify-center w-full ${height} text-xs uppercase tracking-[0.2em] ${className}`}
-      aria-label="Advertisement placeholder"
+    <ins
+      ref={ref}
+      className="adsbygoogle block w-full"
+      data-ad-client={ADSENSE_CLIENT}
+      data-ad-slot={slot}
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+    />
+  );
+}
+
+export function AdSlot({ placement, className = "" }: Props) {
+  const slot = ADSENSE_SLOTS[placement];
+
+  if (!ADS_ENABLED || !slot) return null;
+
+  return (
+    <aside
+      aria-label="Advertisement"
+      className={`ad-slot w-full overflow-hidden ${placement === "header" ? "min-h-[100px]" : "min-h-[250px]"} ${className}`}
     >
-      {label}
-    </div>
+      {/* Each route renders its own PageLayout, so units remount (and request a new ad) on navigation. */}
+      <AdUnit slot={slot} />
+    </aside>
   );
 }

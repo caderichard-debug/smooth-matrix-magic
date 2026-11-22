@@ -112,5 +112,5 @@ Smooth Matrix Magic is a web-based matrix manipulation toolset built for:
 1. Keep interactions instant and reliable.
 2. Add high-intent matrix operations for SEO growth.
 3. Preserve visual smoothness and consistency.
-4. Keep ad placements easy to toggle (currently hidden via feature flag in `AdSlot`).
+4. Keep ad placements easy to toggle: AdSense is driven by build-time env vars (`VITE_ADSENSE_CLIENT`, `VITE_ADSENSE_SLOT_HEADER`, `VITE_ADSENSE_SLOT_BELOW_RESULT`) read in `src/lib/ads.ts`; unset means no ads. CI reads them from GitHub repository variables (`ADSENSE_CLIENT`, `ADSENSE_SLOT_HEADER`, `ADSENSE_SLOT_BELOW_RESULT`), and the Pages build emits `ads.txt` when a client ID is set. `/privacy` holds the AdSense-required privacy policy.
 5. Maintain comprehensive unit tests for matrix operations in `src/lib/matrix.test.ts`.

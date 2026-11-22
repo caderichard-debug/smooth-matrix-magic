@@ -144,7 +144,7 @@ function AdjugateCofactorPage() {
         tool and a compact proof technique in linear algebra.
       </p>
 
-      <AdSlot label="Ad space — below result" height="h-28" />
+      <AdSlot placement="belowResult" />
     </PageLayout>
   );
 }

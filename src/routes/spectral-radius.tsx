@@ -99,7 +99,7 @@ function SpectralRadiusPage() {
         rho(A) &lt; 1.
       </p>
 
-      <AdSlot label="Ad space — below result" height="h-28" />
+      <AdSlot placement="belowResult" />
     </PageLayout>
   );
 }

@@ -1,6 +1,7 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts, useRouterState } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { ADS_ENABLED, ADSENSE_CLIENT, ADSENSE_SCRIPT_SRC } from "@/lib/ads";
 
 const SITE_NAME = "MatrixDojo";
 const SITE_URL = "https://matrixdojo.app";
@@ -121,6 +122,7 @@ export const Route = createRootRoute({
         { name: "twitter:title", content: DEFAULT_TITLE },
         { name: "twitter:description", content: DEFAULT_DESCRIPTION },
         { name: "twitter:image", content: DEFAULT_OG_IMAGE },
+        ...(ADS_ENABLED ? [{ name: "google-adsense-account", content: ADSENSE_CLIENT }] : []),
       ],
       links: [
         { rel: "canonical", href: canonicalUrl },
@@ -150,6 +152,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        {ADS_ENABLED && <script async src={ADSENSE_SCRIPT_SRC} crossOrigin="anonymous" />}
         <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
         {routeStructuredData.map((schema) => (
           <script key={schema["@type"]} type="application/ld+json">

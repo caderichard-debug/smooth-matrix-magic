@@ -30,6 +30,12 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build:github-pages
+        env:
+          # Set these as repository variables (Settings → Secrets and variables → Actions → Variables).
+          # Leave unset to build without ads.
+          VITE_ADSENSE_CLIENT: ${{ vars.ADSENSE_CLIENT }}
+          VITE_ADSENSE_SLOT_HEADER: ${{ vars.ADSENSE_SLOT_HEADER }}
+          VITE_ADSENSE_SLOT_BELOW_RESULT: ${{ vars.ADSENSE_SLOT_BELOW_RESULT }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: gh-pages

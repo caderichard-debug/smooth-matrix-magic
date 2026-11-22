@@ -32,6 +32,7 @@ import { Route as RotationReflectionShearRouteImport } from './routes/rotation-r
 import { Route as RefPartialPivotingRouteImport } from './routes/ref-partial-pivoting'
 import { Route as ReachabilityTransitiveClosureRouteImport } from './routes/reachability-transitive-closure'
 import { Route as PseudoinverseRouteImport } from './routes/pseudoinverse'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PowerRouteImport } from './routes/power'
 import { Route as PolarDecompositionRouteImport } from './routes/polar-decomposition'
 import { Route as PivotFreeAnalyzerRouteImport } from './routes/pivot-free-analyzer'
@@ -202,6 +203,11 @@ const ReachabilityTransitiveClosureRoute =
 const PseudoinverseRoute = PseudoinverseRouteImport.update({
   id: '/pseudoinverse',
   path: '/pseudoinverse',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PowerRoute = PowerRouteImport.update({
@@ -533,6 +539,7 @@ export interface FileRoutesByFullPath {
   '/pivot-free-analyzer': typeof PivotFreeAnalyzerRoute
   '/polar-decomposition': typeof PolarDecompositionRoute
   '/power': typeof PowerRoute
+  '/privacy': typeof PrivacyRoute
   '/pseudoinverse': typeof PseudoinverseRoute
   '/reachability-transitive-closure': typeof ReachabilityTransitiveClosureRoute
   '/ref-partial-pivoting': typeof RefPartialPivotingRoute
@@ -612,6 +619,7 @@ export interface FileRoutesByTo {
   '/pivot-free-analyzer': typeof PivotFreeAnalyzerRoute
   '/polar-decomposition': typeof PolarDecompositionRoute
   '/power': typeof PowerRoute
+  '/privacy': typeof PrivacyRoute
   '/pseudoinverse': typeof PseudoinverseRoute
   '/reachability-transitive-closure': typeof ReachabilityTransitiveClosureRoute
   '/ref-partial-pivoting': typeof RefPartialPivotingRoute
@@ -692,6 +700,7 @@ export interface FileRoutesById {
   '/pivot-free-analyzer': typeof PivotFreeAnalyzerRoute
   '/polar-decomposition': typeof PolarDecompositionRoute
   '/power': typeof PowerRoute
+  '/privacy': typeof PrivacyRoute
   '/pseudoinverse': typeof PseudoinverseRoute
   '/reachability-transitive-closure': typeof ReachabilityTransitiveClosureRoute
   '/ref-partial-pivoting': typeof RefPartialPivotingRoute
@@ -773,6 +782,7 @@ export interface FileRouteTypes {
     | '/pivot-free-analyzer'
     | '/polar-decomposition'
     | '/power'
+    | '/privacy'
     | '/pseudoinverse'
     | '/reachability-transitive-closure'
     | '/ref-partial-pivoting'
@@ -852,6 +862,7 @@ export interface FileRouteTypes {
     | '/pivot-free-analyzer'
     | '/polar-decomposition'
     | '/power'
+    | '/privacy'
     | '/pseudoinverse'
     | '/reachability-transitive-closure'
     | '/ref-partial-pivoting'
@@ -931,6 +942,7 @@ export interface FileRouteTypes {
     | '/pivot-free-analyzer'
     | '/polar-decomposition'
     | '/power'
+    | '/privacy'
     | '/pseudoinverse'
     | '/reachability-transitive-closure'
     | '/ref-partial-pivoting'
@@ -1011,6 +1023,7 @@ export interface RootRouteChildren {
   PivotFreeAnalyzerRoute: typeof PivotFreeAnalyzerRoute
   PolarDecompositionRoute: typeof PolarDecompositionRoute
   PowerRoute: typeof PowerRoute
+  PrivacyRoute: typeof PrivacyRoute
   PseudoinverseRoute: typeof PseudoinverseRoute
   ReachabilityTransitiveClosureRoute: typeof ReachabilityTransitiveClosureRoute
   RefPartialPivotingRoute: typeof RefPartialPivotingRoute
@@ -1197,6 +1210,13 @@ declare module '@tanstack/react-router' {
       path: '/pseudoinverse'
       fullPath: '/pseudoinverse'
       preLoaderRoute: typeof PseudoinverseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/power': {
@@ -1635,6 +1655,7 @@ const rootRouteChildren: RootRouteChildren = {
   PivotFreeAnalyzerRoute: PivotFreeAnalyzerRoute,
   PolarDecompositionRoute: PolarDecompositionRoute,
   PowerRoute: PowerRoute,
+  PrivacyRoute: PrivacyRoute,
   PseudoinverseRoute: PseudoinverseRoute,
   ReachabilityTransitiveClosureRoute: ReachabilityTransitiveClosureRoute,
   RefPartialPivotingRoute: RefPartialPivotingRoute,

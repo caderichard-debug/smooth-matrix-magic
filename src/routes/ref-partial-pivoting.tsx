@@ -109,7 +109,7 @@ function RefPartialPivotingPage() {
         reordering variables may improve numerical behavior.
       </p>
 
-      <AdSlot label="Ad space — below result" height="h-28" />
+      <AdSlot placement="belowResult" />
     </PageLayout>
   );
 }

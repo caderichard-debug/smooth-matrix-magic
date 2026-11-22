@@ -159,7 +159,7 @@ function CholeskySvdSchurPage() {
         as a stable stepping stone for many matrix-function algorithms.
       </p>
 
-      <AdSlot label="Ad space — below result" height="h-28" />
+      <AdSlot placement="belowResult" />
     </PageLayout>
   );
 }

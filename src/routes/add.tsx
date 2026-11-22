@@ -94,7 +94,7 @@ function AddPage() {
 
       {result && <StepsPanel steps={steps} />}
 
-      <AdSlot label="Ad space — below result" height="h-28" />
+      <AdSlot placement="belowResult" />
 
       <section className="prose-invert max-w-none space-y-3 text-muted-foreground">
         <h2 className="text-foreground text-xl font-semibold">

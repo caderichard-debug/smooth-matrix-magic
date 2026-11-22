@@ -104,7 +104,7 @@ function PolarDecompositionPage() {
         often indicate ill-conditioning, weak invertibility, or too few Newton iterations.
       </p>
 
-      <AdSlot label="Ad space — below result" height="h-28" />
+      <AdSlot placement="belowResult" />
     </PageLayout>
   );
 }
